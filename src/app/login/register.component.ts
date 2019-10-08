@@ -14,18 +14,17 @@ export class RegisterComponent implements OnInit {
 
   forma: FormGroup;
 
-  constructor(
-    public router: Router
-  ) { }
+  constructor(public router: Router) {
+  }
 
-  sonIguales( campo1: string, campo2: string ) {
+  sonIguales(campo1: string, campo2: string) {
 
-    return ( group: FormGroup ) => {
+    return (group: FormGroup) => {
 
       const pass1 = group.controls[campo1].value;
       const pass2 = group.controls[campo2].value;
 
-      if ( pass1 === pass2 ) {
+      if (pass1 === pass2) {
         return null;
       }
 
