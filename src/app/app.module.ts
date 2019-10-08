@@ -16,6 +16,7 @@ import { MaterialModule } from '../material.module';
 // Modulos
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './login/register.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { RegisterComponent } from './login/register.component';
     LayoutModule,
     MaterialModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
