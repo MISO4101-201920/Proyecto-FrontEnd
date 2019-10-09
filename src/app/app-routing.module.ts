@@ -28,6 +28,11 @@ const routes: Routes = [
         loadChildren: './video-modal/video-modal.module#VideoModalModule',
         data: { preload: true }
       },
+      {
+        path: 'video-alumno',
+        loadChildren: './video-alumno/video-alumno.module#VideoAlumnoModule',
+        data: { preload: true }
+      },
     ]
   },
   { path: 'login', component: LoginComponent },
