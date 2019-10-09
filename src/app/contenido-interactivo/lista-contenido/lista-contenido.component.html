@@ -1,5 +1,7 @@
 <div class="container">
-    <h1>Contenido Interactivo</h1>
+    <div *ngIf="!showAddMarker">
+        <h1>Contenido Interactivo</h1>
+        <a (click)="addMarker()">Marcadores</a>
+    </div>
+    <app-markers *ngIf="showAddMarker"></app-markers>
 </div>
-
-
