@@ -22,13 +22,19 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 export class NgbdModalContent {
   @Input() name;
-  constructor(private modalService: NgbModal, public activeModal: NgbActiveModal) {}
+  constructor(private modalService: NgbModal, public activeModal: NgbActiveModal) { }
 
   viewRespuesta() {
-    this.activeModal.close();
     const modalRef = this.modalService.open(NgbdModalContentRetroalimentacion);
     modalRef.componentInstance.respuesta = 'Enunciado de la respuesta correcta';
+    modalRef.result.then(
+      (data: any) => {
+        console.log('saliendo de modal 2');
+        this.activeModal.close('resume');
+      },
+      (reason: any) => { });
     
+
     // this.modalService.open(NgbdModalContentRetroalimentacion, {
     //   size: 'lg'
     // });
@@ -40,18 +46,18 @@ export class NgbdModalContent {
   template: `
     <div class="modal-header">
       <h4 class="modal-title">La respuesta correcta es</h4>      
-        <span aria-hidden="true">&times;</span>      
+          
     </div>
     <div class="modal-body">
       <p>{{respuesta}}</p>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>      
+      <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('videoResume')">Continuar</button>      
     </div>
   `
 })
 
-export class NgbdModalContentRetroalimentacion { 
+export class NgbdModalContentRetroalimentacion {
   @Input() respuesta;
   constructor(public activeModal: NgbActiveModal) { }
 }
@@ -74,7 +80,7 @@ export class VideoAlumnoComponent implements OnInit {
         this.open();
       }, 2000);
     }
-   
+
     console.log('player state', event.data);
   }
 
@@ -83,6 +89,13 @@ export class VideoAlumnoComponent implements OnInit {
   open() {
     const modalRef = this.modalService.open(NgbdModalContent);
     modalRef.componentInstance.name = 'World';
+    modalRef.result.then(
+      (data: any) => {
+        console.log('saliendo de modal 1');
+        this.player.playVideo();
+      },
+      (reason: any) => { }
+    )
   }
 
   ngOnInit() {
