@@ -11,6 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // Modulos
 import { SharedModule } from './shared/shared.module';
 import { MaterialModule } from '../material.module';
+import { YoutubePlayerModule } from 'ng2-youtube-player';
 
 
 // Modulos
@@ -33,7 +34,8 @@ import { HttpClientModule } from '@angular/common/http';
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    YoutubePlayerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
