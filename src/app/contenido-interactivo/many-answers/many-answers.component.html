@@ -1,0 +1,37 @@
+<div>
+    <ejs-richtexteditor class="margin-top-10" #toolsRTE id='alltoolRTE' [toolbarSettings]='tools' name="question"  [(value)]="question"></ejs-richtexteditor>
+    <div class="row margin-top-10">
+        <div class="col-6">
+            <input class="input-answer" placeholder="Ingrese la respuesta" name="answer" (keyup)="onKeyAnswer($event.target.value)"
+                value="{{answer}}">
+        </div>
+        <div class="col-2">
+            <mat-checkbox #checkbox (change)="checkStatusAnswer($event.checked)" [checked]="statusAnswer">Correcta ?</mat-checkbox>
+        </div>
+        <div class="col-4">
+            <button class="button-generic button-purple" (click)=" addAnswer()">Añadir Respuesta</button>
+        </div>
+    </div>
+
+    <div class="row margin-top-10">
+        <div class="col-12 title-answers">Opciones de Respuesta</div>
+        <div class="col-3">Repuesta válida</div>
+        <div class="col-6">Enunciado </div>
+    </div>
+    <div class="row" *ngFor="let answer of listAnswers, let i=index">
+            <div class="col-3">
+                <mat-checkbox class="margin-left-25" [checked]="answer.status" [disabled]="true"></mat-checkbox>
+            </div>
+            <div class="col-6">
+                {{answer.name}}
+            </div>
+        </div>
+    <div class="row">
+        <div class="col-6"> </div>
+        <div class="col-3">
+            <button class="button-generic button-purple" (click)="addQuestion()">Añadir Pregunta</button>
+        </div>
+        <div class="col-3">
+            <button class="button-generic button-gray">Cancelar</button>
+        </div>
+    </div>

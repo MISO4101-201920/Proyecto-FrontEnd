@@ -22,7 +22,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { VideoModalModule } from './video-modal/video-modal.module';
 import { VideoAlumnoModule } from './video-alumno/video-alumno.module';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,7 +42,8 @@ import { VideoAlumnoModule } from './video-alumno/video-alumno.module';
     VideoModalModule,
     VideoAlumnoModule
   ],
-  providers: [],
+  providers: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
