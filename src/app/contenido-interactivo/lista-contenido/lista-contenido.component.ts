@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ContenidoService } from 'src/app/services/contenido.service';
 
 @Component({
   selector: 'app-lista-contenido',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListaContenidoComponent implements OnInit {
 
-  constructor() { }
+  contenidos;
+
+  constructor(private contenidoService: ContenidoService) { }
 
   ngOnInit() {
+    this.contenidoService.getContenidos().subscribe(contenidos => {
+      console.log('data', contenidos);
+      this.contenidos = contenidos;
+    });
   }
+
 
 }
