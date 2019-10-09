@@ -15,15 +15,46 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+      <button type="button" class="btn btn-outline-dark" (click)="viewRespuesta()">Enviar Respuesta</button>
     </div>
   `
 })
+
 export class NgbdModalContent {
   @Input() name;
+  constructor(private modalService: NgbModal, public activeModal: NgbActiveModal) {}
 
-  constructor(public activeModal: NgbActiveModal) { }
+  viewRespuesta() {
+    this.activeModal.close();
+    const modalRef = this.modalService.open(NgbdModalContentRetroalimentacion);
+    modalRef.componentInstance.respuesta = 'Enunciado de la respuesta correcta';
+    
+    // this.modalService.open(NgbdModalContentRetroalimentacion, {
+    //   size: 'lg'
+    // });
+  }
 }
 
+@Component({
+  selector: 'ngbd-modal-retroalimentacion',
+  template: `
+    <div class="modal-header">
+      <h4 class="modal-title">La respuesta correcta es</h4>      
+        <span aria-hidden="true">&times;</span>      
+    </div>
+    <div class="modal-body">
+      <p>{{respuesta}}</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>      
+    </div>
+  `
+})
+
+export class NgbdModalContentRetroalimentacion { 
+  @Input() respuesta;
+  constructor(public activeModal: NgbActiveModal) { }
+}
 @Component({
   selector: 'app-video-alumno',
   templateUrl: './video-alumno.component.html',

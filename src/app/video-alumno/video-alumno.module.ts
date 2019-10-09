@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {NgbdModalContent, VideoAlumnoComponent} from './video-alumno.component';
+import {NgbdModalContent, VideoAlumnoComponent, NgbdModalContentRetroalimentacion} from './video-alumno.component';
 import { Routes, RouterModule } from '@angular/router';
 import { YoutubePlayerModule } from 'ng2-youtube-player';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -11,7 +11,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    declarations: [VideoAlumnoComponent, NgbdModalContent],
+    declarations: [VideoAlumnoComponent, NgbdModalContent, NgbdModalContentRetroalimentacion],
     imports: [
       NgbModule,
       YoutubePlayerModule,
@@ -19,7 +19,7 @@ const routes: Routes = [
       RouterModule.forChild(routes)
     ],
     exports: [RouterModule, VideoAlumnoComponent],
-    entryComponents: [NgbdModalContent]
+    entryComponents: [NgbdModalContent, NgbdModalContentRetroalimentacion]
   })
   export class VideoAlumnoModule { }
   
