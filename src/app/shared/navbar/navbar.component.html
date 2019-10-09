@@ -5,8 +5,13 @@
       [opened]="(isHandset$ | async) === false">
     <mat-toolbar>Menú</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item routerLink="/cursos"><mat-icon>library_books</mat-icon>Ver Cursos</a>
-      <a mat-list-item routerLink="/contenido-interactivo"><mat-icon>apps</mat-icon>Manejar Contenido Interactivo</a>
+      <a mat-list-item href="#" class="font"><mat-icon>home</mat-icon>  Home</a>
+      <a mat-list-item href="#" class="font"><mat-icon>equalizer</mat-icon>  Ver Reportes</a>
+      <a mat-list-item routerLink="/contenido-interactivo"><mat-icon>table_chart</mat-icon>Manejar Contenido Interactivo</a>
+      <a mat-list-item routerLink="/cursos"><mat-icon>format_list_numbered</mat-icon>Cursos</a>
+      <a mat-list-item routerLink="/agregarMarca"><mat-icon>apps</mat-icon>Marca</a>
+      <a mat-list-item href="#" class="font"><mat-icon>settings</mat-icon>  Configuración</a>
+      <a mat-list-item href="#" class="font"><mat-icon>clear</mat-icon>  Cerrar Sesión</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

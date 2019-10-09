@@ -5,6 +5,7 @@ import { RegisterComponent } from './login/register.component';
 import { NopagefoundComponent } from './shared/nopagefound/nopagefound.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { AuthService } from './services/auth.service';
+import {AgregarMarcaComponent} from './agregar-marca/agregar-marca.component';
 
 const routes: Routes = [
   {
@@ -28,6 +29,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'cursos', component: NopagefoundComponent },
   { path: 'contenido', component: NopagefoundComponent },
+  { path: 'agregarMarca', component: AgregarMarcaComponent },
   { path: '**', component: NopagefoundComponent }
 ];
 
