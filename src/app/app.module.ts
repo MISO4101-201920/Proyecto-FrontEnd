@@ -19,11 +19,13 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './login/register.component';
 import { HttpClientModule } from '@angular/common/http';
 
+import {VideoModalModule} from './video-modal/video-modal.module';
+
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
   ],
   imports: [
     SharedModule,
@@ -35,7 +37,8 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    YoutubePlayerModule
+    YoutubePlayerModule,
+    VideoModalModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
