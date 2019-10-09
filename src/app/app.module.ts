@@ -17,12 +17,14 @@ import { MaterialModule } from '../material.module';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './login/register.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AgregarMarcaComponent } from './agregar-marca/agregar-marca.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    AgregarMarcaComponent
   ],
   imports: [
     SharedModule,
