@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { VideoModalComponent } from './video-modal.component';
+import {NgbdModalContent, VideoModalComponent} from './video-modal.component';
 import { Routes, RouterModule } from '@angular/router';
 import { YoutubePlayerModule } from 'ng2-youtube-player';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 const routes: Routes = [
@@ -10,13 +11,14 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [VideoModalComponent],
+  declarations: [VideoModalComponent, NgbdModalContent],
   imports: [
+    NgbModule,
     YoutubePlayerModule,
     CommonModule,
     RouterModule.forChild(routes)
-
   ],
-  exports: [RouterModule]
+  exports: [RouterModule, VideoModalComponent],
+  entryComponents: [NgbdModalContent]
 })
 export class VideoModalModule { }
