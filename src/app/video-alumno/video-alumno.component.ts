@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { InteraccionAlumnoService } from '../interaccion-alumno.service';
 
 @Component({
   selector: 'ngbd-modal-content',
@@ -22,11 +23,12 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 export class NgbdModalContent {
   @Input() name;
+  @Input() retroalimentacion;
   constructor(private modalService: NgbModal, public activeModal: NgbActiveModal) { }
 
   viewRespuesta() {
     const modalRef = this.modalService.open(NgbdModalContentRetroalimentacion);
-    modalRef.componentInstance.respuesta = 'Enunciado de la respuesta correcta';
+    modalRef.componentInstance.respuesta = this.retroalimentacion;
     modalRef.result.then(
       (data: any) => {
         console.log('saliendo de modal 2');
@@ -67,6 +69,7 @@ export class NgbdModalContentRetroalimentacion {
   styleUrls: ['./video-alumno.component.css']
 })
 export class VideoAlumnoComponent implements OnInit {
+  retroalimentacion: string;
   player: YT.Player;
   private id: string = 'qDuKsiwS5xw';
   savePlayer(player) {
@@ -84,11 +87,15 @@ export class VideoAlumnoComponent implements OnInit {
     console.log('player state', event.data);
   }
 
-  constructor(private modalService: NgbModal) { }
+  constructor(
+    private modalService: NgbModal,
+    private retroalimentacionService: InteraccionAlumnoService,
+    ) { }
 
   open() {
     const modalRef = this.modalService.open(NgbdModalContent);
     modalRef.componentInstance.name = 'World';
+    modalRef.componentInstance.retroalimentacion = this.retroalimentacion;
     modalRef.result.then(
       (data: any) => {
         console.log('saliendo de modal 1');
@@ -99,6 +106,11 @@ export class VideoAlumnoComponent implements OnInit {
   }
 
   ngOnInit() {
+    let idPregunta = 1;    
+    this.retroalimentacionService.getRetroOpMultiple(idPregunta).subscribe((data: any[])=>{
+      console.log(data);
+      this.retroalimentacion = data[0]['respuesta'];
+    })  
   }
 
 }

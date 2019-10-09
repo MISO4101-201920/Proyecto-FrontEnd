@@ -12,7 +12,7 @@ export class InteraccionAlumnoService {
 
   constructor(private http: HttpClient) { }
 
-  getRetroOpMultiple(pregunta: number): Observable<any> {    
-    return this.http.get<RetroalimentacionOpMul>(this.api_base_url + '/api/v1/resp_op_multiple?esCorrecta=true&preguntaSeleccionMultiple=' + pregunta);
+  getRetroOpMultiple(pregunta: number) {    
+    return this.http.get(this.api_base_url + '/api/v1/resp_op_multiple?esCorrecta=true&preguntaSeleccionMultiple=' + pregunta);
   }
 }
