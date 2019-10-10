@@ -207,11 +207,13 @@ this.http.post('http://localhost:8000/api/v1/marca',
     contenido: this.idcontenido
 }, {headers})
     .subscribe(
+
         (val: any) => {
           console.log('POST call successful value returned in body',
                         val);
           const modalRef = this.modalService.open(NgbdModal1Content);
           modalRef.componentInstance.marcaid = val.id;
+
         },
 
         response => {
