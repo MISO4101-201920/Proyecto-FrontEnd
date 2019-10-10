@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {RequestMethod, RequestOptions} from '@angular/http';
@@ -98,6 +98,7 @@ export class NgbdModalContent {
   @Input() idcontenido;
   marcaid;
 
+
   httpPostExample() {
 const headers = new HttpHeaders()
     .set('Content-Type', 'application/json');
@@ -129,6 +130,7 @@ this.http.post('http://localhost:8000/api/v1/marca',
 
 
   constructor(public activeModal: NgbActiveModal, private http: HttpClient, private modalService: NgbModal) {}
+
 }
 
 
@@ -156,12 +158,14 @@ export class VideoModalComponent implements OnInit {
   }
   onStateChange(event) {
 
+
    /* if (event.data == YT.PlayerState.PAUSED) {
           alert('Me detuve en el segundo  dasd' + this.player.getCurrentTime());
         }
     console.log('player state', event.data);
   */
    }
+
 
   open() {
     const modalRef = this.modalService.open(NgbdModalContent);

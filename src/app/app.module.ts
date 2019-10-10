@@ -19,13 +19,14 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './login/register.component';
 import { HttpClientModule } from '@angular/common/http';
 
-import {VideoModalModule} from './video-modal/video-modal.module';
+import { VideoModalModule } from './video-modal/video-modal.module';
+import { VideoAlumnoModule } from './video-alumno/video-alumno.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent,
+    RegisterComponent
   ],
   imports: [
     SharedModule,
@@ -39,8 +40,10 @@ import {VideoModalModule} from './video-modal/video-modal.module';
     HttpClientModule,
     YoutubePlayerModule,
     VideoModalModule,
+    VideoAlumnoModule
   ],
-  providers: [],
+  providers: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

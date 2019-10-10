@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListaContenidoComponent implements OnInit {
 
+  showAddMarker = false;
+
   constructor() { }
 
   ngOnInit() {
   }
 
+
+  addMarker() {
+    this.showAddMarker = true;
+  }
 }
