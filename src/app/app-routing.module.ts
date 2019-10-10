@@ -4,7 +4,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './login/register.component';
 import { NopagefoundComponent } from './shared/nopagefound/nopagefound.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
-import { AuthService } from './services/auth.service';
+import { AuthService } from './services/usuario/auth.service';
 
 const routes: Routes = [
   {
