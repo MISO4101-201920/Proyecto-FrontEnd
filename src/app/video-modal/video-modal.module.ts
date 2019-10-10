@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {NgbdModal1Content, NgbdModal2Content, NgbdModalContent, VideoModalComponent} from './video-modal.component';
+import {NgbdModal1Content, NgbdModal2Content, NgbdModalContent, VideoModalComponent, NgbdModal3Content} from './video-modal.component';
 import { Routes, RouterModule } from '@angular/router';
 import { YoutubePlayerModule } from 'ng2-youtube-player';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -14,7 +14,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [VideoModalComponent, NgbdModalContent, NgbdModal1Content, NgbdModal2Content],
+  declarations: [VideoModalComponent, NgbdModalContent, NgbdModal1Content, NgbdModal2Content, NgbdModal3Content],
   imports: [
     NgbModule,
     YoutubePlayerModule,
@@ -27,6 +27,6 @@ const routes: Routes = [
     ReactiveFormsModule,
   ],
   exports: [RouterModule, VideoModalComponent, MatIconModule, MaterialModule],
-  entryComponents: [NgbdModalContent, NgbdModal1Content, NgbdModal2Content]
+  entryComponents: [NgbdModalContent, NgbdModal1Content, NgbdModal2Content, NgbdModal3Content]
 })
 export class VideoModalModule { }

@@ -17,12 +17,14 @@ import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 @Component({
   template: `
     <div class="modal-header">
-      <h4 class="modal-title">Hi there!</h4>
+      <h4 class="modal-title">Agregar Respuestas</h4>
       <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <div class="modal-body">
+ <br>
+
   <div class="container" style="margin-top: 5%">    
     <table class="table table-striped table-bordered">    
         <thead>    
@@ -58,36 +60,41 @@ import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
   </div>    
     </div>
 
-    <div class="modal-footer">
+   <div class="modal-footer">
       <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+        <button type="button" class="btn btn-outline-success" (click)="httpPostExample();activeModal.close('Close click');">Guardar respuestas</button>
     </div>
   `,
   providers: [ToolbarService, LinkService, ImageService, HtmlEditorService, TableService]
 })
 
 // tslint:disable-next-line:component-class-suffix
-export class NgbdModal2Content implements OnInit  {
-  @Input() marcaid;
-  @Input() pregunta;
+export class NgbdModal3Content implements OnInit  {
+  @Input() preguntaid;
+  @Input() respuesta;
+  @Input() esCorrecta;
+
   constructor(private modalService: NgbModal, public activeModal: NgbActiveModal, private http: HttpClient, private toastr: ToastrService) {}
 
   dynamicArray: Array<DynamicGrid> = [];
   newDynamic: any = {};
   ngOnInit(): void {
-      this.newDynamic = {respuesta: "", esCorrecta: "",preguntaSeleccionMultiple:""};
+    this.newDynamic = { respuesta: "", esCorrecta: false, preguntaSeleccionMultiple: this.preguntaid};
       this.dynamicArray.push(this.newDynamic);
   }
 
   addRow(index) {
-      this.newDynamic = {respuesta: "", esCorrecta: "",preguntaSeleccionMultiple:""};
+    this.newDynamic = { respuesta: "", esCorrecta: false, preguntaSeleccionMultiple: this.preguntaid};
       this.dynamicArray.push(this.newDynamic);
       this.toastr.success('New row added successfully', 'New Row');
-      console.log(this.dynamicArray);
+    console.log(this.dynamicArray);
+
       return true;
   }
 
   deleteRow(index) {
-      if(this.dynamicArray.length ==1) {
+    if (this.dynamicArray.length == 1) {
+
         this.toastr.error('Cant delete the row when there is only one row', 'Warning');
         return false;
       } else {
@@ -96,8 +103,101 @@ export class NgbdModal2Content implements OnInit  {
           return true;
       }
   }
+
+  httpPostExample() {
+
+    for (let i = 0; i < this.dynamicArray.length; i++) {
+
+      
+
+      const headers = new HttpHeaders()
+        .set('Content-Type', 'application/json');
+
+      this.http.post('http://localhost:8000/api/v1/resp_op_multiple',
+        {
+          respuesta: this.dynamicArray[i].respuesta,
+          esCorrecta: this.dynamicArray[i].esCorrecta,
+          preguntaSeleccionMultiple: this.preguntaid
+        }, { headers })
+        .subscribe(
+          (val: any) => {
+
+            console.log('POST call successful value returned in body',
+              val);
+          },
+          response => {
+            console.log('POST call in error', response);
+          },
+          () => {
+            console.log('The POST observable is now completed.');
+          });
+
+    }
+
+  }
 }
 
+
+@Component({
+  template: `
+    <div class="modal-header">
+      <h4 class="modal-title">Agregar pregunta</h4>
+      <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p></p>
+        <textarea name="comentarios" rows="10" cols="40"  placeholder="Escriba aca su pregunta" [(ngModel)]="pregunta"></textarea>
+            </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+        <button type="button" class="btn btn-outline-success" (click)="httpPostExample();activeModal.close('Close click');">Crear pregunta</button>
+    </div>
+  `
+})
+// tslint:disable-next-line:component-class-suffix
+export class NgbdModal2Content {
+
+  @Input() actividadid;
+  @Input() pregunta;
+  constructor(private modalService: NgbModal, public activeModal: NgbActiveModal, private http: HttpClient) { }
+
+  httpPostExample() {
+
+    console.log('POST call successful value returned in body',
+      this.pregunta);
+
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json');
+
+    this.http.post('http://localhost:8000/api/v1/pregunta',
+      {
+        Pregunta: this.pregunta,
+        actividad: this.actividadid,
+      }, { headers })
+      .subscribe(
+        (val: any) => {
+
+          console.log('POST call successful value returned in body',
+            val);
+          const modalRef = this.modalService.open(NgbdModal3Content, { size: 'lg' });
+          modalRef.componentInstance.preguntaid = val.id;
+        },
+        response => {
+          console.log('POST call in error', response);
+        },
+        () => {
+          console.log('The POST observable is now completed.');
+        });
+  }
+
+  /*open() {
+    this.modalService.open(NgbdModal2Content, {
+      size: 'lg'
+    });
+  }*/
+}
 
 
 
@@ -114,7 +214,7 @@ export class NgbdModal2Content implements OnInit  {
       <p></p>
         <input type="text" name="nombre de marca" placeholder="Nombre de actividad" [(ngModel)]="nombre" required>
          <br><br>
-        <input type="text" name="nombre de marca" placeholder="Numero de intentos" [(ngModel)]="intentos" required>
+        <input type="text" name="nombre de marca"  placeholder="Numero de intentos" [(ngModel)]="intentos" required>
 
     </div>
     <div class="modal-footer">
