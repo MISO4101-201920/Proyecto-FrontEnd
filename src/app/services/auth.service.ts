@@ -9,7 +9,7 @@ export class AuthService implements CanActivate {
 
   public readonly authUrl = `${environment.apiUrl}/api-token-auth`;
 
-  userToken = 'c25038e8a8a2ab28451f897b0d334048bdedcbad';
+  userToken = '452c39042e5e9874be461bbab2437a34a249014b';
 
   constructor(private router: Router) { }
 

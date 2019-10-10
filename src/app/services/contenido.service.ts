@@ -15,4 +15,12 @@ export class ContenidoService {
   getContenidos(): Observable<any> {
     return this.httpClient.get<any>(this.contenidoUrl);
   }
+
+  postContenidos(cursoIds: Array<number>, contenidoId: number) {
+    const body = {
+      cursos: cursoIds,
+      contenido: contenidoId
+    };
+    return this.httpClient.post(this.contenidoUrl, body);
+  }
 }

@@ -15,4 +15,8 @@ export class CursoService {
   getCursos(): Observable<any> {
     return this.httpClient.get<any>(this.cursoUrl);
   }
+
+  getCursosDisponibles(contenidoId): Observable<any> {
+    return this.httpClient.get<any>(`${this.cursoUrl}${contenidoId}`);
+  }
 }
