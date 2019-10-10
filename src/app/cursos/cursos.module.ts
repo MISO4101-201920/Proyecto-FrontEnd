@@ -15,6 +15,6 @@ const routes: Routes = [
     MaterialModule,
     RouterModule.forChild(routes)
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class CursosModule { }

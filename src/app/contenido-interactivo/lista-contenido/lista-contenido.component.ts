@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ContenidoService } from 'src/app/services/contenido.service';
+import { MatDialog } from '@angular/material/dialog';
+import { AddContenidoACursoComponent } from '../add-contenido-a-curso/add-contenido-a-curso.component';
 
 @Component({
   selector: 'app-lista-contenido',
@@ -10,13 +12,32 @@ export class ListaContenidoComponent implements OnInit {
 
   contenidos;
 
-  constructor(private contenidoService: ContenidoService) { }
+  constructor(private contenidoService: ContenidoService, public dialog: MatDialog
+    ) { }
 
   ngOnInit() {
+    this.getContenidos();
+  }
+  getContenidos() {
     this.contenidoService.getContenidos().subscribe(contenidos => {
       console.log('data', contenidos);
       this.contenidos = contenidos;
     });
+  }
+
+  addContenidoACurso(contenidoId: number, nombreContenido: string) {
+
+    const dialogRef = this.dialog.open(AddContenidoACursoComponent, {
+      width: '60%',
+      data: {
+        contenidoId,
+        nombreContenido
+      }
+    });
+    dialogRef.afterClosed().subscribe(_ => {
+      this.getContenidos();
+     });
+
   }
 
 

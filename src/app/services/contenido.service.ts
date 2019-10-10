@@ -21,6 +21,7 @@ export class ContenidoService {
       cursos: cursoIds,
       contenido: contenidoId
     };
+    console.log('bodyy', body);
     return this.httpClient.post(this.contenidoUrl, body);
   }
 }
