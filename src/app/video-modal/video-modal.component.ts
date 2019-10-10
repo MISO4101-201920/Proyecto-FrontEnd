@@ -2,6 +2,14 @@ import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {RequestMethod, RequestOptions} from '@angular/http';
+import {
+  HtmlEditorService,
+  ImageService,
+  LinkService,
+  TableService,
+  ToolbarService
+} from "@syncfusion/ej2-angular-richtexteditor";
+
 
 @Component({
   template: `
@@ -13,35 +21,76 @@ import {RequestMethod, RequestOptions} from '@angular/http';
     </div>
     <div class="modal-body">
       <p>Hello, World!</p>
-      <p><button class="btn btn-lg btn-outline-primary" >Launch demo modal</button></p>
+        <div class="row margin-top-10">
+        <div class="col-12 title-answers">Opciones de Respuesta</div>
+        <div class="col-3">Repuesta válida</div>
+        <div class="col-6">Enunciado </div>
+    </div>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+    </div>
+  `,
+  providers: [ToolbarService, LinkService, ImageService, HtmlEditorService, TableService]
+})
+
+// tslint:disable-next-line:component-class-suffix
+export class NgbdModal2Content {
+  @Input() marcaid;
+  @Input() pregunta;
+  constructor(private modalService: NgbModal, public activeModal: NgbActiveModal, private http: HttpClient) {}
+}
+
+
+
+
+@Component({
+  template: `
+    <div class="modal-header">
+      <h4 class="modal-title">Agregar Actividad</h4>
+      <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p></p>
+        <input type="text" name="nombre de marca" placeholder="Nombre de actividad" [(ngModel)]="nombre" required>
+         <br><br>
+        <input type="text" name="nombre de marca" placeholder="Numero de intentos" [(ngModel)]="intentos" required>
+
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+        <button type="button" class="btn btn-outline-success" (click)="httpPostExample();activeModal.close('Close click');">Crear Actividad</button>
     </div>
   `
 })
 // tslint:disable-next-line:component-class-suffix
 export class NgbdModal1Content {
   @Input() marcaid;
+  @Input() nombre;
+  @Input() intentos;
   constructor(private modalService: NgbModal, public activeModal: NgbActiveModal, private http: HttpClient) {}
 
-/*    httpPostExample() {
+    httpPostExample() {
 const headers = new HttpHeaders()
     .set('Content-Type', 'application/json');
 
 this.http.post('http://localhost:8000/api/v1/actividad',
     {
-    nombre: this.marcaNombre,
-    numeroDeIntentos: Math.round(this.tiempo),
-    tieneRetroalimentacion: this.idcontenido,
-    nombre: this.marcaNombre,
+    nombre: this.nombre,
+    numeroDeIntentos: this.intentos,
+    tieneRetroalimentacion: false,
+    marca: this.marcaid,
 
 }, {headers})
     .subscribe(
-        (val) => {
-            this.marcaid = val.id
+        (val: any) => {
+
             console.log('POST call successful value returned in body',
-                        val.id);
+                        val);
+            const modalRef = this.modalService.open(NgbdModal2Content, {size: 'lg'});
+            modalRef.componentInstance.actividadid = val.id;
         },
         response => {
             console.log('POST call in error', response);
@@ -49,11 +98,7 @@ this.http.post('http://localhost:8000/api/v1/actividad',
         () => {
             console.log('The POST observable is now completed.');
         });
-}*/
-
-
-
-
+}
 
   /*open() {
     this.modalService.open(NgbdModal2Content, {
@@ -61,12 +106,6 @@ this.http.post('http://localhost:8000/api/v1/actividad',
     });
   }*/
 }
-
-
-
-
-
-
 
 
 @Component({
@@ -82,11 +121,11 @@ this.http.post('http://localhost:8000/api/v1/actividad',
     <div class="modal-body">
       <p>Hola, deseas crear marca en , {{tiempo}}!</p>
         <input type="text" name="nombre de marca" placeholder="Nombre de Marca" [(ngModel)]="marcaNombre" required>
-      
+
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
-        <button type="button" class="btn btn-outline-success" (click)="httpPostExample();activeModal.close('Close click');">Crear Marca</button>
+        <button type="button" class="btn btn-outline-success" (click)="httpPostExample();activeModal.close('Close click')">Crear Marca</button>
     </div>
   `
 })
@@ -110,23 +149,22 @@ this.http.post('http://localhost:8000/api/v1/marca',
     contenido: this.idcontenido
 }, {headers})
     .subscribe(
-        (val) => {
-
-            console.log('POST call successful value returned in body',
-                        val.id);
+        (val: any) => {
+          console.log('POST call successful value returned in body',
+                        val);
+          const modalRef = this.modalService.open(NgbdModal1Content);
+          modalRef.componentInstance.marcaid = val.id;
         },
+
         response => {
             console.log('POST call in error', response);
         },
         () => {
+
             console.log('The POST observable is now completed.');
         });
 }
 
-  open() {
-    const modalRef = this.modalService.open(NgbdModal1Content);
-    modalRef.componentInstance.idcontenido = this.marcaid;
-  }
 
 
   constructor(public activeModal: NgbActiveModal, private http: HttpClient, private modalService: NgbModal) {}
@@ -168,7 +206,7 @@ export class VideoModalComponent implements OnInit {
 
 
   open() {
-    const modalRef = this.modalService.open(NgbdModalContent);
+    const modalRef = this.modalService.open(NgbdModalContent,{ size: 'lg' });
     modalRef.componentInstance.name = 'World';
     modalRef.componentInstance.tiempo = this.player.getCurrentTime();
     modalRef.componentInstance.idcontenido = this.idcontenido;
