@@ -113,7 +113,7 @@ this.http.post('http://localhost:8000/api/v1/marca',
         (val) => {
 
             console.log('POST call successful value returned in body',
-                        val.id);
+                        val);
         },
         response => {
             console.log('POST call in error', response);
