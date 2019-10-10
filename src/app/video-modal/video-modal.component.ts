@@ -1,14 +1,17 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 import {RequestMethod, RequestOptions} from '@angular/http';
+import { DynamicGrid } from '../grid.model';
 import {
   HtmlEditorService,
   ImageService,
   LinkService,
   TableService,
   ToolbarService
-} from "@syncfusion/ej2-angular-richtexteditor";
+} from '@syncfusion/ej2-angular-richtexteditor';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 
 
 @Component({
@@ -20,13 +23,41 @@ import {
       </button>
     </div>
     <div class="modal-body">
-      <p>Hello, World!</p>
-        <div class="row margin-top-10">
-        <div class="col-12 title-answers">Opciones de Respuesta</div>
-        <div class="col-3">Repuesta válida</div>
-        <div class="col-6">Enunciado </div>
+  <div class="container" style="margin-top: 5%">    
+    <table class="table table-striped table-bordered">    
+        <thead>    
+            <tr>    
+                <th>Action</th>    
+                <th>Respuesta</th>    
+                <th>Es correcta</th>    
+                <th style="display:none;">Title 3</th>    
+            </tr>    
+        </thead>    
+        <tbody>    
+             <tr *ngFor="let dynamic of dynamicArray; let i = index;">    
+              <td (click)="deleteRow(i)">    
+                <i class="fa fa-trash fa-2x"></i>    
+              </td>    
+                <td>    
+                  <input [(ngModel)]="dynamicArray[i].respuesta" class="form-control" type="text" />    
+                </td>    
+                <td>    
+                  <input [(ngModel)]="dynamicArray[i].esCorrecta" type="checkbox" name="vehicle" value="Car" checked>  
+                </td>    
+                <td style="display:none;">
+                  <input [(ngModel)]="dynamicArray[i].preguntaSeleccionMultiple" class="form-control" type="text"/>    
+                </td>    
+            </tr>    
+            <tr>    
+              <td (click)="addRow(i)">    
+                <i class="fa fa-plus fa-2x"></i>    
+              </td>    
+            </tr>    
+        </tbody>    
+    </table>    
+  </div>    
     </div>
-    </div>
+
     <div class="modal-footer">
       <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
     </div>
@@ -35,11 +66,38 @@ import {
 })
 
 // tslint:disable-next-line:component-class-suffix
-export class NgbdModal2Content {
+export class NgbdModal2Content implements OnInit  {
   @Input() marcaid;
   @Input() pregunta;
-  constructor(private modalService: NgbModal, public activeModal: NgbActiveModal, private http: HttpClient) {}
+  constructor(private modalService: NgbModal, public activeModal: NgbActiveModal, private http: HttpClient, private toastr: ToastrService) {}
+
+  dynamicArray: Array<DynamicGrid> = [];
+  newDynamic: any = {};
+  ngOnInit(): void {
+      this.newDynamic = {respuesta: "", esCorrecta: "",preguntaSeleccionMultiple:""};
+      this.dynamicArray.push(this.newDynamic);
+  }
+
+  addRow(index) {
+      this.newDynamic = {respuesta: "", esCorrecta: "",preguntaSeleccionMultiple:""};
+      this.dynamicArray.push(this.newDynamic);
+      this.toastr.success('New row added successfully', 'New Row');
+      console.log(this.dynamicArray);
+      return true;
+  }
+
+  deleteRow(index) {
+      if(this.dynamicArray.length ==1) {
+        this.toastr.error('Cant delete the row when there is only one row', 'Warning');
+        return false;
+      } else {
+          this.dynamicArray.splice(index, 1);
+          this.toastr.warning('Row deleted successfully', 'Delete row');
+          return true;
+      }
+  }
 }
+
 
 
 

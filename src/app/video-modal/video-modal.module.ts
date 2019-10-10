@@ -5,7 +5,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { YoutubePlayerModule } from 'ng2-youtube-player';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpModule } from '@angular/http';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MaterialModule} from '../../material.module';
+import {MatIconModule} from '@angular/material';
 
 const routes: Routes = [
   { path: '', component: VideoModalComponent },
@@ -19,9 +21,12 @@ const routes: Routes = [
     CommonModule,
     HttpModule,
     RouterModule.forChild(routes),
-    FormsModule
+    FormsModule,
+    MaterialModule,
+    MatIconModule,
+    ReactiveFormsModule,
   ],
-  exports: [RouterModule, VideoModalComponent],
+  exports: [RouterModule, VideoModalComponent, MatIconModule, MaterialModule],
   entryComponents: [NgbdModalContent, NgbdModal1Content, NgbdModal2Content]
 })
 export class VideoModalModule { }
