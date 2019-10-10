@@ -5,14 +5,15 @@ import { URL_SERVICIOS } from '../../config/config';
 import { Persona } from '../../models/persona.model';
 import { AlumnoLogin } from '../../models/alumnoLogin.model';
 import { ProfesorLogin } from '../../models/profesorLogin.model';
+import { Login } from '../../models/login.model';
 import { Observable, throwError } from 'rxjs';
 // import 'rxjs/add/operator/catch';
 import { retry, catchError } from 'rxjs/operators';
 
-interface Userlogin {
-  username: string;
-  password: string;
-};
+// interface Userlogin {
+//   username: string;
+//   password: string;
+// };
 
 @Injectable({
   providedIn: 'root'
@@ -32,27 +33,27 @@ export class AuthService implements CanActivate {
 
 
 
-  userLog: Userlogin = {
-    username: '',
-    password: ''
-  };
+  // userLog: Userlogin = {
+  //   username: '',
+  //   password: ''
+  // };
 
   constructor(private router: Router, public http: HttpClient) {
     console.log('se llamo el servicio');
   }
 
   // login(usuario: Persona, recordar: boolean = false): Observable<any> {
-  login(usuario: string, password: string): Observable<any> {
-    this.userLog.username = usuario;
-    this.userLog.password = password;
+  login(usuario: Login): Observable<any> {
+    // this.userLog.username = usuario;
+    // this.userLog.password = password;
 
     if (false) {
       // localStorage.setItem('email', usuario.username);
     } else {
       localStorage.removeItem('email');
     }
-
-    return this.http.post(this.authUrl, JSON.stringify(this.userLog), this.httpOptions)
+    console.log(JSON.stringify(usuario));
+    return this.http.post(this.authUrl, JSON.stringify(usuario), this.httpOptions)
       .pipe(
         retry(1),
         catchError(err => {

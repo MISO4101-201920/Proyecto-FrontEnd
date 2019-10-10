@@ -1,8 +1,10 @@
 import { NgForm } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../services/usuario/auth.service'
-import { Persona } from '../models/persona.model'
+import { AuthService } from '../services/usuario/auth.service';
+import { Persona } from '../models/persona.model';
+import { Login } from '../models/login.model';
+import Swal from 'sweetalert2';
 declare const gapi: any;
 
 
@@ -26,13 +28,27 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
   // this.usuario
-  pruebaLogin() {
+  ingresar(forma: NgForm) {
+    console.log(forma);
+    if (forma.invalid) {
+      Swal.fire('Oops...', 'revisa los datos ingresados', 'error');
+      return;
+    }
 
-    console.log('llamaron pruebaLogin');
-    
-    // this._authService.login("eduard", "2614eduard2614")
-    //   .subscribe((respuesta) => console.log(respuesta));
-
+    let userLogin = new Login(forma.value.username, forma.value.password);
+    this._authService.login(userLogin)
+      .subscribe(
+        result => {
+          console.log(result)
+        },
+        error => {
+          console.log(error);
+          Swal.fire('Oops...', 'revisa los datos ingresados', 'error')
+        },
+        () => {
+          this.router.navigate(['/']);
+        }
+      );
   }
   // "username": "eduard",
   // "password": "2614eduard2614"

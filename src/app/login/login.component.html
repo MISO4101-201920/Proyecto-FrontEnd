@@ -9,12 +9,10 @@
     <div class="card-body">
 
 
-      <form ngNativeValidate #f="ngForm" class="form-horizontal form-material" >
-        <!-- (ngSubmit)="ingresar( f )"> -->
+      <form ngNativeValidate #f="ngForm" class="form-horizontal form-material"  (ngSubmit)="ingresar( f )">
         <img *ngIf="true" class="logo" src="../assets/images/logo-5-conectate.png" alt="logo" />
         <p *ngIf="false" class="logo principal"><b>Conecta-TE</b></p>
 
-        <form>
           <div>
 
             <table class="login-container" cellspacing="0">
@@ -28,13 +26,12 @@
               <tr>
                 <td>
                   <mat-form-field >
-                    <input matInput placeholder="Contraseña" [(ngModel)]="password" type="password" name="password" required>
+                    <input matInput placeholder="Contraseña"  [(ngModel)]="password" type="password" name="password" required>
                   </mat-form-field>
                 </td>
               </tr>
             </table>
           </div>
-        </form>
         <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
 
 
@@ -58,7 +55,7 @@
           </div>
         </div>
         <div class="button-container">
-          <button mat-raised-button color="primary" (click)="pruebaLogin()" >  Ingresar </button>
+          <button mat-raised-button color="primary" type="submit" >  Ingresar </button>
           <button class="btn-izq" mat-raised-button>Registrarme</button>
         </div>
 
