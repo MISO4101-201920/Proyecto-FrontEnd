@@ -13,7 +13,7 @@ import {RequestMethod, RequestOptions} from '@angular/http';
     </div>
     <div class="modal-body">
       <p>Hello, World!</p>
-      <p><button class="btn btn-lg btn-outline-primary" (click)="httpPostExample()">Launch demo modal</button></p>
+      <p><button class="btn btn-lg btn-outline-primary" >Launch demo modal</button></p>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
@@ -23,9 +23,9 @@ import {RequestMethod, RequestOptions} from '@angular/http';
 // tslint:disable-next-line:component-class-suffix
 export class NgbdModal1Content {
   @Input() marcaid;
-  constructor(private modalService: NgbModal, public activeModal: NgbActiveModal) {}
+  constructor(private modalService: NgbModal, public activeModal: NgbActiveModal, private http: HttpClient) {}
 
-    httpPostExample() {
+/*    httpPostExample() {
 const headers = new HttpHeaders()
     .set('Content-Type', 'application/json');
 
@@ -49,7 +49,7 @@ this.http.post('http://localhost:8000/api/v1/actividad',
         () => {
             console.log('The POST observable is now completed.');
         });
-}
+}*/
 
 
 
@@ -111,7 +111,7 @@ this.http.post('http://localhost:8000/api/v1/marca',
 }, {headers})
     .subscribe(
         (val) => {
-            this.marcaid = val.id
+
             console.log('POST call successful value returned in body',
                         val.id);
         },
