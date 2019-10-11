@@ -12,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from './shared/shared.module';
 import { MaterialModule } from '../material.module';
 import { YoutubePlayerModule } from 'ng2-youtube-player';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 // Modulos
@@ -43,6 +44,7 @@ import {ToastrModule} from 'ngx-toastr';
     YoutubePlayerModule,
     VideoModalModule,
     VideoAlumnoModule,
+    ModalModule.forRoot()
     MDBBootstrapModule.forRoot(),
     ToastrModule.forRoot()
   ],
