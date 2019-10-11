@@ -8,6 +8,7 @@ import { ProfesorLogin } from '../../models/profesorLogin.model';
 import { Login } from '../../models/login.model';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError, tap, map, filter } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -15,8 +16,8 @@ import { retry, catchError, tap, map, filter } from 'rxjs/operators';
 })
 export class AuthService implements CanActivate {
 
-  private userToken: string;
-  authUrl = `${URL_SERVICIOS}/users/api-token-auth/`;
+  public userToken: string;
+  authUrl = `${environment.apiUrl}/users/api-token-auth/`;
 
   // Http Headers
   httpOptions = {

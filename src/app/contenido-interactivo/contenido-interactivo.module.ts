@@ -2,17 +2,25 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ListaContenidoComponent } from './lista-contenido/lista-contenido.component';
 import { Routes, RouterModule } from '@angular/router';
+import { MaterialModule } from 'src/material.module';
+import { AddContenidoACursoComponent } from './add-contenido-a-curso/add-contenido-a-curso.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
   { path: '', component: ListaContenidoComponent },
 ];
 
 @NgModule({
-  declarations: [ListaContenidoComponent],
+  declarations: [ListaContenidoComponent, AddContenidoACursoComponent],
   imports: [
     CommonModule,
+    MaterialModule,
+    ReactiveFormsModule,
     RouterModule.forChild(routes)
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  entryComponents: [
+    AddContenidoACursoComponent
+  ]
 })
 export class ContenidoInteractivoModule { }
