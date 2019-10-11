@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { URL_SERVICIOS } from '../../config/config';
 import { InfoLogin } from '../../models/infoLogin.model';
 import { AlumnoLogin } from '../../models/alumnoLogin.model';
 import { ProfesorLogin } from '../../models/profesorLogin.model';
 import { Login } from '../../models/login.model';
-import { Observable, throwError } from 'rxjs';
-import { retry, catchError, tap, map, filter } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { retry, catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 
@@ -44,8 +43,7 @@ export class AuthService implements CanActivate {
           if (response.user.codigo_de_estudiante != undefined) {
             this.dataLog.isAlumno = true;
             this.dataLog.dataAlumno = response.user;
-          }
-          else {
+          } else {
             this.dataLog.isAlumno = false;
             this.dataLog.dataProfesor = response.user;
           }
