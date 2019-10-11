@@ -1,13 +1,15 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { CursoService } from 'src/app/services/curso.service';
-import { FormControl, Validators } from '@angular/forms';
-import { ContenidoService } from 'src/app/services/contenido.service';
+import {Component, OnInit, Inject} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {CursoService} from 'src/app/services/curso.service';
+import {FormControl, Validators} from '@angular/forms';
+import {ContenidoService} from 'src/app/services/contenido.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 export interface DialogData {
   contenidoId: number;
   nombreContenido: string;
 }
+
 @Component({
   selector: 'app-add-contenido-a-curso',
   templateUrl: './add-contenido-a-curso.component.html',
@@ -17,10 +19,12 @@ export class AddContenidoACursoComponent implements OnInit {
 
   cursos;
   cursosForm = new FormControl(null, [Validators.required]);
+
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData,
-    private cursoService: CursoService,
-    private contenidoService: ContenidoService,
-    public dialogRef: MatDialogRef<AddContenidoACursoComponent>) {
+              private snackBar: MatSnackBar,
+              private cursoService: CursoService,
+              private contenidoService: ContenidoService,
+              public dialogRef: MatDialogRef<AddContenidoACursoComponent>) {
 
   }
 
@@ -37,6 +41,12 @@ export class AddContenidoACursoComponent implements OnInit {
       this.contenidoService.postContenidos(this.cursosForm.value, this.data.contenidoId).subscribe(result => {
         console.log(result);
         this.dialogRef.close();
+        // @ts-ignore
+        if (result.status === 'success') {
+          this.snackBar.open('El contenido interactivo se ha asignado correctamente', '', {duration: 3000});
+        } else {
+          this.snackBar.open('El contenido interactivo no se ha podido asignar', 'Error', {duration: 3000});
+        }
       });
     }
   }
