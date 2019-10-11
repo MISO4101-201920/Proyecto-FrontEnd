@@ -19,6 +19,7 @@ mat-card-header {
 mat-card-content {
   flex-grow: 1;
   overflow: auto;
+  margin:30px;
 }
 
 button {
@@ -32,7 +33,7 @@ button {
   flex-wrap: wrap;
 }
 .col {
-  width: 32%;
+  min-width: 32%;
   margin-bottom: 7%;
 }
 @media screen and (max-width: 800px) {
