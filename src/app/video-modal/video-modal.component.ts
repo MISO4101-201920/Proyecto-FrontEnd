@@ -108,7 +108,7 @@ export class NgbdModal3Content implements OnInit  {
 
     for (let i = 0; i < this.dynamicArray.length; i++) {
 
-      
+
 
       const headers = new HttpHeaders()
         .set('Content-Type', 'application/json');
@@ -341,7 +341,7 @@ this.http.post('http://localhost:8000/api/v1/marca',
 
 export class VideoModalComponent implements OnInit {
   @Input() tiempo;
-  idcontenido = 1;
+  idcontenido = 2;
   pauseTime = 0;
 
 

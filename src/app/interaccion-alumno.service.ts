@@ -12,7 +12,19 @@ export class InteraccionAlumnoService {
 
   constructor(private http: HttpClient) { }
 
-  getRetroOpMultiple(pregunta: number) {    
+
+   /*   getActividad(marca: number) {
+    return this.http.get(this.api_base_url + 'api/v1/actividad?marca=1' + marca);
+  }
+
+    getPregunta(actividad: number) {
     return this.http.get(this.api_base_url + '/api/v1/resp_op_multiple?esCorrecta=true&preguntaSeleccionMultiple=' + pregunta);
+  }*/
+
+  getRetroOpMultiple(pregunta: number) {
+    return this.http.get(this.api_base_url + '/api/v1/resp_op_multiple?esCorrecta=true&preguntaSeleccionMultiple=' + pregunta);
+  }
+    getMarcasXacontenido(idcontenido: number) {
+    return this.http.get(this.api_base_url + '/api/v1/marca?contenido=' + idcontenido);
   }
 }
