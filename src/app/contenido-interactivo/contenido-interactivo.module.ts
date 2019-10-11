@@ -7,6 +7,7 @@ import { RichTextEditorAllModule } from '@syncfusion/ej2-angular-richtexteditor'
 import { ManyAnswersComponent } from './many-answers/many-answers.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTableModule } from '@angular/material/table';
+import { FormsModule } from '@angular/forms';
 
 const routes: Routes = [
   { path: '', component: ListaContenidoComponent },
@@ -19,7 +20,8 @@ const routes: Routes = [
     RichTextEditorAllModule,
     MatCheckboxModule,
     MatTableModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    FormsModule
   ],
   exports: [RouterModule]
 })

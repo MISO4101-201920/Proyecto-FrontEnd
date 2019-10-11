@@ -7,7 +7,7 @@ import { catchError } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class QuestionService{
+export class ContentService{
 
   private headers: HttpHeaders;
   private URL_HOST: string = 'http://127.0.0.1:8000/';
@@ -17,11 +17,7 @@ export class QuestionService{
     this.headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Accept': 'application/json, text/plain'});
   }
 
-  createQuestion(question, activityId): Observable<any>{
-    return this.http.post(this.URL_HOST + 'activities/pregunta', {Pregunta: question, actividad: activityId});
-  }
-
-  createMultipleOptionAnswer(answer, correctAnswer, questionId): Observable<any> {
-    return this.http.post(this.URL_HOST + 'activities/resp_op_multiple', {respuesta: answer, esCorrecta: correctAnswer, preguntaSeleccionMultiple: questionId});
+  getAllContent(): Observable<any> {
+    return this.http.get(this.URL_HOST + 'content/cont_interactivo');
   }
 }

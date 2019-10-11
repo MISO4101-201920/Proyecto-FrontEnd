@@ -12,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from './shared/shared.module';
 import { MaterialModule } from '../material.module';
 import { YoutubePlayerModule } from 'ng2-youtube-player';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 // Modulos
@@ -40,7 +41,8 @@ import { VideoAlumnoModule } from './video-alumno/video-alumno.module';
     HttpClientModule,
     YoutubePlayerModule,
     VideoModalModule,
-    VideoAlumnoModule
+    VideoAlumnoModule,
+    ModalModule.forRoot()
   ],
   providers: [
   ],
