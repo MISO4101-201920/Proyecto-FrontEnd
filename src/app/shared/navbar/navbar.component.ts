@@ -4,17 +4,19 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
+import { Router } from '@angular/router';
+
 
 /**
  * Food data with nested structure.
  * Each node has a name and an optiona list of children.
  */
-interface FoodNode {
+interface NavNode {
   name: string;
-  children?: FoodNode[];
+  children?: NavNode[];
 }
 
-const TREE_DATA: FoodNode[] = [
+const TREE_DATA: NavNode[] = [
   {
     name: 'Manejar Contenido Interactivo',
     children: [
@@ -38,21 +40,28 @@ interface ExampleFlatNode {
 })
 export class NavbarComponent {
 
+
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    public router: Router, ) {
+    this.dataSource.data = TREE_DATA;
+  }
+
+  navNodeLinks(pag) {
+    if (pag === 'Subir Video') {
+      this.router.navigate(['/load-videos']);
+    }
+  }
+
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver) {
-    this.dataSource.data = TREE_DATA;
-  }
 
-  prueba(link) {
-    console.log("dio click: ", link);
-  }
 
-  private _transformer = (node: FoodNode, level: number) => {
+  private _transformer = (node: NavNode, level: number) => {
     return {
       expandable: !!node.children && node.children.length > 0,
       name: node.name,

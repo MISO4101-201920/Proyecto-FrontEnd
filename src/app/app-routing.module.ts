@@ -22,6 +22,11 @@ const routes: Routes = [
         loadChildren: './contenido-interactivo/contenido-interactivo.module#ContenidoInteractivoModule',
         data: { preload: true }
       },
+      {
+        path: 'load-videos',
+        loadChildren: './pages/pages.module#PagesModule',
+        data: { preload: true }
+      },
     ]
   },
   { path: 'login', component: LoginComponent },
