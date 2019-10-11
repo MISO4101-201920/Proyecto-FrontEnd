@@ -22,6 +22,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { VideoModalModule } from './video-modal/video-modal.module';
 import { VideoAlumnoModule } from './video-alumno/video-alumno.module';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import {ToastrModule} from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -43,6 +45,8 @@ import { VideoAlumnoModule } from './video-alumno/video-alumno.module';
     VideoModalModule,
     VideoAlumnoModule,
     ModalModule.forRoot()
+    MDBBootstrapModule.forRoot(),
+    ToastrModule.forRoot()
   ],
   providers: [
   ],

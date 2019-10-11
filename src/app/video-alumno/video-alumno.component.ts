@@ -21,12 +21,21 @@ import { InteraccionAlumnoService } from '../interaccion-alumno.service';
   `
 })
 
-export class NgbdModalContent {
+export class NgbdModalContent implements OnInit {
   @Input() name;
   @Input() retroalimentacion;
-  constructor(private modalService: NgbModal, public activeModal: NgbActiveModal) { }
+  constructor(private modalService: NgbModal, public activeModal: NgbActiveModal, ) { }
+
+  ngOnInit() {
+
+
+
+  }
 
   viewRespuesta() {
+
+
+
     const modalRef = this.modalService.open(NgbdModalContentRetroalimentacion);
     modalRef.componentInstance.respuesta = this.retroalimentacion;
     modalRef.result.then(
@@ -35,7 +44,9 @@ export class NgbdModalContent {
         this.activeModal.close('resume');
       },
       (reason: any) => { });
-    
+
+
+
 
     // this.modalService.open(NgbdModalContentRetroalimentacion, {
     //   size: 'lg'
@@ -47,18 +58,19 @@ export class NgbdModalContent {
   selector: 'ngbd-modal-retroalimentacion',
   template: `
     <div class="modal-header">
-      <h4 class="modal-title">La respuesta correcta es</h4>      
-          
+      <h4 class="modal-title">La respuesta correcta es</h4>
+
     </div>
     <div class="modal-body">
       <p>{{respuesta}}</p>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('videoResume')">Continuar</button>      
+      <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('videoResume')">Continuar</button>
     </div>
   `
 })
 
+// tslint:disable-next-line:component-class-suffix
 export class NgbdModalContentRetroalimentacion {
   @Input() respuesta;
   constructor(public activeModal: NgbActiveModal) { }
@@ -71,19 +83,43 @@ export class NgbdModalContentRetroalimentacion {
 export class VideoAlumnoComponent implements OnInit {
   retroalimentacion: string;
   player: YT.Player;
-  private id: string = 'qDuKsiwS5xw';
+  private id = 'qDuKsiwS5xw';
+  private idcontenido: 2;
+  private marcas: any[];
   savePlayer(player) {
     this.player = player;
     console.log('player instance', player);
   }
-  onStateChange(event) {
-    if (event.data == YT.PlayerState.PLAYING) {
-      setTimeout(() => {
-        this.player.pauseVideo();
-        this.open();
-      }, 2000);
-    }
 
+   delay(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  async onStateChange(event) {
+
+    let bol = false
+    const sleep = (milliseconds) => {
+      return new Promise(resolve => setTimeout(resolve, milliseconds))
+    }
+    // tslint:disable-next-line:prefer-for-of
+    console.log('player currenttime', this.player.getCurrentTime());
+    for (let i = 0; i < this.marcas.length; i++) {
+      console.log('player nnn', this.marcas[i].punto)
+      if (event.data == YT.PlayerState.PLAYING) {
+        while (bol == false) {
+          await this.delay(1000);
+          console.log('player currenttime', Math.round(this.player.getCurrentTime()));
+          if (Math.round(this.player.getCurrentTime()) == this.marcas[i].punto) {
+              this.player.pauseVideo();
+              this.open();
+              bol = true;
+              this.marcas.shift();
+              console.log('player marca', this.marcas[i].punto);
+            }
+        }
+        // tslint:disable-next-line:prefer-for-of
+      }
+    }
     console.log('player state', event.data);
   }
 
@@ -102,15 +138,30 @@ export class VideoAlumnoComponent implements OnInit {
         this.player.playVideo();
       },
       (reason: any) => { }
-    )
+    );
   }
 
   ngOnInit() {
-    let idPregunta = 1;    
-    this.retroalimentacionService.getRetroOpMultiple(idPregunta).subscribe((data: any[])=>{
+     console.log('POST call successful value returned in body',
+              'on init');
+     const idPregunta = 1;
+     this.retroalimentacionService.getRetroOpMultiple(idPregunta).subscribe((data: any[]) => {
       console.log(data);
-      this.retroalimentacion = data[0]['respuesta'];
-    })  
+      this.retroalimentacion = data[0].respuesta;
+    });
+
+     this.retroalimentacionService.getMarcasXacontenido(2).subscribe(
+          (val: any) => {
+              this.marcas = val;
+              console.log('POST call successful value returned in body',
+              val);
+          },
+          response => {
+            console.log('POST call in error', response);
+          },
+          () => {
+            console.log('The POST observable is now completed.');
+          });
   }
 
 }
