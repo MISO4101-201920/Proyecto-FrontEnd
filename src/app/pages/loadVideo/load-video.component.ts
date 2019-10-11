@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadVideoService } from '../../services/contenidoInter/load-video.service'
+import { LoadVideo } from '../../models/videoLoad.model';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-load-video',
@@ -19,12 +22,34 @@ import { LoadVideoService } from '../../services/contenidoInter/load-video.servi
 })
 export class LoadVideoComponent implements OnInit {
 
-  constructor(private _loadVideoService:LoadVideoService) { }
+  loadVideo: LoadVideo ={
+    url:'',
+    nombre:'',
+    cursos_seleccionados: {}
+  };
+  constructor(private _loadVideoService: LoadVideoService) { }
 
   ngOnInit() {
   }
-  guardarVideo(){
-
+  guardarVideo() {
+    this.loadVideo.url = "https://www.youtube.com/watch?v=3JuYkJyJh7c";
+    this.loadVideo.nombre = "We Finally Understand Supergirl's Bizarre History";
+    this.loadVideo.cursos_seleccionados = [{ "id": 1 }];
+    console.log(this.loadVideo);
+    this._loadVideoService.loadUrl(this.loadVideo)
+      .subscribe(
+        result => {
+          console.log(result)
+        },
+        error => {
+          console.log(error);
+          Swal.fire('Oops...', 'revisa los datos ingresados', 'error')
+        },
+        () => {
+          Swal.fire('Cargado!', 'Tu video ha sido cargado con Exito a contenido interactivo.','success')
+          // this.router.navigate(['/']);
+        }
+      );
   }
 
 }

@@ -31,11 +31,9 @@ export class AuthService implements CanActivate {
   };
 
   constructor(private router: Router, public http: HttpClient) {
-    console.log('se llamo el servicio');
   }
 
   login(usuario: Login): Observable<InfoLogin> {
-    console.log(JSON.stringify(usuario));
     return this.http.post(this.authUrl, JSON.stringify(usuario), this.httpOptions)
       .pipe(
         map((response: Response) => {
