@@ -25,3 +25,13 @@ mat-toolbar {
   top: 0;
   z-index: 1;
 }
+.tree {
+  background: inherit;
+  color: #FFFFFF;
+  margin-right: 5%;
+  margin-left: 2%;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  /* font-size: 12px;  */
+  /* background-color: #43425d; */
+  /* font-weight: bold; */
+}
