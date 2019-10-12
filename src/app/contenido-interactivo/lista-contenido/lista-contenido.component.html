@@ -24,4 +24,8 @@
           </mat-card>
         </div>
       </div>
+    <div *ngIf="!showAddMarker">
+        <a (click)="addMarker()">Marcadores</a>
+    </div>
+    <app-markers *ngIf="showAddMarker"></app-markers>
 </div>

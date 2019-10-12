@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { MaterialModule } from '../../material.module'
+import { MaterialModule } from '../../material.module';
 
 
 //Components of Pages
-import { LoadVideoComponent } from './LoadVideo/load-video.component'
+import { LoadVideoComponent } from './loadVideo/load-video.component';
 
 
 const routes: Routes = [

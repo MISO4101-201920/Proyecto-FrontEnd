@@ -11,6 +11,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // Modulos
 import { SharedModule } from './shared/shared.module';
 import { MaterialModule } from '../material.module';
+import { YoutubePlayerModule } from 'ng2-youtube-player';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 // Modulos
@@ -18,6 +20,11 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './login/register.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+
+import { VideoModalModule } from './video-modal/video-modal.module';
+import { VideoAlumnoModule } from './video-alumno/video-alumno.module';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import {ToastrModule} from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -34,7 +41,13 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    YoutubePlayerModule,
+    VideoModalModule,
+    VideoAlumnoModule,
+    ModalModule.forRoot(),
+    MDBBootstrapModule.forRoot(),
+    ToastrModule.forRoot()
   ],
   providers: [
     {

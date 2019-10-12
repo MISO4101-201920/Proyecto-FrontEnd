@@ -11,6 +11,7 @@ import { AddContenidoACursoComponent } from '../add-contenido-a-curso/add-conten
 export class ListaContenidoComponent implements OnInit {
 
   contenidos;
+  showAddMarker = false;
 
   constructor(private contenidoService: ContenidoService, public dialog: MatDialog
     ) { }
@@ -40,5 +41,7 @@ export class ListaContenidoComponent implements OnInit {
 
   }
 
-
+  addMarker() {
+    this.showAddMarker = true;
+  }
 }
