@@ -1,20 +1,20 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Routes, RouterModule } from '@angular/router';
-import { MaterialModule } from '../../material.module'
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {Routes, RouterModule} from '@angular/router';
+import {MaterialModule} from '../../material.module';
 
 
-//Components of Pages
-import { LoadVideoComponent } from './LoadVideo/load-video.component'
+// Components of Pages
+// import {LoadVideoComponent} from 'src/app/pages/loadVideo/load-video.component';
 
 
 const routes: Routes = [
-  { path: '', component: LoadVideoComponent },
+  // {path: '', component: LoadVideoComponent},
 ];
 
 @NgModule({
   declarations: [
-    LoadVideoComponent,
+  //  LoadVideoComponent,
   ],
   imports: [
     MaterialModule,
@@ -24,4 +24,5 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 
-export class PagesModule { }
+export class PagesModule {
+}
