@@ -14,17 +14,17 @@ export class InteraccionAlumnoService {
 
 
    /*   getActividad(marca: number) {
-    return this.http.get(this.api_base_url + 'api/v1/actividad?marca=1' + marca);
+    return this.http.get(this.api_base_url + 'activities/actividad?marca=1' + marca);
   }
 
     getPregunta(actividad: number) {
-    return this.http.get(this.api_base_url + '/api/v1/resp_op_multiple?esCorrecta=true&preguntaSeleccionMultiple=' + pregunta);
+    return this.http.get(this.api_base_url + '/activities/resp_op_multiple?esCorrecta=true&preguntaSeleccionMultiple=' + pregunta);
   }*/
 
   getRetroOpMultiple(pregunta: number) {
-    return this.http.get(this.api_base_url + '/api/v1/resp_op_multiple?esCorrecta=true&preguntaSeleccionMultiple=' + pregunta);
+    return this.http.get(this.api_base_url + '/activities/resp_op_multiple?esCorrecta=true&preguntaSeleccionMultiple=' + pregunta);
   }
     getMarcasXacontenido(idcontenido: number) {
-    return this.http.get(this.api_base_url + '/api/v1/marca?contenido=' + idcontenido);
+    return this.http.get(this.api_base_url + '/activities/marca?contenido=' + idcontenido);
   }
 }

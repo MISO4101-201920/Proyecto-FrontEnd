@@ -113,7 +113,7 @@ export class NgbdModal3Content implements OnInit  {
       const headers = new HttpHeaders()
         .set('Content-Type', 'application/json');
 
-      this.http.post('http://localhost:8000/api/v1/resp_op_multiple',
+      this.http.post('http://localhost:8000/activities/resp_op_multiple',
         {
           respuesta: this.dynamicArray[i].respuesta,
           esCorrecta: this.dynamicArray[i].esCorrecta,
@@ -171,7 +171,7 @@ export class NgbdModal2Content {
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json');
 
-    this.http.post('http://localhost:8000/api/v1/pregunta',
+    this.http.post('http://localhost:8000/activities/pregunta',
       {
         Pregunta: this.pregunta,
         actividad: this.actividadid,
@@ -234,7 +234,7 @@ export class NgbdModal1Content {
 const headers = new HttpHeaders()
     .set('Content-Type', 'application/json');
 
-this.http.post('http://localhost:8000/api/v1/actividad',
+this.http.post('http://localhost:8000/activities/actividad',
     {
     nombre: this.nombre,
     numeroDeIntentos: this.intentos,
@@ -300,7 +300,7 @@ export class NgbdModalContent {
 const headers = new HttpHeaders()
     .set('Content-Type', 'application/json');
 
-this.http.post('http://localhost:8000/api/v1/marca',
+this.http.post('http://localhost:8000/activities/marca',
     {
     nombre: this.marcaNombre,
     punto: Math.round(this.tiempo),
@@ -341,7 +341,7 @@ this.http.post('http://localhost:8000/api/v1/marca',
 
 export class VideoModalComponent implements OnInit {
   @Input() tiempo;
-  idcontenido = 2;
+  idcontenido = 6;
   pauseTime = 0;
 
 

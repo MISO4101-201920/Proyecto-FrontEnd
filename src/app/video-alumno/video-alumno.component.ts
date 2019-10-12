@@ -150,7 +150,7 @@ export class VideoAlumnoComponent implements OnInit {
       this.retroalimentacion = data[0].respuesta;
     });
 
-     this.retroalimentacionService.getMarcasXacontenido(2).subscribe(
+     this.retroalimentacionService.getMarcasXacontenido(6).subscribe(
           (val: any) => {
               this.marcas = val;
               console.log('POST call successful value returned in body',
