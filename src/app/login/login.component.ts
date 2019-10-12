@@ -20,6 +20,8 @@ export class LoginComponent implements OnInit {
   auth2: any;
 
   usuario: Persona;
+  username: any;
+  password: any;
   constructor(
     public router: Router,
     public _authService: AuthService
