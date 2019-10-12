@@ -50,12 +50,10 @@ import { environment } from 'src/environments/environment';
                 <td style="display:none;">
                   <input [(ngModel)]="dynamicArray[i].preguntaSeleccionMultiple" class="form-control" type="text"/>    
                 </td>    
-            </tr>    
-            <tr>    
-              <td (click)="addRow(i)">    
+                <td (click)="addRow(i)">    
                 <i class="fa fa-plus fa-2x"></i>    
-              </td>    
-            </tr>    
+              </td>   
+            </tr>       
         </tbody>    
     </table>    
   </div>    
