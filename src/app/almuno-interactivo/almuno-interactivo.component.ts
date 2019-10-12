@@ -16,7 +16,7 @@ export class AlmunoInteractivoComponent implements OnInit {
   constructor(private modalService: NgbModal, private http: HttpClient) { }
 
   player: YT.Player;
-  private id = 'qDuKsiwS5xw';
+  id = 'qDuKsiwS5xw';
 
   savePlayer(player) {
     this.player = player;

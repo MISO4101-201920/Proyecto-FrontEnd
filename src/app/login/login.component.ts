@@ -19,6 +19,9 @@ export class LoginComponent implements OnInit {
   recuerdame = false;
   auth2: any;
 
+  username: any;
+  password: any;
+
   usuario: Persona;
   constructor(
     public router: Router,

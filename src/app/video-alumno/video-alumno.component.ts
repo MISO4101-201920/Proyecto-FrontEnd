@@ -83,8 +83,8 @@ export class NgbdModalContentRetroalimentacion {
 export class VideoAlumnoComponent implements OnInit {
   retroalimentacion: string;
   player: YT.Player;
-  private id = 'qDuKsiwS5xw';
-  private idcontenido: 2;
+  id = 'qDuKsiwS5xw';
+  idcontenido: 2;
   private marcas: any[];
   savePlayer(player) {
     this.player = player;
