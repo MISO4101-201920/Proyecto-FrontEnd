@@ -21,10 +21,10 @@ export class MarkService{
   getAllMarkers(): Observable<any> {
     // Cuando se implemente login validar aquí el token para que se hagala redirección correctamente
     // const signedIn = !!this.userToken;
-    return this.http.get(this.URL_HOST + 'activities/marca');
+    return this.http.get(this.URL_HOST + '/activities/marca');
   }
 
   getMarkersFromContent(contentId): Observable<any> {
-    return this.http.get(this.URL_HOST + 'activities/marca?contenido=' + contentId);
+    return this.http.get(this.URL_HOST + '/activities/marca?contenido=' + contentId);
   }
 }

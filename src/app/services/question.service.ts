@@ -19,10 +19,10 @@ export class QuestionService{
   }
 
   createQuestion(question, activityId): Observable<any>{
-    return this.http.post(this.URL_HOST + 'activities/pregunta', {Pregunta: question, actividad: activityId});
+    return this.http.post(this.URL_HOST + '/activities/pregunta', {Pregunta: question, actividad: activityId});
   }
 
   createMultipleOptionAnswer(answer, correctAnswer, questionId): Observable<any> {
-    return this.http.post(this.URL_HOST + 'activities/resp_op_multiple', {respuesta: answer, esCorrecta: correctAnswer, preguntaSeleccionMultiple: questionId});
+    return this.http.post(this.URL_HOST + '/activities/resp_op_multiple', {respuesta: answer, esCorrecta: correctAnswer, preguntaSeleccionMultiple: questionId});
   }
 }

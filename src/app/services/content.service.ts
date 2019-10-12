@@ -19,6 +19,6 @@ export class ContentService{
   }
 
   getAllContent(): Observable<any> {
-    return this.http.get(this.URL_HOST + 'content/cont_interactivo');
+    return this.http.get(this.URL_HOST + '/content/cont_interactivo');
   }
 }
