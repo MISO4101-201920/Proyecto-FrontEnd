@@ -5,16 +5,16 @@ import {MaterialModule} from '../../material.module';
 
 
 // Components of Pages
-// import {LoadVideoComponent} from 'src/app/pages/loadVideo/load-video.component';
+import {LoadVideoComponent} from 'src/app/pages/loadVideo/load-video.component';
 
 
 const routes: Routes = [
-  // {path: '', component: LoadVideoComponent},
+  {path: '', component: LoadVideoComponent},
 ];
 
 @NgModule({
   declarations: [
-  //  LoadVideoComponent,
+  LoadVideoComponent,
   ],
   imports: [
     MaterialModule,
