@@ -35,7 +35,6 @@ export class AuthService implements CanActivate {
   }
 
   login(usuario: Login): Observable<InfoLogin> {
-    console.log(JSON.stringify(usuario));
     return this.http.post(this.authUrl, JSON.stringify(usuario), this.httpOptions)
       .pipe(
         map((response: Response) => {
