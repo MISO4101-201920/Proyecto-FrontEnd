@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ContenidoService } from 'src/app/services/contenido.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-reporte-contenido',
@@ -11,12 +12,16 @@ export class ReporteContenidoComponent implements OnInit {
   displayedColumns: string[] = ['pregunta', 'posiblesRespuestas', 'respuestasOpcion', 'porcentajeRespuesta'];
   dataSource;
 
-  constructor(private contenidoService: ContenidoService) { }
+  constructor(private contenidoService: ContenidoService, private activeRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    this.contenidoService.getReporteContenido(1).subscribe(data => {
-      this.dataSource = this.processData(data.marcas);
-      console.log('dataSource', this.dataSource);
+    this.activeRoute.params.subscribe(params => {
+      if (params.id) {
+        this.contenidoService.getReporteContenido(+params.id).subscribe(data => {
+          this.dataSource = this.processData(data.marcas);
+          console.log('dataSource', this.dataSource);
+        });
+      }
     });
   }
 
