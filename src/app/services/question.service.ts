@@ -3,6 +3,7 @@ import { HttpHeaders, HttpClient, HttpParams, HttpResponse } from '@angular/comm
 import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { catchError } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import { catchError } from 'rxjs/operators';
 export class QuestionService{
 
   private headers: HttpHeaders;
-  private URL_HOST: string = 'http://127.0.0.1:8000/';
+  private URL_HOST: string = `${environment.apiUrl}`;
   private userToken: string;
 
   constructor(private http: HttpClient) {

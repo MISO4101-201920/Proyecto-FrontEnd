@@ -16,6 +16,9 @@ import { FormsModule } from '@angular/forms';
 const routes: Routes = [
   { path: '', component: ListaContenidoComponent },
   { path: 'reporte/:id', component: ReporteContenidoComponent },
+  { path: 'manejar', component: MarkersComponent},
+
+
 ];
 
 @NgModule({

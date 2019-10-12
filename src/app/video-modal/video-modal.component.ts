@@ -12,6 +12,7 @@ import {
   ToolbarService
 } from '@syncfusion/ej2-angular-richtexteditor';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -113,7 +114,7 @@ export class NgbdModal3Content implements OnInit  {
       const headers = new HttpHeaders()
         .set('Content-Type', 'application/json');
 
-      this.http.post('http://localhost:8000/activities/resp_op_multiple',
+      this.http.post(`${environment.apiUrl}/activities/resp_op_multiple`,
         {
           respuesta: this.dynamicArray[i].respuesta,
           esCorrecta: this.dynamicArray[i].esCorrecta,
@@ -170,8 +171,7 @@ export class NgbdModal2Content {
 
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json');
-
-    this.http.post('http://localhost:8000/activities/pregunta',
+    this.http.post(`${environment.apiUrl}/activities/pregunta`,
       {
         Pregunta: this.pregunta,
         actividad: this.actividadid,
@@ -234,7 +234,7 @@ export class NgbdModal1Content {
 const headers = new HttpHeaders()
     .set('Content-Type', 'application/json');
 
-this.http.post('http://localhost:8000/activities/actividad',
+this.http.post(`${environment.apiUrl}/activities/actividad`,
     {
     nombre: this.nombre,
     numeroDeIntentos: this.intentos,
@@ -300,7 +300,7 @@ export class NgbdModalContent {
 const headers = new HttpHeaders()
     .set('Content-Type', 'application/json');
 
-this.http.post('http://localhost:8000/activities/marca',
+this.http.post(`${environment.apiUrl}/activities/marca`,
     {
     nombre: this.marcaNombre,
     punto: Math.round(this.tiempo),
