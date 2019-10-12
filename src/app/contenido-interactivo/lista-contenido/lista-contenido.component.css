@@ -31,9 +31,11 @@ button {
 .flex-grid {
   display: flex;
   flex-wrap: wrap;
+  margin-top: 3%;
 }
 .col {
-  min-width: 32%;
+  max-width: 33%;
+  min-width: 34%;
   margin-bottom: 7%;
 }
 @media screen and (max-width: 800px) {
