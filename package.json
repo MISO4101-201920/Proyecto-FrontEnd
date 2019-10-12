@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "postinstall": "ng build --target=production --environment=prod --aot --prod"
+    "postinstall": "ng build --target=production --environment=prod"
   },
   "engines": {
     "node": "10.14.2",
