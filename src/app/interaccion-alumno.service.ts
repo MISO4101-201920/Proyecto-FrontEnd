@@ -7,7 +7,7 @@ import { RetroalimentacionOpMul } from './video-alumno/retroalimentacion';
   providedIn: 'root'
 })
 export class InteraccionAlumnoService {
-  api_base_url = 'http://127.0.0.1:8000';
+  api_base_url = 'https://project-backend-hmi.herokuapp.com';
   private retroalimentacionMul: RetroalimentacionOpMul;
 
   constructor(private http: HttpClient) { }
