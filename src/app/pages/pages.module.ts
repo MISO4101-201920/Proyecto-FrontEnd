@@ -9,12 +9,12 @@ import { LoadVideoComponent } from './loadVideo/load-video.component';
 
 
 const routes: Routes = [
-  { path: '', component: LoadVideoComponent },
+  {path: '', component: LoadVideoComponent},
 ];
 
 @NgModule({
   declarations: [
-    LoadVideoComponent,
+  LoadVideoComponent,
   ],
   imports: [
     MaterialModule,
@@ -24,4 +24,5 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 
-export class PagesModule { }
+export class PagesModule {
+}
