@@ -5,7 +5,7 @@ import {MaterialModule} from '../../material.module';
 
 
 // Components of Pages
-import {LoadVideoComponent} from 'src/app/pages/loadVideo/load-video.component';
+import {LoadVideoComponent} from './loadVideo/load-video.component';
 
 
 const routes: Routes = [
