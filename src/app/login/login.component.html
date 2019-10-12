@@ -10,9 +10,7 @@
           <form ngNativeValidate #f="ngForm" class="form-horizontal form-material" (ngSubmit)="ingresar( f )">
             <img *ngIf="true" class="logo" src="../assets/images/logo-5-conectate.png" alt="logo" />
             <p *ngIf="false" class="logo principal"><b>Conecta-TE</b></p>
-
             <div>
-
               <table class="login-container" cellspacing="0">
                 <tr>
                   <td>
@@ -33,7 +31,6 @@
               </table>
             </div>
             <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
-
 
             <!-- <div class="form-group m-t-40">
           <div class="col-xs-12">
@@ -58,7 +55,6 @@
               <button mat-raised-button color="primary" type="submit"> Ingresar </button>
               <!-- <button class="btn-izq" mat-raised-button>Registrarme</button> -->
             </div>
-
             <!-- <div class="button-container">
           <div class="col-sm-12 text-center">
             No tienes cuenta? <a routerLink="/register" class="text-primary m-l-5"><b>Crear cuenta</b></a>
@@ -67,6 +63,9 @@
           </form>
 
         </div>
+      </div>
+    </div>
+  </div>
 </section>
 <!-- ============================================================== -->
 <!-- End Wrapper -->
