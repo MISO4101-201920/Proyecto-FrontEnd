@@ -10,7 +10,7 @@ import { catchError } from 'rxjs/operators';
 export class QuestionService{
 
   private headers: HttpHeaders;
-  private URL_HOST: string = 'http://127.0.0.1:8000/';
+  private URL_HOST: string = 'http://127.0.0.1:8000';
   private userToken: string;
 
   constructor(private http: HttpClient) {

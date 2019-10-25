@@ -4,6 +4,7 @@ import {NgbdModalContent, VideoAlumnoComponent, NgbdModalContentRetroalimentacio
 import { Routes, RouterModule } from '@angular/router';
 import { YoutubePlayerModule } from 'ng2-youtube-player';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {MatCheckboxModule} from '@angular/material';
 
 
 const routes: Routes = [
@@ -12,14 +13,15 @@ const routes: Routes = [
 
 @NgModule({
     declarations: [VideoAlumnoComponent, NgbdModalContent, NgbdModalContentRetroalimentacion],
-    imports: [
-      NgbModule,
-      YoutubePlayerModule,
-      CommonModule,
-      RouterModule.forChild(routes)
-    ],
+  imports: [
+    NgbModule,
+    YoutubePlayerModule,
+    CommonModule,
+    RouterModule.forChild(routes),
+    MatCheckboxModule
+  ],
     exports: [RouterModule, VideoAlumnoComponent],
     entryComponents: [NgbdModalContent, NgbdModalContentRetroalimentacion]
   })
   export class VideoAlumnoModule { }
-  
+

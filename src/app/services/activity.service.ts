@@ -17,6 +17,10 @@ export class ActivityService{
     this.headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Accept': 'application/json, text/plain'});
   }
 
+  getActivitiesFromMarca(idMarca): Observable<any> {
+    return this.http.get(this.URL_HOST + 'activities/s/actividad?marca=' + idMarca);
+  }
+
   createActivity(name, trys, retroActive, markerId): Observable<any> {
     return this.http.post(this.URL_HOST + 'activities/actividad', {nombre: name, numeroDeIntentos: trys, tieneRetroalimentacion: retroActive, marca: markerId});
   }

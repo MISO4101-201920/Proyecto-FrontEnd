@@ -44,7 +44,7 @@ import {ToastrModule} from 'ngx-toastr';
     YoutubePlayerModule,
     VideoModalModule,
     VideoAlumnoModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
     MDBBootstrapModule.forRoot(),
     ToastrModule.forRoot()
   ],
