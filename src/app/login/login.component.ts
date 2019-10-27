@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
           Swal.fire('Oops...', 'revisa los datos ingresados', 'error')
         },
         () => {
-          this.router.navigate(['/']);
+          this.router.navigate(['/cursos']);
         }
       );
   }
