@@ -6,14 +6,16 @@
         <mat-icon>library_books</mat-icon>Ver Cursos
       </a>
       <!-- <a mat-list-item routerLink="/contenido-interactivo"><mat-icon>apps</mat-icon>Manejar Contenido Interactivo</a> -->
+      <a mat-list-item routerLink="/contenido-interactivo"><mat-icon>apps</mat-icon>Contenido Interactivo</a>
+      <!--
       <mat-tree class="tree" mat-list-item [dataSource]="dataSource" [treeControl]="treeControl">
-        <!-- This is the tree node template for leaf nodes -->
+        This is the tree node template for leaf nodes
         <mat-tree-node matTreeNodePaddingIndent="15" class="tree" *matTreeNodeDef="let node" matTreeNodePadding>
-          <!-- use a disabled button to provide padding for tree leaf -->
+          use a disabled button to provide padding for tree leaf
           <button mat-icon-button disabled></button>
-          <!-- <span *ngIf="{{node.name}} === 'Subir Video'"> -->
+          <span *ngIf="{{node.name}} === 'Subir Video'">
 
-          <!-- </span> -->
+          </span>
           <a href="javascript:void(0);" (click)="navNodeLinks(node.name)">
             <mat-icon *ngIf="node.name === 'Subir Video' ">video_library</mat-icon>
             <mat-icon *ngIf="node.name === 'Ver Contenido Interactivo' ">dynamic_feed</mat-icon>
@@ -22,7 +24,7 @@
         </mat-tree-node>
 
 
-        <!-- This is the tree node template for expandable nodes-->
+        This is the tree node template for expandable nodes
         <mat-tree-node class="tree" *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
           <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.name">
             <mat-icon class="mat-icon-rtl-mirror">
@@ -32,9 +34,9 @@
           {{node.name}}
         </mat-tree-node>
       </mat-tree>
-      <a mat-list-item routerLink="/video"><mat-icon>apps</mat-icon>Crear marcas sobre video</a>
-      <a mat-list-item routerLink="/contenido-interactivo/manejar"><mat-icon>apps</mat-icon>Manejar Contenido Interactivo</a>
-      <a mat-list-item routerLink="/video-alumno"><mat-icon>apps</mat-icon>ver contenido interactivo estudiante</a>
+      -->
+      <!--<a mat-list-item routerLink="/video"><mat-icon>apps</mat-icon>Crear marcas sobre video</a>-->
+      <!--<a mat-list-item routerLink="/video-alumno"><mat-icon>apps</mat-icon>ver contenido interactivo estudiante</a>-->
 
     </mat-nav-list>
   </mat-sidenav>
@@ -43,7 +45,7 @@
       <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>Herramienta Contenido Interactivo</span>
+      <span></span>
     </mat-toolbar>
     <!-- Add Content Here -->
     <router-outlet></router-outlet>

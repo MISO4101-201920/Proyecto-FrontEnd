@@ -18,7 +18,7 @@ interface NavNode {
 
 const TREE_DATA: NavNode[] = [
   {
-    name: 'Manejar Contenido Interactivo',
+    name: 'Contenido Interactivo',
     children: [
       { name: 'Subir Video' },
       { name: 'Ver Contenido Interactivo' },
