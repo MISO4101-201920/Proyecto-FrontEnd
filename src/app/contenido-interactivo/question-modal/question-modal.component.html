@@ -1,0 +1,14 @@
+<div *ngIf="hasQuestionsToShow">
+    <h1 mat-dialog-title>{{questionInformation.enunciado}}</h1>
+    <div mat-dialog-content>
+        <div class="row" *ngFor="let optionAnswer of answersForQuestionArray, let i=index">
+            <div class="col-3">
+                <mat-checkbox class="margin-left-25" (change)="checkOptionAnswer($event.checked, optionAnswer.idOption)"
+                    [checked]="optionAnswer.answerOption"> {{optionAnswer.titleOption}}</mat-checkbox>
+            </div>
+        </div>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button (click)="saveAnswer()">Guardar</button>
+    </div>
+</div>

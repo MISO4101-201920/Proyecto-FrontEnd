@@ -18,11 +18,13 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './login/register.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
-
+import {QuestionModalComponent} from 'src/app/contenido-interactivo/question-modal/question-modal.component';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
+    QuestionModalComponent,
     RegisterComponent
   ],
   imports: [
@@ -36,7 +38,15 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     ReactiveFormsModule,
     HttpClientModule
   ],
+  entryComponents: [
+    QuestionModalComponent
+  ],
   providers: [
+    { provide: MatDialogRef, useValue: {} },
+    {
+      provide: MAT_DIALOG_DATA,
+      useValue: {}} ,
+
     {
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,

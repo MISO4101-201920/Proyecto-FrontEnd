@@ -1,0 +1,4 @@
+.mat-dialog-content {
+    max-height: max-content;
+    overflow: initial;
+}
