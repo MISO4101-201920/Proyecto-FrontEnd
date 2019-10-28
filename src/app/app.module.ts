@@ -24,14 +24,12 @@ import { VideoModalModule } from './video-modal/video-modal.module';
 import { VideoAlumnoModule } from './video-alumno/video-alumno.module';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import {ToastrModule} from 'ngx-toastr';
-import {QuestionModalComponent} from 'src/app/contenido-interactivo/question-modal/question-modal.component';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    QuestionModalComponent,
     RegisterComponent
   ],
   imports: [
@@ -50,9 +48,6 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
     ModalModule.forRoot(),
     MDBBootstrapModule.forRoot(),
     ToastrModule.forRoot()
-  ],
-  entryComponents: [
-    QuestionModalComponent
   ],
   providers: [
     { provide: MatDialogRef, useValue: {} },

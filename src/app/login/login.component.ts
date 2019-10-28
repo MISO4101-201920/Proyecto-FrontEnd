@@ -5,8 +5,6 @@ import { AuthService } from '../services/usuario/auth.service';
 import { Persona } from '../models/persona.model';
 import { Login } from '../models/login.model';
 import Swal from 'sweetalert2';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { QuestionModalComponent } from 'src/app/contenido-interactivo/question-modal/question-modal.component';
 declare const gapi: any;
 
 
@@ -27,8 +25,7 @@ export class LoginComponent implements OnInit {
   usuario: Persona;
   constructor(
     public router: Router,
-    public dialog: MatDialog,
-    public _authService: AuthService
+    public authService: AuthService
   ) { }
 
   ngOnInit() {
@@ -41,15 +38,15 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    let userLogin = new Login(forma.value.username, forma.value.password);
-    this._authService.login(userLogin)
+    const userLogin = new Login(forma.value.username, forma.value.password);
+    this.authService.login(userLogin)
       .subscribe(
         result => {
-          console.log(result)
+          console.log(result);
         },
         error => {
           console.log(error);
-          Swal.fire('Oops...', 'revisa los datos ingresados', 'error')
+          Swal.fire('Oops...', 'revisa los datos ingresados', 'error');
         },
         () => {
           this.router.navigate(['/cursos']);
@@ -61,18 +58,4 @@ export class LoginComponent implements OnInit {
 
   //     "username": "profesoruno",
   // "password": "2614eduard"
-
-  showModalFunction() {
-    const dialogRef = this.dialog.open(QuestionModalComponent, {
-      width: '80%',
-      data: {
-        idActivity: '1'
-      }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed', result);
-    });
-  }
-
 }
