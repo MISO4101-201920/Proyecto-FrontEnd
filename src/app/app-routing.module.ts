@@ -4,7 +4,8 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './login/register.component';
 import { NopagefoundComponent } from './shared/nopagefound/nopagefound.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
-import { AuthService } from './services/auth.service';
+import { AuthService } from './services/usuario/auth.service';
+import {VideoModalComponent} from './video-modal/video-modal.component';
 
 const routes: Routes = [
   {
@@ -22,12 +23,28 @@ const routes: Routes = [
         loadChildren: './contenido-interactivo/contenido-interactivo.module#ContenidoInteractivoModule',
         data: { preload: true }
       },
+      {
+        path: 'load-videos',
+        loadChildren: './pages/pages.module#PagesModule',
+      },
+      {
+        path: 'video',
+        loadChildren: './video-modal/video-modal.module#VideoModalModule',
+        data: { preload: true }
+      },
+      {
+        path: 'video-alumno',
+        loadChildren: './video-alumno/video-alumno.module#VideoAlumnoModule',
+        data: { preload: true }
+      },
     ]
   },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'cursos', component: NopagefoundComponent },
   { path: 'contenido', component: NopagefoundComponent },
+  { path: 'pruebita', component: NopagefoundComponent },
+  { path: 'video', component: NopagefoundComponent },
   { path: '**', component: NopagefoundComponent }
 ];
 
