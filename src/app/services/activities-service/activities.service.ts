@@ -3,6 +3,7 @@ import { HttpService } from 'src/app/services/http-service/http.service';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { AnswerQuestion } from 'src/app/models/mark/answerQuestion.model';
 
 @Injectable({
   providedIn: 'root'
@@ -42,11 +43,12 @@ export class ActivitiesService {
     );
   }
 
-  postAnswerQuestion(id): Observable<any> {
+  postAnswerQuestion(answer: AnswerQuestion): Observable<any> {
     const url = this.activitiesUrl + 'respuestaOpcionMultiple';
     const data = {
-      contenido: id
+      contenido: answer
     };
+    console.log('data', data);
     return this.httpService.postJSON(url, data).map(
       response => {
         console.log('response success ', response);

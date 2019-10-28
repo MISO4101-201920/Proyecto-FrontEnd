@@ -4,6 +4,7 @@ import { ActivitiesService } from 'src/app/services/activities-service/activitie
 import { PreguntaOpcionMultiple } from 'src/app/models/mark/questionMultiple.model';
 import { OpcionesPreguntaMultiple } from 'src/app/models/mark/optionsQuestionMultiple.model';
 import { LoadVideoService } from 'src/app/services/contenidoInter/load-video.service';
+import { AnswerQuestion } from 'src/app/models/mark/answerQuestion.model';
 
 @Component({
   selector: 'app-question-modal',
@@ -15,21 +16,22 @@ export class QuestionModalComponent implements OnInit {
   questionInformation: PreguntaOpcionMultiple;
   hasQuestionsToShow = false;
   hasManyOptions = false;
-  answersForQuestionArray: Array<{ idOption: string, idQuestion: string, answerOption: boolean, titleOption: string }> = new Array();
+  answersForQuestionArray: Array<{ idOption: Int16Array, idQuestion: string, answerOption: boolean, titleOption: string }> = new Array();
 
   constructor(public dialogRef: MatDialogRef<QuestionModalComponent>, @Inject(MAT_DIALOG_DATA) public data: { idActivity },
-    private activityService: ActivitiesService, private contentService: LoadVideoService) {
+    private activityService: ActivitiesService) {
     dialogRef.disableClose = true;
   }
 
   ngOnInit() {
     console.log('id Activity To Consult -> ', this.data.idActivity);
     this.getQuestion();
-    this.getContentInteractive(1);
   }
 
   saveAnswer() {
     console.log('Guardar Respuesta');
+    // const answer = new AnswerQuestion()
+    // this.activityService.postAnswerQuestion(answer);
     this.dialogRef.close();
   }
 
@@ -40,7 +42,6 @@ export class QuestionModalComponent implements OnInit {
           console.log('Success getting question information -> ', data);
           this.questionInformation = new PreguntaOpcionMultiple
             (null, data.body[0].enunciado, data.body[0].esMultipleResp, data.body[0].opciones);
-          // this.hasManyOptions = true;
           this.hasManyOptions = data.body[0].esMultipleResp;
           this.generateArrayOptions(this.questionInformation.opciones);
           if (this.questionInformation !== undefined) {
@@ -70,16 +71,5 @@ export class QuestionModalComponent implements OnInit {
     });
   }
 
-  getContentInteractive(idContent) {
-    if (idContent !== undefined) {
-      this.contentService.getInteractiveContentById(idContent).subscribe(
-        data => {
-          console.log('Success getting content interactive information -> ', data);
-        }, error => {
-          console.log('Error getting question information -> ', error);
-        }
-      );
-    }
-  }
 
 }
