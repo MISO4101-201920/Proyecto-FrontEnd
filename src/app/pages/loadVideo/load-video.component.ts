@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoadVideoService } from '../../services/contenidoInter/load-video.service'
+import { LoadVideoService } from '../../services/contenidoInter/load-video.service';
 import { LoadVideo } from '../../models/videoLoad.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import Swal from 'sweetalert2';

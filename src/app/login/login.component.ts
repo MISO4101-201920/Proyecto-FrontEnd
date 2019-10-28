@@ -21,10 +21,10 @@ export class LoginComponent implements OnInit {
   recuerdame = false;
   auth2: any;
 
-  usuario: Persona;
   username: any;
   password: any;
 
+  usuario: Persona;
   constructor(
     public router: Router,
     public dialog: MatDialog,
@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
           Swal.fire('Oops...', 'revisa los datos ingresados', 'error')
         },
         () => {
-          this.router.navigate(['/']);
+          this.router.navigate(['/cursos']);
         }
       );
   }

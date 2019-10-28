@@ -10,7 +10,8 @@ import { AddContenidoACursoComponent } from '../add-contenido-a-curso/add-conten
 })
 export class ListaContenidoComponent implements OnInit {
 
-  contenidos;
+  contenidos: any;
+  showAddMarker = false;
 
   constructor(private contenidoService: ContenidoService, public dialog: MatDialog
     ) { }
@@ -19,9 +20,9 @@ export class ListaContenidoComponent implements OnInit {
     this.getContenidos();
   }
   getContenidos() {
-    this.contenidoService.getContenidos().subscribe(contenidos => {
-      console.log('data', contenidos);
-      this.contenidos = contenidos;
+    this.contenidoService.getContenidos().subscribe(data => {
+      console.log('data', data);
+      this.contenidos = data;
     });
   }
 
@@ -40,5 +41,7 @@ export class ListaContenidoComponent implements OnInit {
 
   }
 
-
+  addMarker() {
+    this.showAddMarker = true;
+  }
 }

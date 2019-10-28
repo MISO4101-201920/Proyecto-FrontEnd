@@ -32,6 +32,7 @@ export class HttpService {
     );
   }
 
+
   getRequestWithParams(url, data): Observable<any> {
    const pathUrl = url + '?' + data;
    return this.http.get(pathUrl, {
@@ -47,6 +48,14 @@ export class HttpService {
     });
   }
 
+  getRequest(url, data): Observable<any> {
+    return this.http.get(url + '?' + this.listParams(data),
+    {
+      headers: this.getHeaders('application/json', 'get'),
+      observe: 'response'
+    });
+  }
+
   listParams(data) {
     if (data === '') {
         return '';
@@ -54,4 +63,5 @@ export class HttpService {
         return Object.keys(data).map(key => `${key}=${encodeURIComponent(data[key])}`).join('&');
     }
   }
+
 }

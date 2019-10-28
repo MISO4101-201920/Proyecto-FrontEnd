@@ -11,6 +11,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // Modulos
 import { SharedModule } from './shared/shared.module';
 import { MaterialModule } from '../material.module';
+import { YoutubePlayerModule } from 'ng2-youtube-player';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 // Modulos
@@ -18,8 +20,13 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './login/register.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { VideoModalModule } from './video-modal/video-modal.module';
+import { VideoAlumnoModule } from './video-alumno/video-alumno.module';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import {ToastrModule} from 'ngx-toastr';
 import {QuestionModalComponent} from 'src/app/contenido-interactivo/question-modal/question-modal.component';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +43,13 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    YoutubePlayerModule,
+    VideoModalModule,
+    VideoAlumnoModule,
+    ModalModule.forRoot(),
+    MDBBootstrapModule.forRoot(),
+    ToastrModule.forRoot()
   ],
   entryComponents: [
     QuestionModalComponent

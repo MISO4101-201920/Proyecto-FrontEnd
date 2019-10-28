@@ -3,7 +3,7 @@
 }
 
 mat-card {
-  width: 80%;
+  width: 95%;
   min-height: 100%;
   display: flex;
   flex-direction: column;
@@ -31,9 +31,11 @@ button {
 .flex-grid {
   display: flex;
   flex-wrap: wrap;
+  margin-top: 3%;
 }
 .col {
-  min-width: 32%;
+  max-width: 33%;
+  min-width: 33%;
   margin-bottom: 7%;
 }
 @media screen and (max-width: 800px) {
@@ -43,6 +45,36 @@ button {
   }
   .col {
     width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    margin: 0 0 10px 0;
+  }
+}
+
+@media screen and (min-width: 801px) {
+  .flex-grid {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 3%;
+  }
+  .col {
+    width: 100%;
+    min-width: 50%;
+    max-width: 50%;
+    margin: 0 0 10px 0;
+  }
+}
+
+@media screen and (min-width: 1180px) {
+  .flex-grid {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 3%;
+  }
+  .col {
+    width: 100%;
+    min-width: 33%;
+    max-width: 33%;
     margin: 0 0 10px 0;
   }
 }
