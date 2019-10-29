@@ -13,6 +13,7 @@ import { AnswerQuestion } from 'src/app/models/mark/answerQuestion.model';
 })
 export class QuestionModalComponent implements OnInit {
 
+  showRetroAlimentation = false;
   questionInformation: PreguntaOpcionMultiple;
   hasQuestionsToShow = false;
   hasManyOptions = false;
