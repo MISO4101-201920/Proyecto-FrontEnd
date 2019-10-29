@@ -69,6 +69,8 @@ export class QuestionModalComponent implements OnInit {
       this.answersForQuestionArray.push(
         { idOption: option.id, idQuestion: this.data.idActivity, answerOption: false, titleOption: option.opcion });
     });
+
+    console.log(' this.answersForQuestionArray',  this.answersForQuestionArray);
   }
 
 

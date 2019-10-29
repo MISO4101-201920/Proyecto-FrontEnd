@@ -3,6 +3,8 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { InteraccionAlumnoService } from '../interaccion-alumno.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoadVideoService } from '../services/contenidoInter/load-video.service';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { QuestionModalComponent } from 'src/app/contenido-interactivo/question-modal/question-modal.component';
 
 @Component({
   selector: 'app-video-alumno',
@@ -21,6 +23,7 @@ export class VideoAlumnoComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private modalService: NgbModal,
     private retroalimentacionService: InteraccionAlumnoService,
+    public dialog: MatDialog,
     private contentService: LoadVideoService
   ) {
     this.activatedRoute.params.subscribe(params => {
@@ -78,11 +81,22 @@ export class VideoAlumnoComponent implements OnInit {
   }
 
   open() {
+    const dialogRef = this.dialog.open(QuestionModalComponent, {
+      width: '80%',
+      data: {
+        idActivity: '1'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed', result);
+      this.player.playVideo();
+    });
 
   }
 
   getContentMark() {
-    this.retroalimentacionService.getMarcasXacontenido(6).subscribe(
+    this.retroalimentacionService.getMarcasXacontenido(parseInt(this.idContent, 10)).subscribe(
       (val: any) => {
         this.marcas = val;
         console.log('POST call successful value returned in body',

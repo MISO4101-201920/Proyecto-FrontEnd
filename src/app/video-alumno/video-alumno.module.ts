@@ -4,6 +4,9 @@ import { VideoAlumnoComponent} from './video-alumno.component';
 import { Routes, RouterModule } from '@angular/router';
 import { YoutubePlayerModule } from 'ng2-youtube-player';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { QuestionModalComponent } from 'src/app/contenido-interactivo/question-modal/question-modal.component';
 
 
 const routes: Routes = [
@@ -11,12 +14,26 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    declarations: [VideoAlumnoComponent],
+    declarations: [
+      QuestionModalComponent,
+      VideoAlumnoComponent],
     imports: [
       NgbModule,
       YoutubePlayerModule,
       CommonModule,
+      MatCheckboxModule,
       RouterModule.forChild(routes)
+    ],
+    entryComponents: [
+      QuestionModalComponent
+    ],
+    providers: [
+      { provide: MatDialogRef, useValue: {} },
+      { provide: MatCheckboxModule, useValue: {} },
+      {
+        provide: MAT_DIALOG_DATA,
+        useValue: {}
+      }
     ],
     exports: [RouterModule, VideoAlumnoComponent]
   })

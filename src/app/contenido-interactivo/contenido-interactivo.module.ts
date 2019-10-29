@@ -25,7 +25,7 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [ListaContenidoComponent, AddContenidoACursoComponent, ReporteContenidoComponent,
-    MarkersComponent, ManyAnswersComponent, QuestionModalComponent],
+    MarkersComponent, ManyAnswersComponent],
   imports: [
     CommonModule,
     MaterialModule,
