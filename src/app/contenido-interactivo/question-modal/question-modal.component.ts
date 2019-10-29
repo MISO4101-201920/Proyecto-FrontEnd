@@ -19,7 +19,7 @@ export class QuestionModalComponent implements OnInit {
   hasManyOptions = false;
   answersForQuestionArray: Array<{ idOption: Int16Array, idQuestion: string, answerOption: boolean, titleOption: string }> = new Array();
 
-  constructor(public dialogRef: MatDialogRef<QuestionModalComponent>, @Inject(MAT_DIALOG_DATA) public data: { idActivity },
+  constructor(public dialogRef: MatDialogRef<QuestionModalComponent>, @Inject(MAT_DIALOG_DATA) public data: { idActivity, idMarca },
     private activityService: ActivitiesService) {
     dialogRef.disableClose = true;
   }
@@ -40,13 +40,18 @@ export class QuestionModalComponent implements OnInit {
     if (this.data.idActivity !== undefined) {
       this.activityService.getActivityById(this.data.idActivity).subscribe(
         data => {
-          console.log('Success getting question information -> ', data);
-          this.questionInformation = new PreguntaOpcionMultiple
-            (null, data.body[0].enunciado, data.body[0].esMultipleResp, data.body[0].opciones);
-          this.hasManyOptions = data.body[0].esMultipleResp;
-          this.generateArrayOptions(this.questionInformation.opciones);
+          for (var i = 0; i < data.body.length; i++) {
+            if (data.body[i].marca === this.data.idMarca) {
+              this.questionInformation = new PreguntaOpcionMultiple
+                (null, data.body[i].enunciado, data.body[i].esMultipleResp, data.body[i].opciones);
+              this.hasManyOptions = data.body[i].esMultipleResp;
+              this.generateArrayOptions(this.questionInformation.opciones);
+            }
+          }
           if (this.questionInformation !== undefined) {
             this.hasQuestionsToShow = true;
+          } else {
+            this.dialogRef.close();
           }
         }, error => {
           console.log('Error getting question information -> ', error);
@@ -71,7 +76,7 @@ export class QuestionModalComponent implements OnInit {
         { idOption: option.id, idQuestion: this.data.idActivity, answerOption: false, titleOption: option.opcion });
     });
 
-    console.log(' this.answersForQuestionArray',  this.answersForQuestionArray);
+    console.log(' this.answersForQuestionArray', this.answersForQuestionArray);
   }
 
 

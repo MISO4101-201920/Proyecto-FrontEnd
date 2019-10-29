@@ -68,7 +68,7 @@ export class VideoAlumnoComponent implements OnInit {
           console.log('player currenttime', Math.round(this.player.getCurrentTime()));
           if (Math.round(this.player.getCurrentTime()) === this.marcas[i].punto) {
             this.player.pauseVideo();
-            this.open();
+            this.open(this.marcas[i]);
             bol = true;
             this.marcas.shift();
             console.log('player marca', this.marcas[i].punto);
@@ -80,16 +80,16 @@ export class VideoAlumnoComponent implements OnInit {
     console.log('player state', event.data);
   }
 
-  open() {
+  open(marca: any) {
     const dialogRef = this.dialog.open(QuestionModalComponent, {
       width: '80%',
       data: {
-        idActivity: '1'
+        idActivity: '1',
+        idMarca: marca.id
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed', result);
       this.player.playVideo();
     });
 
