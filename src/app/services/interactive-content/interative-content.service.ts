@@ -20,7 +20,7 @@ export class InterativeContentService {
   }
 
   getGeneric(url, data): Observable<any> {
-    return this.httpService.getRequest(url, data).map(
+    return this.httpService.getRequestWithParams(url, data).map(
       response => {
         return response;
       }, error => {

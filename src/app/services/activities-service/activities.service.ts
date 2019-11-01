@@ -16,7 +16,6 @@ export class ActivitiesService {
 
   getActivityById(id): Observable<any> {
     const url = this.activitiesUrl + 'preguntaOpcionMultiple/' + id + '/';
-    console.log('url llamado', url);
     return this.httpService.getRequestWithoutParams(url).map(
       response => {
         return response;
@@ -28,35 +27,42 @@ export class ActivitiesService {
 
   getMarcaById(id): Observable<any> {
     const url = this.activitiesUrl + 'marca';
-    console.log('url llamado', url);
     const data = {
       contenido: id
     };
     return this.httpService.getRequestWithParams(url, data).map(
       response => {
-        console.log('response success ', response);
         return response;
       }, error => {
-        console.log('response error ', error);
         return error;
       }
     );
   }
 
-  postAnswerQuestion(answer: AnswerQuestion): Observable<any> {
-    const url = this.activitiesUrl + 'respuestaOpcionMultiple';
-    const data = {
-      contenido: answer
-    };
-    console.log('data', data);
-    return this.httpService.postJSON(url, data).map(
+  postSaveAnswerQuestion(answer: AnswerQuestion): Observable<any> {
+    const url = this.activitiesUrl + 'respuestaOpcionMultiple/';
+    return this.httpService.postJSON(url, answer).map(
       response => {
-        console.log('response success ', response);
         return response;
       }, error => {
-        console.log('response error ', error);
         return error;
       }
     );
   }
+
+  getLastTryByQuestion(idQuestion, idStudent): Observable<any> {
+    const url = this.activitiesUrl + 'ultimo_intento';
+    const data = {
+      id_pregunta: idQuestion,
+      id_estudiante: idStudent
+    };
+    return this.httpService.getRequestWithParams(url, data).map(
+      response => {
+        return response;
+      }, error => {
+        return error;
+      }
+    );
+  }
+
 }

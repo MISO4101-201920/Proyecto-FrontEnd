@@ -18,10 +18,13 @@ export class QuestionModalComponent implements OnInit {
   questionInformation: PreguntaOpcionMultiple;
   hasQuestionsToShow = false;
   hasManyOptions = false;
-  optionsArray: Array<{ idOption: Int16Array, idQuestion: string, answerOption: boolean, titleOption: string }> = new Array();
-  disabledAnswers = false;
+  optionsArray: Array<{ idOption: number, idQuestion: string, answerOption: boolean, titleOption: string }> = new Array();
+  hasFeedBack = false;
   arrayCorrectAnswers: Array<{ titleAnswer: string }> = new Array();
   indexToShow = 0;
+  studentId = 3;
+  idGroup = null;
+  numberTry: number;
 
   constructor(public dialogRef: MatDialogRef<QuestionModalComponent>, @Inject(MAT_DIALOG_DATA) public data: { idActivity, idMarca },
     private activityService: ActivitiesService) {
@@ -29,25 +32,21 @@ export class QuestionModalComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('id Activity To Consult -> ', this.data.idActivity);
     this.getQuestion();
   }
 
   saveAnswer() {
-    console.log('Guardar Respuesta');
-    // const answer = new AnswerQuestion()
-    // this.activityService.postAnswerQuestion(answer);
-    this.disabledAnswers = true;
+    this.hasFeedBack = this.arrayQuestionsForMark[this.indexToShow].tieneRetroalimentacion;
+    this.callServiceSaveAnswer();
+    if (!this.hasFeedBack) {
+      this.continue();
+    }
   }
 
 
   continue() {
-    console.log('Guardar Respuesta');
-    // const answer = new AnswerQuestion()
-    // this.activityService.postAnswerQuestion(answer);
-    this.disabledAnswers = false;
-    this.indexToShow ++;
-    console.log('index ', this.indexToShow);
+    this.hasFeedBack = false;
+    this.indexToShow++;
     if (this.indexToShow <= this.arrayQuestionsForMark.length - 1) {
       this.getQuestionToShow();
     } else {
@@ -58,8 +57,9 @@ export class QuestionModalComponent implements OnInit {
 
 
   getQuestion() {
-    if (this.data.idActivity !== undefined) {
-      this.activityService.getActivityById(this.data.idActivity).subscribe(
+    if (this.data.idMarca !== undefined) {
+      console.log('ID MARCA A CONSULTAR ', this.data.idMarca);
+      this.activityService.getActivityById(this.data.idMarca).subscribe(
         data => {
           this.arrayQuestionsForMark = data.body;
           this.getQuestionToShow();
@@ -80,16 +80,13 @@ export class QuestionModalComponent implements OnInit {
     });
   }
 
-  generateArrayOptions(arrayOptions: Array<OpcionesPreguntaMultiple>) {
+  generateArrayOptions(arrayOptions: Array<OpcionesPreguntaMultiple>, idQ) {
     this.optionsArray = new Array();
     arrayOptions.forEach(option => {
       this.optionsArray.push(
-        { idOption: option.id, idQuestion: this.data.idActivity, answerOption: false, titleOption: option.opcion });
+        { idOption: option.id, idQuestion: idQ, answerOption: false, titleOption: option.opcion });
     });
-
-    console.log(' this.optionsArray', this.optionsArray);
   }
-
 
   generateArrayCorrectAnswers(arrayOptions: Array<OpcionesPreguntaMultiple>) {
     this.arrayCorrectAnswers = new Array();
@@ -105,9 +102,9 @@ export class QuestionModalComponent implements OnInit {
     this.arrayQuestionsForMark.forEach((element, index) => {
       if (this.indexToShow === index) {
         this.questionInformation = new PreguntaOpcionMultiple
-          (null, element.enunciado, element.esMultipleResp, element.opciones);
+          (null, element.enunciado, element.esMultipleResp, element.opciones, element.tieneRetroalimentacion);
         this.hasManyOptions = element.esMultipleResp;
-        this.generateArrayOptions(this.questionInformation.opciones);
+        this.generateArrayOptions(this.questionInformation.opciones, element.id);
         this.generateArrayCorrectAnswers(this.questionInformation.opciones);
       }
     });
@@ -117,6 +114,29 @@ export class QuestionModalComponent implements OnInit {
     } else {
       this.dialogRef.close();
     }
+  }
+
+  callServiceSaveAnswer() {
+    this.activityService.getLastTryByQuestion(this.optionsArray[0].idQuestion, this.studentId).subscribe(
+      answerTries => {
+        this.numberTry = answerTries.body.ultimo_intento + 1;
+        this.optionsArray.forEach(option => {
+          if (option.answerOption) {
+            const request = new AnswerQuestion(option.idOption, this.studentId, this.numberTry, this.idGroup);
+            this.activityService.postSaveAnswerQuestion(request).subscribe(
+              data => {
+                console.log('success save answer ', data);
+              }, error => {
+                console.log('Error save answer-> ', error);
+              }
+            );
+          }
+        });
+      }, error => {
+        console.log('Error getting question information -> ', error);
+      }
+    );
+
   }
 
 }

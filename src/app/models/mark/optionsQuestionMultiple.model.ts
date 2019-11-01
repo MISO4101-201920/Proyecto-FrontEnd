@@ -1,10 +1,10 @@
 export class OpcionesPreguntaMultiple {
 
   constructor(
-    public id: Int16Array,
+    public id: number,
     public opcion: string,
     public esCorrecta: boolean,
-    public preguntaSeleccionMultiple: Int16Array
+    public preguntaSeleccionMultiple: number
   ) { }
 
 }

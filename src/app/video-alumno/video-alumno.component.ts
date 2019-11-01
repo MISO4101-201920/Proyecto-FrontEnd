@@ -82,7 +82,7 @@ export class VideoAlumnoComponent implements OnInit {
 
   open(marca: any) {
     const dialogRef = this.dialog.open(QuestionModalComponent, {
-      width: '80%',
+      width: '70%',
       data: {
         idActivity: '1',
         idMarca: marca.id
