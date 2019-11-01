@@ -14,10 +14,14 @@ import { AnswerQuestion } from 'src/app/models/mark/answerQuestion.model';
 export class QuestionModalComponent implements OnInit {
 
   showRetroAlimentation = false;
+  arrayQuestionsForMark: Array<PreguntaOpcionMultiple> = new Array();
   questionInformation: PreguntaOpcionMultiple;
   hasQuestionsToShow = false;
   hasManyOptions = false;
-  answersForQuestionArray: Array<{ idOption: Int16Array, idQuestion: string, answerOption: boolean, titleOption: string }> = new Array();
+  optionsArray: Array<{ idOption: Int16Array, idQuestion: string, answerOption: boolean, titleOption: string }> = new Array();
+  disabledAnswers = false;
+  arrayCorrectAnswers: Array<{ titleAnswer: string }> = new Array();
+  indexToShow = 0;
 
   constructor(public dialogRef: MatDialogRef<QuestionModalComponent>, @Inject(MAT_DIALOG_DATA) public data: { idActivity, idMarca },
     private activityService: ActivitiesService) {
@@ -33,26 +37,32 @@ export class QuestionModalComponent implements OnInit {
     console.log('Guardar Respuesta');
     // const answer = new AnswerQuestion()
     // this.activityService.postAnswerQuestion(answer);
-    this.dialogRef.close();
+    this.disabledAnswers = true;
   }
+
+
+  continue() {
+    console.log('Guardar Respuesta');
+    // const answer = new AnswerQuestion()
+    // this.activityService.postAnswerQuestion(answer);
+    this.disabledAnswers = false;
+    this.indexToShow ++;
+    console.log('index ', this.indexToShow);
+    if (this.indexToShow <= this.arrayQuestionsForMark.length - 1) {
+      this.getQuestionToShow();
+    } else {
+      this.dialogRef.close();
+    }
+  }
+
+
 
   getQuestion() {
     if (this.data.idActivity !== undefined) {
       this.activityService.getActivityById(this.data.idActivity).subscribe(
         data => {
-          for (var i = 0; i < data.body.length; i++) {
-            if (data.body[i].marca === this.data.idMarca) {
-              this.questionInformation = new PreguntaOpcionMultiple
-                (null, data.body[i].enunciado, data.body[i].esMultipleResp, data.body[i].opciones);
-              this.hasManyOptions = data.body[i].esMultipleResp;
-              this.generateArrayOptions(this.questionInformation.opciones);
-            }
-          }
-          if (this.questionInformation !== undefined) {
-            this.hasQuestionsToShow = true;
-          } else {
-            this.dialogRef.close();
-          }
+          this.arrayQuestionsForMark = data.body;
+          this.getQuestionToShow();
         }, error => {
           console.log('Error getting question information -> ', error);
         }
@@ -61,7 +71,7 @@ export class QuestionModalComponent implements OnInit {
   }
 
   checkOptionAnswer(value, idOptionSelected) {
-    this.answersForQuestionArray.forEach(answer => {
+    this.optionsArray.forEach(answer => {
       if (answer.idOption === idOptionSelected) {
         answer.answerOption = value;
       } else if (!this.hasManyOptions) {
@@ -71,13 +81,42 @@ export class QuestionModalComponent implements OnInit {
   }
 
   generateArrayOptions(arrayOptions: Array<OpcionesPreguntaMultiple>) {
+    this.optionsArray = new Array();
     arrayOptions.forEach(option => {
-      this.answersForQuestionArray.push(
+      this.optionsArray.push(
         { idOption: option.id, idQuestion: this.data.idActivity, answerOption: false, titleOption: option.opcion });
     });
 
-    console.log(' this.answersForQuestionArray', this.answersForQuestionArray);
+    console.log(' this.optionsArray', this.optionsArray);
   }
 
+
+  generateArrayCorrectAnswers(arrayOptions: Array<OpcionesPreguntaMultiple>) {
+    this.arrayCorrectAnswers = new Array();
+    arrayOptions.forEach(option => {
+      if (option.esCorrecta) {
+        this.arrayCorrectAnswers.push(
+          { titleAnswer: option.opcion });
+      }
+    });
+  }
+
+  getQuestionToShow() {
+    this.arrayQuestionsForMark.forEach((element, index) => {
+      if (this.indexToShow === index) {
+        this.questionInformation = new PreguntaOpcionMultiple
+          (null, element.enunciado, element.esMultipleResp, element.opciones);
+        this.hasManyOptions = element.esMultipleResp;
+        this.generateArrayOptions(this.questionInformation.opciones);
+        this.generateArrayCorrectAnswers(this.questionInformation.opciones);
+      }
+    });
+
+    if (this.questionInformation !== undefined) {
+      this.hasQuestionsToShow = true;
+    } else {
+      this.dialogRef.close();
+    }
+  }
 
 }
