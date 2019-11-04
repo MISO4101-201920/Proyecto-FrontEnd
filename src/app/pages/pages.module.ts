@@ -6,15 +6,18 @@ import { MaterialModule } from '../../material.module';
 
 //Components of Pages
 import { LoadVideoComponent } from './loadVideo/load-video.component';
+import { CrearContenidoComponent } from './crear-contenido/crear-contenido.component';
 
 
 const routes: Routes = [
   {path: '', component: LoadVideoComponent},
+  {path: 'crearContenidoInt', component: CrearContenidoComponent},
 ];
 
 @NgModule({
   declarations: [
   LoadVideoComponent,
+  CrearContenidoComponent,
   ],
   imports: [
     MaterialModule,

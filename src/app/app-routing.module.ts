@@ -28,6 +28,10 @@ const routes: Routes = [
         loadChildren: './pages/pages.module#PagesModule',
       },
       {
+        path: 'page',
+        loadChildren: './pages/pages.module#PagesModule',
+      },
+      {
         path: 'video',
         loadChildren: './video-modal/video-modal.module#VideoModalModule',
         data: { preload: true }
