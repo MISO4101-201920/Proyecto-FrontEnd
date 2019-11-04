@@ -8,9 +8,8 @@
       <button mat-menu-item disabled>Equipo Local</button>
     </mat-menu>
   </div>
-  <div class="my-2" style="margin-right:3%" >
-    <div class="">
-      <!-- *ngFor="let contenidoInt of contenidos"> -->
+  <div class="" style="margin-right:3%" >
+    <div class="my-2" *ngFor="let contInt of listContenido"> 
       <mat-card>
         <!-- <mat-card-header>
           <mat-card-title>prueba</mat-card-title>
@@ -18,12 +17,10 @@
         <mat-card-content>
           <div class="row">
             <div class="col">
-              <mat-card-title>prueba</mat-card-title>
+              <mat-card-title>{{contInt.nombre}}</mat-card-title>
             </div>
-            <div class="col">uno</div>
-            <div class="col">
-              uno
-            </div>
+            <div class="col">{{contInt.fuente}}</div>
+            <div class="col">{{contInt.duracion}}</div>
 
             <!-- Menu de ... -->
             <button class="col-1" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
