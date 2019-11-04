@@ -1,1 +1,56 @@
-<p>crear-contenido works!</p>
+<div class="container">
+  <h1>Crear Contenido Interactivo</h1>
+  <div class="justify-end">
+    <!-- <button mat-button justify-content-end type="button" name="button">Nuevo</button> -->
+    <button class="btn" style="margin-right:3%" mat-button [matMenuTriggerFor]="cargar">Nuevo</button>
+    <mat-menu #cargar="matMenu">
+      <button mat-menu-item>YouTube</button>
+      <button mat-menu-item disabled>Equipo Local</button>
+    </mat-menu>
+  </div>
+  <div class="my-2" style="margin-right:3%" >
+    <div class="">
+      <!-- *ngFor="let contenidoInt of contenidos"> -->
+      <mat-card>
+        <!-- <mat-card-header>
+          <mat-card-title>prueba</mat-card-title>
+        </mat-card-header> -->
+        <mat-card-content>
+          <div class="row">
+            <div class="col">
+              <mat-card-title>prueba</mat-card-title>
+            </div>
+            <div class="col">uno</div>
+            <div class="col">
+              uno
+            </div>
+
+            <!-- Menu de ... -->
+            <button class="col-1" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item>
+                <mat-icon>dialpad</mat-icon>
+                <span>Redial</span>
+              </button>
+              <button mat-menu-item disabled>
+                <mat-icon>voicemail</mat-icon>
+                <span>Check voice mail</span>
+              </button>
+              <button mat-menu-item>
+                <mat-icon>notifications_off</mat-icon>
+                <span>Disable alerts</span>
+              </button>
+            </mat-menu>
+
+          </div>
+        </mat-card-content>
+        <mat-card-actions>
+
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+
+</div>
