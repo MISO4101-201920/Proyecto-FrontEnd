@@ -1,0 +1,27 @@
+<div class="container">
+    <h2>Añadir marcadores</h2>
+    <div class="video-container">
+        <youtube-player [videoId]="id" [height]="480" [width]="854" (ready)="savePlayer($event)"
+            (change)="onStateChange($event)" [playerVars]="playerVars">
+        </youtube-player>
+    </div>
+    <div class="bar-container">
+        <button mat-stroked-button color="primary" *ngIf="!playing" (click)="play()">
+            <mat-icon>play_circle_outline</mat-icon>
+        </button>
+        <button mat-stroked-button color="primary" *ngIf="playing" (click)="pause()">
+            <mat-icon>pause_circle_outline
+            </mat-icon>
+        </button>
+        <!-- <input type="range" #progressBar id="progressBar" value="0"> -->
+        <mat-slider type="range" #progressBar id="progressBar" color="primary" (input)='handleTouchProgressBar($event)' [(ngModel)]="progressBarValue"
+        ></mat-slider>
+
+    </div>
+    <button mat-stroked-button color="primary" (click)="addMarker()">
+            Añadir marcador
+        </button>
+
+
+
+</div>
