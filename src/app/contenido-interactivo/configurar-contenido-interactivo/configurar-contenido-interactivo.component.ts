@@ -18,6 +18,8 @@ export class ConfigurarContenidoInteractivoComponent implements AfterViewInit {
   };
   private playing = false;
   progressBarValue = 0;
+  values = [1,3,5,10,20,50,100];    //values to step to
+
   // Elementos del DOM a manipular
   @ViewChild('progressBar', { static: false }) progressBar: ElementRef;
   constructor() { }
@@ -29,6 +31,15 @@ export class ConfigurarContenidoInteractivoComponent implements AfterViewInit {
   //     this.handleTouchProgressBar(event);
   //   }
   // }
+
+  opcionesMarca = [
+    'Pregunta de opción múltiple',
+    'Pregunta Falso o Verdadero',
+    'Pregunta abierta',
+    'Pausa',
+    'Foro'
+  ];
+  marcaSeleccionada = this.opcionesMarca[0];
 
   ngAfterViewInit() {
   }
@@ -69,10 +80,10 @@ export class ConfigurarContenidoInteractivoComponent implements AfterViewInit {
     // this.progressBar.nativeElement.value = (this.player.getCurrentTime() / this.player.getDuration()) * 100;
   }
 
-  private handleTouchProgressBar(e: any): void {
+  handleTouchProgressBar(e: any): void {
     // Calculate the new time for the video.
     // new time in seconds = total duration in seconds * ( value of range input / 100 )
-    const newTime = this.player.getDuration() * (e.target.value / 100);
+    const newTime = this.player.getDuration() * (e / 100);
 
     // Skip video to new time
     this.player.seekTo(newTime, true);

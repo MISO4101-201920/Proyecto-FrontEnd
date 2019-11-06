@@ -14,10 +14,17 @@
             </mat-icon>
         </button>
         <!-- <input type="range" #progressBar id="progressBar" value="0"> -->
-        <mat-slider type="range" #progressBar id="progressBar" color="primary" (input)='handleTouchProgressBar($event)' [(ngModel)]="progressBarValue"
+        <mat-slider step="values" type="range" #progressBar id="progressBar" color="primary" (ngModelChange)='handleTouchProgressBar($event)' 
+        [ngModel]="progressBarValue"
         ></mat-slider>
 
     </div>
+    <mat-form-field>
+            <mat-label>Seleccione un tipo de marca</mat-label>
+            <mat-select [(value)]="marcaSeleccionada">
+              <mat-option *ngFor="let marca of opcionesMarca" [value]="marca">{{marca}}</mat-option>
+            </mat-select>
+          </mat-form-field>
     <button mat-stroked-button color="primary" (click)="addMarker()">
             Añadir marcador
         </button>
