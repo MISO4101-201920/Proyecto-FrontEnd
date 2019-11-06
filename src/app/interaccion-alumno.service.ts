@@ -28,4 +28,8 @@ export class InteraccionAlumnoService {
     getMarcasXacontenido(idcontenido: number) {
     return this.http.get(this.loadSendUrl + '/activities/marca?contenido=' + idcontenido);
   }
+
+  getPreguntaXMarca(idmarca: number) {
+    return this.http.get(this.loadSendUrl + '/activities/preguntaOpcionMultiple/' + idmarca);
+  }
 }

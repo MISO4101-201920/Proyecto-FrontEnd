@@ -18,6 +18,7 @@ export class VideoAlumnoComponent implements OnInit {
   player: YT.Player;
   id = '';
   private marcas: any[];
+  dosperro = 99999;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -41,46 +42,48 @@ export class VideoAlumnoComponent implements OnInit {
     });
   }
 
-  savePlayer(player) {
+  async savePlayer(player) {
     this.player = player;
     console.log('player instance', player);
     this.getContentInteractive(this.idContent);
     this.getContentMark();
+
+    await console.log('player currenttime', this.player.getCurrentTime());
+    //console.log('player nnn', this.marcas[i].punto);
+    while (1 == 1) {
+      this.dosperro = 999999;
+      await this.delay(1000);
+       console.log('player currenttime', Math.round(this.player.getCurrentTime()));
+      for (let i = 0; i < this.marcas.length; i++) {
+        if (Math.round(this.player.getCurrentTime()) === this.marcas[i].punto) {
+          this.player.pauseVideo();
+          
+          await this.open(this.marcas[i]);
+          while (this.dosperro  == 999999) {
+
+          await this.delay(1000);
+          }
+          
+        }
+        // await this.open(this.marcas[0]);
+        //await console.log('player marca', this.marcas[0].punto);
+      }
+    }
+
+    //await console.log('player state', event.data);
   }
 
   delay(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
-  async onStateChange(event) {
+   async onStateChange(event) {
+     // tslint:disable-next-line:prefer-for-of
 
-    let bol = false;
-    const sleep = (milliseconds) => {
-      return new Promise(resolve => setTimeout(resolve, milliseconds))
-    }
-    // tslint:disable-next-line:prefer-for-of
-    console.log('player currenttime', this.player.getCurrentTime());
-    for (let i = 0; i < this.marcas.length; i++) {
-      console.log('player nnn', this.marcas[i].punto);
-      if (event.data === YT.PlayerState.PLAYING) {
-        while (bol === false) {
-          await this.delay(1000);
-          console.log('player currenttime', Math.round(this.player.getCurrentTime()));
-          if (Math.round(this.player.getCurrentTime()) === this.marcas[i].punto) {
-            this.player.pauseVideo();
-            this.open(this.marcas[i]);
-            bol = true;
-            this.marcas.shift();
-            console.log('player marca', this.marcas[i].punto);
-          }
-        }
-        // tslint:disable-next-line:prefer-for-of
-      }
-    }
-    console.log('player state', event.data);
   }
 
   open(marca: any) {
+    
     const dialogRef = this.dialog.open(QuestionModalComponent, {
       width: '70%',
       data: {
@@ -91,9 +94,11 @@ export class VideoAlumnoComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.player.playVideo();
+      this.dosperro = 1;
     });
-
+    
   }
+
 
   getContentMark() {
     this.retroalimentacionService.getMarcasXacontenido(parseInt(this.idContent, 10)).subscribe(
