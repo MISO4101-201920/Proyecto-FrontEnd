@@ -76,4 +76,8 @@ export class ContenidoService {
     // };
     // return dataTest;
   }
+
+  agregarMarca(marca:any) : Observable<any> {
+    return this.httpClient.post(this.contenidoUrl, marca);
+  }
 }

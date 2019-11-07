@@ -1,4 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, HostListener } from '@angular/core';
+import { CrearSeleccionMultipleComponent } from './crear-seleccion-multiple/crear-seleccion-multiple.component';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-configurar-contenido-interactivo',
@@ -18,11 +20,11 @@ export class ConfigurarContenidoInteractivoComponent implements AfterViewInit {
   };
   private playing = false;
   progressBarValue = 0;
-  values = [1,3,5,10,20,50,100];    //values to step to
+  values = [1, 3, 5, 10, 20, 50, 100];    //values to step to
 
   // Elementos del DOM a manipular
   @ViewChild('progressBar', { static: false }) progressBar: ElementRef;
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
 
   // // Escuchar evento cuando se mueve la barra
   // @HostListener('window:mouseup', ['$event'])
@@ -105,6 +107,17 @@ export class ConfigurarContenidoInteractivoComponent implements AfterViewInit {
 
   addMarker() {
     this.pause();
+    // Por ahora solo se  podría selección multiple
     console.log('Añadir marca en', this.player.getCurrentTime());
+    this.openDialog();
+  }
+  openDialog(): void {
+    this.dialog.open(CrearSeleccionMultipleComponent, {
+      width: '70%',
+      data: {
+        punto: Math.round(this.player.getCurrentTime() * 100) / 100,
+        idContenido: 1
+      }
+    });
   }
 }

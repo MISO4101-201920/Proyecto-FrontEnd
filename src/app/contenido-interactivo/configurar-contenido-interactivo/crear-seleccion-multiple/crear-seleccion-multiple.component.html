@@ -1,0 +1,37 @@
+<h1 mat-dialog-title>Crear pregunta selección múltiple en segundo {{data.punto}}</h1>
+<div mat-dialog-content>
+    <form [formGroup]="questionForm" (ngSubmit)="agregarMarca()">
+        <div class="row-container">
+            <mat-form-field appearance="outline" style="width:100%">
+                <mat-label>Enunciado</mat-label>
+                <input type="text" matInput placeholder="Enunciado" formControlName="enunciado" />
+            </mat-form-field>
+        </div>
+        <div style="margin-bottom:1em">
+            <mat-checkbox formControlName="esMultipleResp">¿Tiene múltiples respuestas?</mat-checkbox>
+            <div style="float:right">
+                <button class="mat-flat-button mat-primary" (click)="agregarOpcion()">Agregar opción</button>
+            </div>
+        </div>
+        <div class="row-container" formArrayName="opcionesRespuesta"
+            *ngFor="let opcion of questionForm.controls.opcionesRespuesta.controls; let i = index">
+            <ng-container formGroupName="{{i}}">
+                <mat-form-field appearance="outline" style="width:70%">
+                    <mat-label>Opción</mat-label>
+                    <input type="text" matInput placeholder="Opción" formControlName="opcion" />
+                </mat-form-field>
+                <button class="removeQ" mat-stroked-button color="warn" (click)="quitarOpcion(i)">
+                    <mat-icon>delete_outline
+                    </mat-icon>
+                </button>
+                <mat-checkbox formControlName="esCorrecta">¿Es correcta?</mat-checkbox>
+            </ng-container>
+        </div>
+        <div class="form-actions">
+            <button id="cancel-button" class="mat-stroked-button" type="button" (click)="cancel()">
+                Cancelar
+            </button>
+            <button class="mat-flat-button mat-primary" type="submit">Guardar</button>
+        </div>
+    </form>
+</div>

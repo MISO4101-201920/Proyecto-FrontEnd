@@ -6,10 +6,10 @@
         </youtube-player>
     </div>
     <div class="bar-container">
-        <button mat-stroked-button color="primary" *ngIf="!playing" (click)="play()">
+        <button mat-flat-button color="primary" *ngIf="!playing" (click)="play()">
             <mat-icon>play_circle_outline</mat-icon>
         </button>
-        <button mat-stroked-button color="primary" *ngIf="playing" (click)="pause()">
+        <button mat-flat-button color="primary" *ngIf="playing" (click)="pause()">
             <mat-icon>pause_circle_outline
             </mat-icon>
         </button>
@@ -18,13 +18,14 @@
             (ngModelChange)='handleTouchProgressBar($event)' [ngModel]="progressBarValue"></mat-slider>
 
     </div>
-    <mat-form-field>
+    <mat-form-field style="width:30%">
         <mat-label>Seleccione un tipo de marca</mat-label>
-        <mat-select [(value)]="marcaSeleccionada">
+        <mat-select [(value)]="marcaSeleccionada" disabled>
             <mat-option *ngFor="let marca of opcionesMarca" [value]="marca">{{marca}}</mat-option>
         </mat-select>
     </mat-form-field>
-    <button mat-stroked-button color="primary" (click)="addMarker()">
+    <span></span>
+    <button mat-flat-button color="primary" (click)="addMarker()">
         Añadir marca
     </button>
 
