@@ -11,7 +11,7 @@ export class ContenidoService {
 
   private contenidoUrl = `${environment.apiUrl}/content/interactive_content/`;
   private reportesUrl = `${environment.apiUrl}/activities/reports/`;
-  private addPreguntaUrl = `${environment.apiUrl}/content/generate-content/`;
+  private addPreguntaUrl = `${environment.apiUrl}/activities/generate-question-multiple-choice`;
 
   constructor(private httpClient: HttpClient) { }
 

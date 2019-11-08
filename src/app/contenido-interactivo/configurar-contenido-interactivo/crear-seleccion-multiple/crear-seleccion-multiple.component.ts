@@ -36,7 +36,7 @@ export class CrearSeleccionMultipleComponent implements OnInit {
       nombre: ['', [Validators.required]],
       tieneRetroalimentacion: [false, [Validators.required]],
       numeroDeIntentos: [1, [Validators.required,  Validators.min(1)]],
-      opcionesRespuesta: this.formBuilder.array([])
+      opciones: this.formBuilder.array([])
     });
   }
 
@@ -45,7 +45,7 @@ export class CrearSeleccionMultipleComponent implements OnInit {
   }
 
   agregarOpcion() {
-    const opciones = this.questionForm.controls.opcionesRespuesta as FormArray;
+    const opciones = this.questionForm.controls.opciones as FormArray;
     opciones.push(this.formBuilder.group({
       opcion: ['', [Validators.required]],
       esCorrecta: false,
@@ -53,13 +53,13 @@ export class CrearSeleccionMultipleComponent implements OnInit {
   }
 
   validarUnaCorrecta() {
-    let result = this.questionForm.value.opcionesRespuesta.find(opcion => opcion.esCorrecta);
+    let result = this.questionForm.value.opciones.find(opcion => opcion.esCorrecta);
     console.log(result);
     return result;
   }
 
   validarUnaOpcion() {
-    return this.questionForm.value.opcionesRespuesta.length > 0;
+    return this.questionForm.value.opciones.length > 0;
   }
 
   agregarMarca() {
@@ -86,7 +86,7 @@ export class CrearSeleccionMultipleComponent implements OnInit {
   }
 
   quitarOpcion(i) {
-    const opciones = this.questionForm.get('opcionesRespuesta') as FormArray;
+    const opciones = this.questionForm.get('opciones') as FormArray;
     opciones.removeAt(opciones.length - 1);
   }
 

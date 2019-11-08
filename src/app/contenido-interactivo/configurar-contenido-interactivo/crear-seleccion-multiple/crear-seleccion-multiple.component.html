@@ -1,5 +1,5 @@
-<h1 mat-dialog-title>Crear pregunta selección múltiple en segundo {{data.marca.punto}}</h1>
-<div mat-dialog-content>
+<h1 mat-dialog-title>Crear pregunta selección múltiple en {{data.marca.nombre}}</h1>
+<div mat-dialog-content style="margin-bottom: 1em;">
     <form [formGroup]="questionForm" (ngSubmit)="agregarMarca()">
         <div class="row-container">
             <mat-form-field appearance="outline" style="width:100%">
@@ -26,8 +26,8 @@
                 <button class="mat-flat-button mat-primary" (click)="agregarOpcion()">Agregar opción</button>
             </div>
         </div>
-        <div class="row-container" formArrayName="opcionesRespuesta"
-            *ngFor="let opcion of questionForm.controls.opcionesRespuesta.controls; let i = index">
+        <div class="row-container" formArrayName="opciones"
+            *ngFor="let opcion of questionForm.controls.opciones.controls; let i = index">
             <ng-container formGroupName="{{i}}">
                 <mat-form-field appearance="outline" style="width:70%">
                     <mat-label>Opción</mat-label>
