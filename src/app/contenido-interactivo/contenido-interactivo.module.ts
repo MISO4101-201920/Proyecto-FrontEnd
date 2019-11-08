@@ -12,18 +12,18 @@ import { ManyAnswersComponent } from './many-answers/many-answers.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTableModule } from '@angular/material/table';
 import { FormsModule } from '@angular/forms';
+import { DetalleContenidoInteractivoComponent } from './detalle-contenido-interactivo/detalle-contenido-interactivo.component';
 
 const routes: Routes = [
   { path: '', component: ListaContenidoComponent },
   { path: 'reporte/:id', component: ReporteContenidoComponent },
   { path: 'manejar', component: MarkersComponent},
-
-
+  { path: 'detalle/:id', component: DetalleContenidoInteractivoComponent}
 ];
 
 @NgModule({
   declarations: [ListaContenidoComponent, AddContenidoACursoComponent, ReporteContenidoComponent,
-    MarkersComponent, ManyAnswersComponent],
+    MarkersComponent, ManyAnswersComponent, DetalleContenidoInteractivoComponent],
   imports: [
     CommonModule,
     MaterialModule,
