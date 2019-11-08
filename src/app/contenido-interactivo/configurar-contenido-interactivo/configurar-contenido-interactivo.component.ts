@@ -109,14 +109,18 @@ export class ConfigurarContenidoInteractivoComponent implements AfterViewInit {
     this.pause();
     // Por ahora solo se  podría selección multiple
     console.log('Añadir marca en', this.player.getCurrentTime());
-    this.openDialog();
+    const marca = {
+      nombre: 'marca',
+      punto: Math.round(this.player.getCurrentTime() * 100) / 100,
+      contenido_id: 1
+    };
+    this.openDialog(marca);
   }
-  openDialog(): void {
+  openDialog(marca): void {
     this.dialog.open(CrearSeleccionMultipleComponent, {
       width: '70%',
       data: {
-        punto: Math.round(this.player.getCurrentTime() * 100) / 100,
-        idContenido: 1
+        marca
       }
     });
   }

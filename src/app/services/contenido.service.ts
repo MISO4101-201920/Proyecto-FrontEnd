@@ -11,7 +11,7 @@ export class ContenidoService {
 
   private contenidoUrl = `${environment.apiUrl}/content/interactive_content/`;
   private reportesUrl = `${environment.apiUrl}/activities/reports/`;
-
+  private addPreguntaUrl = `${environment.apiUrl}/content/generate-content/`;
 
   constructor(private httpClient: HttpClient) { }
 
@@ -78,6 +78,6 @@ export class ContenidoService {
   }
 
   agregarMarca(marca:any) : Observable<any> {
-    return this.httpClient.post(this.contenidoUrl, marca);
+    return this.httpClient.post(this.addPreguntaUrl, marca);
   }
 }

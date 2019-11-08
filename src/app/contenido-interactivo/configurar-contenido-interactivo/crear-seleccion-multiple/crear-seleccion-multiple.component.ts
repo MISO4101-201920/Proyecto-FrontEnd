@@ -5,8 +5,7 @@ import Swal from 'sweetalert2';
 import { ContenidoService } from 'src/app/services/contenido.service';
 
 export interface DialogData {
-  punto: number;
-  idContenido: number;
+  marca: any;
 }
 
 @Component({
@@ -34,6 +33,9 @@ export class CrearSeleccionMultipleComponent implements OnInit {
     this.questionForm = this.formBuilder.group({
       enunciado: ['', [Validators.required]],
       esMultipleResp: [false, [Validators.required]],
+      nombre: ['', [Validators.required]],
+      tieneRetroalimentacion: [false, [Validators.required]],
+      numeroDeIntentos: [1, [Validators.required,  Validators.min(1)]],
       opcionesRespuesta: this.formBuilder.array([])
     });
   }
@@ -71,6 +73,7 @@ export class CrearSeleccionMultipleComponent implements OnInit {
       } else if (!this.validarUnaCorrecta()) {
         Swal.fire('Oops...', 'Ingresa al menos una opción correcta', 'error');
       } else {
+        this.questionForm.value.marca = this.data.marca;
         this.contenidoService.agregarMarca(this.questionForm.value).subscribe(result => {
           Swal.fire('Agregar Marca', 'Marca agregada correctamente', 'success');
           this.dialogRef.close();

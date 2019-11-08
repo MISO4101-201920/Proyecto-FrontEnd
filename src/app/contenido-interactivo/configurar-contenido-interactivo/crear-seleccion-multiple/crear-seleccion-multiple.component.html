@@ -1,14 +1,27 @@
-<h1 mat-dialog-title>Crear pregunta selección múltiple en segundo {{data.punto}}</h1>
+<h1 mat-dialog-title>Crear pregunta selección múltiple en segundo {{data.marca.punto}}</h1>
 <div mat-dialog-content>
     <form [formGroup]="questionForm" (ngSubmit)="agregarMarca()">
         <div class="row-container">
             <mat-form-field appearance="outline" style="width:100%">
-                <mat-label>Enunciado</mat-label>
+                <mat-label>Nombre</mat-label>
+                <input type="text" matInput placeholder="Actividad 1" formControlName="nombre" />
+            </mat-form-field>
+        </div>
+        <div class="row-container">
+            <mat-form-field appearance="outline" style="width:100%">
+                <mat-label>Ingrese aquí la pregunta</mat-label>
                 <input type="text" matInput placeholder="Enunciado" formControlName="enunciado" />
             </mat-form-field>
         </div>
-        <div style="margin-bottom:1em">
-            <mat-checkbox formControlName="esMultipleResp">¿Tiene múltiples respuestas?</mat-checkbox>
+        <div style="margin-bottom:1em; display: flex; justify-content: space-between;">
+            <div style="flex-direction: column; width: 30%;">
+                <mat-checkbox color="primary" formControlName="esMultipleResp">¿Tiene múltiples respuestas?</mat-checkbox>
+                <mat-checkbox color="primary" formControlName="tieneRetroalimentacion">¿Tiene retroalimentación?</mat-checkbox>
+            </div>
+            <mat-form-field appearance="outline" style="height:40px">
+                <mat-label>Número de intentos</mat-label>
+                <input type="number" min="1" matInput formControlName="numeroDeIntentos" />
+            </mat-form-field>
             <div style="float:right">
                 <button class="mat-flat-button mat-primary" (click)="agregarOpcion()">Agregar opción</button>
             </div>
@@ -24,7 +37,7 @@
                     <mat-icon>delete_outline
                     </mat-icon>
                 </button>
-                <mat-checkbox formControlName="esCorrecta">¿Es correcta?</mat-checkbox>
+                <mat-checkbox color="primary" formControlName="esCorrecta">¿Es correcta?</mat-checkbox>
             </ng-container>
         </div>
         <div class="form-actions">
