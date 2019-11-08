@@ -18,7 +18,12 @@ export class ReporteContenidoComponent implements OnInit {
     this.activeRoute.params.subscribe(params => {
       if (params.id) {
         this.contenidoService.getReporteContenido(+params.id).subscribe(data => {
-          this.dataSource = this.processData(data.marcas);
+          this.dataSource = []
+          this.processData(data.marcas).forEach(element => {
+            element.preguntas.forEach(f => {
+              this.dataSource.push(f);
+            });
+          });
           console.log('dataSource', this.dataSource);
         });
       }
@@ -41,13 +46,13 @@ export class ReporteContenidoComponent implements OnInit {
         const total = pregunta.total_respuestas;
         if (pregunta.tipo === 'multiple') {
           pregunta.opciones.map(opcion => {
-            opcion.porcentajeRespuesta = (opcion.votos * 100) / total;
+            opcion.porcentajeRespuesta = total != 0 ? (opcion.votos * 100) / total : 0;
             return opcion;
           });
         } else if (pregunta.tipo === 'verdadero/falso') {
           pregunta.respuestaCorrecta = pregunta.opciones[0].respuesta;
-          pregunta.porcentajeVerdadero = (pregunta.opciones[0].numeroVerdadero * 100) / total;
-          pregunta.porcentajeFalso = (pregunta.opciones[0].numeroFalso * 100) / total;
+          pregunta.porcentajeVerdadero = total != 0 ? (pregunta.opciones[0].numeroVerdadero * 100) / total : 0;
+          pregunta.porcentajeFalso = total != 0 ? (pregunta.opciones[0].numeroFalso * 100) / total : 0;
         }
         return pregunta;
       });

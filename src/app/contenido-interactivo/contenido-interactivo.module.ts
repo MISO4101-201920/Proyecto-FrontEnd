@@ -15,18 +15,19 @@ import { FormsModule } from '@angular/forms';
 import { ConfigurarContenidoInteractivoComponent } from './configurar-contenido-interactivo/configurar-contenido-interactivo.component';
 import { YoutubePlayerModule } from 'ng2-youtube-player';
 import { CrearSeleccionMultipleComponent } from './configurar-contenido-interactivo/crear-seleccion-multiple/crear-seleccion-multiple.component';
+import { DetalleContenidoInteractivoComponent } from './detalle-contenido-interactivo/detalle-contenido-interactivo.component';
 
 const routes: Routes = [
   { path: '', component: ListaContenidoComponent },
   { path: 'reporte/:id', component: ReporteContenidoComponent },
   { path: 'manejar', component: MarkersComponent},
   { path: 'configurar', component: ConfigurarContenidoInteractivoComponent},
-
+  { path: 'detalle/:id', component: DetalleContenidoInteractivoComponent}
 ];
 
 @NgModule({
   declarations: [ListaContenidoComponent, AddContenidoACursoComponent, ReporteContenidoComponent,
-    MarkersComponent, ManyAnswersComponent, ConfigurarContenidoInteractivoComponent, CrearSeleccionMultipleComponent],
+    MarkersComponent, ManyAnswersComponent, DetalleContenidoInteractivoComponent, ConfigurarContenidoInteractivoComponent],
   imports: [
     CommonModule,
     MaterialModule,
