@@ -111,8 +111,7 @@ export class VideoAlumnoComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.player.playVideo();
-      this.dosperro = 99999;
-      this.counter = 0;
+      this.dosperro = 1;
     });
     
   }
