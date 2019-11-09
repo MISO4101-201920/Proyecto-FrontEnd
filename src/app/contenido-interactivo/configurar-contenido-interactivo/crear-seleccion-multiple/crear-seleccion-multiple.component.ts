@@ -53,7 +53,7 @@ export class CrearSeleccionMultipleComponent implements OnInit {
   }
 
   validarUnaCorrecta() {
-    let result = this.questionForm.value.opciones.find(opcion => opcion.esCorrecta);
+    const result = this.questionForm.value.opciones.find(opcion => opcion.esCorrecta);
     console.log(result);
     return result;
   }

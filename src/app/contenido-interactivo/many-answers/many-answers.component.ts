@@ -37,7 +37,9 @@ export class ManyAnswersComponent implements OnInit {
                 'Image', '|', 'ClearFormat', 'Print', 'SourceCode', '|', 'FullScreen']
         };
 
-  constructor(private modalService: BsModalService, private contentService: ContentService, private markService: MarkService, private activityService: ActivityService, private questionService: QuestionService ) { }
+  constructor(private modalService: BsModalService,
+              private contentService: ContentService, private markService: MarkService,
+              private activityService: ActivityService, private questionService: QuestionService ) { }
 
   ngOnInit() {
     this.contentService.getAllContent().subscribe( data => {
@@ -70,7 +72,7 @@ export class ManyAnswersComponent implements OnInit {
     this.questionDto = new Array();
     this.makersLoaded = false;
     this.existingMarkers = [];
-    this.contentSelectedOption = "";
+    this.contentSelectedOption = '';
   }
 
   openModal(template: TemplateRef<any>) {
@@ -80,7 +82,7 @@ export class ManyAnswersComponent implements OnInit {
   selectContentId(filterVal: any) {
     this.makersLoaded = false;
     console.log(filterVal);
-    this.markService.getMarkersFromContent(parseInt(filterVal)).subscribe( data => {
+    this.markService.getMarkersFromContent(+filterVal).subscribe( data => {
       this.existingMarkers = [];
       this.existingMarkers = data;
       this.makersLoaded = true;
@@ -100,14 +102,15 @@ export class ManyAnswersComponent implements OnInit {
   }
   */
 
-  onClickSubmit(formData){
+  onClickSubmit(formData) {
     this.questionDto.forEach( obj => {
-      let questText = obj.question.replace('<p>','').replace('</p>','');
-      this.activityService.createActivity(formData.activityName, formData.trysNumber, JSON.parse(formData.retro), parseInt(formData.marker)).subscribe( data => {
+      const questText = obj.question.replace('<p>', '').replace('</p>', '');
+      this.activityService.createActivity(formData.activityName, formData.trysNumber,
+        JSON.parse(formData.retro), +formData.marker).subscribe( data => {
         this.questionService.createQuestion(questText, data.id).subscribe( res => {
           obj.answers.forEach( obj2 => {
             this.questionService.createMultipleOptionAnswer(obj2.name, obj2.status, res.id).subscribe( data => {
-              console.log("Exito");
+              console.log('Exito');
             });
           });
           this.restartData();

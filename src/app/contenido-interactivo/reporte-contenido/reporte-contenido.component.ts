@@ -18,7 +18,7 @@ export class ReporteContenidoComponent implements OnInit {
     this.activeRoute.params.subscribe(params => {
       if (params.id) {
         this.contenidoService.getReporteContenido(+params.id).subscribe(data => {
-          this.dataSource = []
+          this.dataSource = [];
           this.processData(data.marcas).forEach(element => {
               this.dataSource.push(element);
           });
@@ -32,15 +32,14 @@ export class ReporteContenidoComponent implements OnInit {
     console.log(data);
     const preguntas = data.map(marca => marca.preguntas);
 
-    const preguntasFlatten= this.flatten(preguntas)
+    const preguntasFlatten = this.flatten(preguntas);
 
-    console.log(preguntasFlatten)
+    console.log(preguntasFlatten);
 
     // Deja un array flat con todas las actividades
-    //const flatActivites = this.calculatePercentage(this.flatten(activities));
+    // const flatActivites = this.calculatePercentage(this.flatten(activities));
     // calcula y retorna porcentaje de respuesta por cada pregunta
-    //return this.calculatePercentage(flatActivites);
-    console.log("_______________________")
+    // return this.calculatePercentage(flatActivites);
     console.log(this.calculatePercentage(preguntasFlatten));
     return this.calculatePercentage(preguntasFlatten);
   }
@@ -50,13 +49,13 @@ export class ReporteContenidoComponent implements OnInit {
         const total = pregunta.total_respuestas;
         if (pregunta.tipo === 'multiple') {
           pregunta.opciones.map(opcion => {
-            opcion.porcentajeRespuesta = total != 0 ? (opcion.votos * 100) / total : 0;
+            opcion.porcentajeRespuesta = total !== 0 ? (opcion.votos * 100) / total : 0;
             return opcion;
           });
         } else if (pregunta.tipo === 'verdadero/falso') {
           pregunta.respuestaCorrecta = pregunta.esCorrecta;
-          pregunta.porcentajeVerdadero = total != 0 ? (pregunta.total_verdadero * 100) / total : 0;
-          pregunta.porcentajeFalso = total != 0 ? (pregunta.total_falso * 100) / total : 0;
+          pregunta.porcentajeVerdadero = total !== 0 ? (pregunta.total_verdadero * 100) / total : 0;
+          pregunta.porcentajeFalso = total !== 0 ? (pregunta.total_falso * 100) / total : 0;
         }
         return pregunta;
       });

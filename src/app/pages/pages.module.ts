@@ -20,7 +20,7 @@ const routes: Routes = [
   CrearContenidoComponent,
   ModalAsociarContenidoInt
   ],
-  entryComponents: [ModalAsociarContenidoInt],
+  entryComponents: [ModalAsociarContenidoInt, LoadVideoComponent],
   imports: [
     MaterialModule,
     CommonModule,

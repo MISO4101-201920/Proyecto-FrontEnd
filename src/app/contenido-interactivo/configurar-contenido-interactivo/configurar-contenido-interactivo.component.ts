@@ -22,7 +22,7 @@ export class ConfigurarContenidoInteractivoComponent implements AfterViewInit {
   };
   private playing = false;
   progressBarValue = 0;
-  values = [1, 3, 5, 10, 20, 50, 100];    //values to step to
+  values = [1, 3, 5, 10, 20, 50, 100];    // values to step to
   contenidoInt;
   contId;
   contentsLoaded: Promise<boolean>;
