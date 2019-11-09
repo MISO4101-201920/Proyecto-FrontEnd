@@ -44,7 +44,8 @@ const routes: Routes = [
   ],
   exports: [RouterModule],
   entryComponents: [
-    AddContenidoACursoComponent
+    AddContenidoACursoComponent,
+    CrearSeleccionMultipleComponent
   ],
   providers: [
     { provide: MatDialogRef, useValue: {} },
