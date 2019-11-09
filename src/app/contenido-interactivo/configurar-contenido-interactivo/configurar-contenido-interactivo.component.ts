@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, HostListener }
 import { CrearSeleccionMultipleComponent } from './crear-seleccion-multiple/crear-seleccion-multiple.component';
 import { MatDialog } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
+import { ContenidoService } from 'src/app/services/contenido.service';
 
 @Component({
   selector: 'app-configurar-contenido-interactivo',
@@ -22,11 +23,14 @@ export class ConfigurarContenidoInteractivoComponent implements AfterViewInit {
   private playing = false;
   progressBarValue = 0;
   values = [1, 3, 5, 10, 20, 50, 100];    //values to step to
-
+  contenidoInt;
   contId;
+  contentsLoaded: Promise<boolean>;
+
   // Elementos del DOM a manipular
   @ViewChild('progressBar', { static: false }) progressBar: ElementRef;
-  constructor(public dialog: MatDialog, private activeRoute: ActivatedRoute) {
+  constructor(public dialog: MatDialog, private activeRoute: ActivatedRoute,
+              private contenidoService: ContenidoService) {
     this.loadData();
   }
 
@@ -113,6 +117,13 @@ export class ConfigurarContenidoInteractivoComponent implements AfterViewInit {
     this.activeRoute.params.subscribe(params => {
       if (params.id) {
         this.contId = params.id;
+        this.contenidoService.getDetalleContenidoInteractivo(this.contId).subscribe(contenido => {
+          this.contenidoInt = contenido;
+          this.contentsLoaded = Promise.resolve(true);
+          this.id = this.contenidoInt.contenido.url.split('watch?v=')[1];
+          console.log('idd', this.id);
+          console.log('contenidoo', this.contenidoInt.contenido);
+        });
       }
     });
   }
@@ -122,7 +133,7 @@ export class ConfigurarContenidoInteractivoComponent implements AfterViewInit {
     // Por ahora solo se  podría selección multiple
     console.log('Añadir marca en', this.player.getCurrentTime());
     if (this.contId) {
-      const punto = Math.round(this.player.getCurrentTime() * 100) / 100;
+      const punto = Math.round(this.player.getCurrentTime());
       const marca = {
         nombre: 'marca ' + punto,
         punto,
