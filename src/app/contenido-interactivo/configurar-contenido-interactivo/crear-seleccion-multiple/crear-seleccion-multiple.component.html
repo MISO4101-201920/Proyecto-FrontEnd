@@ -27,7 +27,7 @@
             </div>
         </div>
         <div class="row-container" formArrayName="opciones"
-            *ngFor="let opcion of questionForm.controls.opciones.controls; let i = index">
+            *ngFor="let opcion of questionForm.controls.opciones['controls']; let i = index">
             <ng-container formGroupName="{{i}}">
                 <mat-form-field appearance="outline" style="width:70%">
                     <mat-label>Opción</mat-label>

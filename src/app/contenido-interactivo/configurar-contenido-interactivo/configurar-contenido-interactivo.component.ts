@@ -12,7 +12,7 @@ import { ContenidoService } from 'src/app/services/contenido.service';
 export class ConfigurarContenidoInteractivoComponent implements AfterViewInit {
 
   player: YT.Player;
-  private id = 'qDuKsiwS5xw';
+  id :string;
   playerVars = {
     // Oculta la barra de reproducción (0)
     controls: 0,
@@ -20,7 +20,7 @@ export class ConfigurarContenidoInteractivoComponent implements AfterViewInit {
     modestbranding: 1,
     enablejsapi: 1
   };
-  private playing = false;
+  playing = false;
   progressBarValue = 0;
   values = [1, 3, 5, 10, 20, 50, 100];    // values to step to
   contenidoInt;
