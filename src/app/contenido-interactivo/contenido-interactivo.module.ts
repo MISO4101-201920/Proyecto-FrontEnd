@@ -21,13 +21,15 @@ const routes: Routes = [
   { path: '', component: ListaContenidoComponent },
   { path: 'reporte/:id', component: ReporteContenidoComponent },
   { path: 'manejar', component: MarkersComponent},
-  { path: 'configurar', component: ConfigurarContenidoInteractivoComponent},
+  { path: 'configurar/:id', component: ConfigurarContenidoInteractivoComponent},
   { path: 'detalle/:id', component: DetalleContenidoInteractivoComponent}
 ];
 
 @NgModule({
   declarations: [ListaContenidoComponent, AddContenidoACursoComponent, ReporteContenidoComponent,
-    MarkersComponent, ManyAnswersComponent, DetalleContenidoInteractivoComponent, ConfigurarContenidoInteractivoComponent],
+    MarkersComponent, ManyAnswersComponent, DetalleContenidoInteractivoComponent, ConfigurarContenidoInteractivoComponent,
+    CrearSeleccionMultipleComponent
+  ],
   imports: [
     CommonModule,
     MaterialModule,
