@@ -2,7 +2,7 @@
   <h1>Crear Contenido Interactivo</h1>
   <div class="justify-end">
     <!-- <button mat-button justify-content-end type="button" name="button">Nuevo</button> -->
-    <button class="btn" style="margin-right:3%" mat-button [matMenuTriggerFor]="cargar">Nuevo</button>
+    <button routerLink="/load-videos" class="btn" style="margin-right:3%" mat-button [matMenuTriggerFor]="cargar">Nuevo</button>
     <mat-menu #cargar="matMenu">
       <button mat-menu-item>YouTube</button>
       <button mat-menu-item disabled>Equipo Local</button>
