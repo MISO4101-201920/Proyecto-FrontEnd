@@ -14,9 +14,6 @@ import { LoadVideo } from '../../models/videoLoad.model';
 })
 export class LoadVideoService {
 
-  // loadSendUrl = `${URL_SERVICIOS}/content/generate-content/`;
-  loadSendUrl = `${environment.apiUrl}/content/generate-content/`;
-
 
 
 
@@ -24,6 +21,24 @@ export class LoadVideoService {
     public _authService: AuthService
   ) { }
 
+  getConteUrl = `${environment.apiUrl}/content/content/`;
+  getContenido(): Observable<any> {
+    return this.http.get(this.getConteUrl)
+      .pipe(
+        map((response) => {
+          return response;
+        }),
+        retry(1),
+        catchError(err => {
+          console.log('Obteniendo Contenido Interactivo', err);
+          return Observable.throw(err);
+        }
+        )
+      );
+  }
+
+  // loadSendUrl = `${URL_SERVICIOS}/content/generate-content/`;
+  loadSendUrl = `${environment.apiUrl}/content/generate-content/`;
   loadUrl(loadVideo: LoadVideo): Observable<any> {
     // Http Headers
     let httpOptions = {

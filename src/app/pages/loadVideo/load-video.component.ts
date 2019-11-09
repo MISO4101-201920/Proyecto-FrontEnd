@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadVideoService } from '../../services/contenidoInter/load-video.service';
 import { LoadVideo } from '../../models/videoLoad.model';
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import Swal from 'sweetalert2';
 
@@ -33,7 +34,8 @@ export class LoadVideoComponent implements OnInit {
   };
   options: FormGroup;
 
-  constructor(fb: FormBuilder, private _loadVideoService: LoadVideoService) {
+  constructor(fb: FormBuilder, private _loadVideoService: LoadVideoService,
+      public router: Router,) {
     this.options = fb.group({
       hideRequired: false,
       floatLabel: 'auto',
@@ -58,8 +60,8 @@ export class LoadVideoComponent implements OnInit {
           Swal.fire('Oops...', 'revisa los datos ingresados', 'error')
         },
         () => {
-          Swal.fire('Cargado!', 'Tu video ha sido cargado con Exito a contenido interactivo.', 'success')
-          // this.router.navigate(['/']);
+          // Swal.fire('Cargado!', 'Tu video ha sido cargado con Exito a contenido interactivo.', 'success')
+          this.router.navigate(['/page/crearContenidoInt']);
         }
       );
   }

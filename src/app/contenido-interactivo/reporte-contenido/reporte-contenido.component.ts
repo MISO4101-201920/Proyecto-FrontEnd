@@ -20,9 +20,7 @@ export class ReporteContenidoComponent implements OnInit {
         this.contenidoService.getReporteContenido(+params.id).subscribe(data => {
           this.dataSource = []
           this.processData(data.marcas).forEach(element => {
-            element.preguntas.forEach(f => {
-              this.dataSource.push(f);
-            });
+              this.dataSource.push(element);
           });
           console.log('dataSource', this.dataSource);
         });
@@ -32,17 +30,23 @@ export class ReporteContenidoComponent implements OnInit {
 
   processData(data) {
     console.log(data);
-    // Extrae solo las actividades de las marcas
-    const activities = data.map(marca => marca.actividades);
+    const preguntas = data.map(marca => marca.preguntas);
+
+    const preguntasFlatten= this.flatten(preguntas)
+
+    console.log(preguntasFlatten)
+
     // Deja un array flat con todas las actividades
-    const flatActivites = this.calculatePercentage(this.flatten(activities));
+    //const flatActivites = this.calculatePercentage(this.flatten(activities));
     // calcula y retorna porcentaje de respuesta por cada pregunta
-    return this.calculatePercentage(flatActivites);
+    //return this.calculatePercentage(flatActivites);
+    console.log("_______________________")
+    console.log(this.calculatePercentage(preguntasFlatten));
+    return this.calculatePercentage(preguntasFlatten);
   }
 
-  calculatePercentage(actividades) {
-    const actividadesPorcentaje  = actividades.map(actividad => {
-      actividad.preguntas.map(pregunta => {
+  calculatePercentage(preguntas) {
+    const actividadesPorcentaje = preguntas.map(pregunta => {
         const total = pregunta.total_respuestas;
         if (pregunta.tipo === 'multiple') {
           pregunta.opciones.map(opcion => {
@@ -50,14 +54,12 @@ export class ReporteContenidoComponent implements OnInit {
             return opcion;
           });
         } else if (pregunta.tipo === 'verdadero/falso') {
-          pregunta.respuestaCorrecta = pregunta.opciones[0].respuesta;
-          pregunta.porcentajeVerdadero = total != 0 ? (pregunta.opciones[0].numeroVerdadero * 100) / total : 0;
-          pregunta.porcentajeFalso = total != 0 ? (pregunta.opciones[0].numeroFalso * 100) / total : 0;
+          pregunta.respuestaCorrecta = pregunta.esCorrecta;
+          pregunta.porcentajeVerdadero = total != 0 ? (pregunta.total_verdadero * 100) / total : 0;
+          pregunta.porcentajeFalso = total != 0 ? (pregunta.total_falso * 100) / total : 0;
         }
         return pregunta;
       });
-      return actividad;
-    });
     return actividadesPorcentaje;
   }
 
