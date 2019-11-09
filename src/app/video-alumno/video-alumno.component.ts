@@ -31,6 +31,7 @@ export class VideoAlumnoComponent implements OnInit {
   };
   waiting = false;
   counter = 0;
+  contentsLoaded: Promise<boolean>;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -53,6 +54,8 @@ export class VideoAlumnoComponent implements OnInit {
       console.log(data);
       this.retroalimentacion = data[0].respuesta;
     });
+    this.getContentInteractive(this.idContent);
+
     //this.contentService.getInteractiveContentById(17).subscribe(res => {
     //  console.log(res);
     //  actualVid = res.body.results[0].contenido.url;
@@ -67,7 +70,6 @@ export class VideoAlumnoComponent implements OnInit {
   async savePlayer(player) {
     this.player = player;
     console.log('player instance', player);
-    this.getContentInteractive(this.idContent);
     this.getContentMark();
 
     await console.log('player currenttime', this.player.getCurrentTime());
@@ -136,6 +138,7 @@ export class VideoAlumnoComponent implements OnInit {
     if (idContent !== undefined) {
       this.contenidoService.getDetalleContenidoInteractivo(idContent).subscribe(contenido => {
         this.id = contenido.contenido.url.split('watch?v=')[1];
+        this.contentsLoaded = Promise.resolve(true);
         console.log('contenido alumno', contenido);
         console.log('idd', this.id);
       }, error => {
