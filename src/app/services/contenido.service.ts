@@ -12,11 +12,21 @@ export class ContenidoService {
   private contenidoUrl = `${environment.apiUrl}/content/interactive_content/`;
   private reportesUrl = `${environment.apiUrl}/activities/reports/`;
   private detalleUrl = `${environment.apiUrl}/content/interactivecontent/`;
+  private crearContenidoInteractivo = `${environment.apiUrl}/content/cont_interactivo`;
 
   constructor(private httpClient: HttpClient) { }
 
   getContenidos(): Observable<any> {
     return this.httpClient.get<any>(this.contenidoUrl);
+  }
+
+  postContenidoInteractivo(nombre: string, contenidoId: number) {
+    const body = {
+      nombre: nombre,
+      contenido: contenidoId
+    };
+    console.log('body:', body);
+    return this.httpClient.post(this.crearContenidoInteractivo, body);
   }
 
   postContenidos(cursoIds: Array<number>, contenidoId: number) {

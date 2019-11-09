@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { LoadVideoService } from '../../services/contenidoInter/load-video.service';
-
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ContenidoService } from '../../services/contenido.service'
 
 @Component({
   selector: 'app-crear-contenido',
@@ -9,7 +10,7 @@ import { LoadVideoService } from '../../services/contenidoInter/load-video.servi
 })
 export class CrearContenidoComponent implements OnInit {
 
-  constructor(private _loadVideoService: LoadVideoService) { }
+  constructor(private _loadVideoService: LoadVideoService, public dialog: MatDialog) { }
 
   listContenido = [];
 
@@ -28,6 +29,40 @@ export class CrearContenidoComponent implements OnInit {
 
         }
       );
+  }
+
+  openModal(video): void {
+    console.log("llamado modal", video);
+    const dialogRef = this.dialog.open(ModalAsociarContenidoInt, {
+      width: '350px',
+      data: { video: video.nombre, id: video.id }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+}
+
+
+//modal
+@Component({
+  selector: 'modal-AsoContInt',
+  templateUrl: 'modal-asociar-contenido.html',
+})
+export class ModalAsociarContenidoInt {
+
+  constructor(
+    public dialogRef: MatDialogRef<ModalAsociarContenidoInt>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    public _contenidoService: ContenidoService) { }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  crearContenido(nombre, id) {
+    this._contenidoService.postContenidoInteractivo(nombre.value, id);
   }
 
 }
