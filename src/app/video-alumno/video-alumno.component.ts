@@ -76,20 +76,14 @@ export class VideoAlumnoComponent implements OnInit {
       this.dosperro = 999999;
       await this.delay(1000);
        console.log('player currenttime', Math.round(this.player.getCurrentTime()));
-       console.log(this.marcas.length)
       for (let i = 0; i < this.marcas.length; i++) {
         if (Math.round(this.player.getCurrentTime()) === this.marcas[i].punto) {
           this.player.pauseVideo();
-
           
           await this.open(this.marcas[i]);
-          
-          while (this.counter  < 20) {
+          while (this.dosperro  == 999999) {
 
-            this.counter = this.counter + 1;
-            await this.delay(1000);
-            console.log("Waiting time: " + this.counter)
-            
+          await this.delay(1000);
           }
           
         }
