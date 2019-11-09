@@ -7,6 +7,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { QuestionModalComponent } from 'src/app/contenido-interactivo/question-modal/question-modal.component';
+import { MaterialModule } from 'src/material.module';
+import { FormsModule } from '@angular/forms';
 
 
 const routes: Routes = [
@@ -18,11 +20,13 @@ const routes: Routes = [
       QuestionModalComponent,
       VideoAlumnoComponent],
     imports: [
+      MaterialModule,
       NgbModule,
       YoutubePlayerModule,
       CommonModule,
       MatCheckboxModule,
-      RouterModule.forChild(routes)
+      RouterModule.forChild(routes),
+      FormsModule
     ],
     entryComponents: [
       QuestionModalComponent
