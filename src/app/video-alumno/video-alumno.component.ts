@@ -141,16 +141,13 @@ export class VideoAlumnoComponent implements OnInit {
 
   getContentInteractive(idContent) {
     if (idContent !== undefined) {
-      this.contentService.getInteractiveContentById(idContent).subscribe(
-        data => {
-          this.id = data.body.results[0].contenido.url;
-          this.id = this.id.substr(this.id.indexOf('v=') + 2);
-          this.player.loadVideoById(this.id, 0, 'large');
-
-        }, error => {
-          console.log('Error getting question information -> ', error);
-        }
-      );
+      this.contenidoService.getDetalleContenidoInteractivo(idContent).subscribe(contenido => {
+        this.id = contenido.contenido.url.split('watch?v=')[1];
+        console.log('contenido alumno', contenido);
+        console.log('idd', this.id);
+      }, error => {
+        console.log('Error getting question information -> ', error);
+      });
     }
   }
   onStateChange(event) {

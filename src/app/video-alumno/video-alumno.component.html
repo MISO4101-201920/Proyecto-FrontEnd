@@ -1,10 +1,10 @@
 <div style="margin: 4%;"></div>
 <div style="margin-left: 13%;" >
     <youtube-player [videoId]="id" [height]="480" [width]="852" (ready)="savePlayer($event)"
-    (change)="onStateChange($event)"></youtube-player>
+    (change)="onStateChange($event)" [playerVars]="playerVars"></youtube-player>
 </div>
 
-<div class="bar-container">
+<div style="margin-left: 13%;" class="bar-container">
     <button mat-flat-button color="primary" *ngIf="!playing" (click)="play()">
         <mat-icon>play_circle_outline</mat-icon>
     </button>

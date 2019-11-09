@@ -65,7 +65,8 @@ export class LoadVideoService {
 
 
   getInteractiveContentById(idContent): Observable<any> {
-    const url = `${environment.apiUrl}/content/cont_interactivo`;
+    const url = `${environment.apiUrl}/content/interactivecontent`;
+
     console.log('URL TO GET INTERACTIVE CONTENT', url);
     const data = {
       id: idContent
