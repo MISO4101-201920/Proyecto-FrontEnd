@@ -8,6 +8,7 @@ import { AuthService } from '../usuario/auth.service';
 import { environment } from 'src/environments/environment';
 
 import { LoadVideo } from '../../models/videoLoad.model';
+import { HttpService } from '../http-service/http.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,11 +16,7 @@ import { LoadVideo } from '../../models/videoLoad.model';
 export class LoadVideoService {
 
 
-
-
-  constructor(public http: HttpClient,
-    public _authService: AuthService
-  ) { }
+  constructor(public http: HttpClient, public _authService: AuthService, private httpService: HttpService) { }
 
   getConteUrl = `${environment.apiUrl}/content/content/`;
   getContenido(): Observable<any> {
@@ -66,5 +63,20 @@ export class LoadVideoService {
       );
   }
 
+
+  getInteractiveContentById(idContent): Observable<any> {
+    const url = `${environment.apiUrl}/content/cont_interactivo`;
+    console.log('URL TO GET INTERACTIVE CONTENT', url);
+    const data = {
+      id: idContent
+    };
+    return this.httpService.getRequestWithParams(url, data).map(
+      response => {
+        return response;
+      }, error => {
+        return error;
+      }
+    );
+  }
 
 }

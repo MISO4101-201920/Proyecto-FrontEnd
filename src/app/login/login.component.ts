@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
   usuario: Persona;
   constructor(
     public router: Router,
-    public _authService: AuthService
+    public authService: AuthService
   ) { }
 
   ngOnInit() {
@@ -38,15 +38,15 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    let userLogin = new Login(forma.value.username, forma.value.password);
-    this._authService.login(userLogin)
+    const userLogin = new Login(forma.value.username, forma.value.password);
+    this.authService.login(userLogin)
       .subscribe(
         result => {
-          console.log(result)
+          console.log(result);
         },
         error => {
           console.log(error);
-          Swal.fire('Oops...', 'revisa los datos ingresados', 'error')
+          Swal.fire('Oops...', 'revisa los datos ingresados', 'error');
         },
         () => {
           this.router.navigate(['/cursos']);

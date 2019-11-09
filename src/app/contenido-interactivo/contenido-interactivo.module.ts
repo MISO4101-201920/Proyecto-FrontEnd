@@ -5,6 +5,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { MaterialModule } from 'src/material.module';
 import { AddContenidoACursoComponent } from './add-contenido-a-curso/add-contenido-a-curso.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { QuestionModalComponent } from './question-modal/question-modal.component';
+import { MatDialogModule, MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { ReporteContenidoComponent } from './reporte-contenido/reporte-contenido.component';
 import { MarkersComponent } from './markers/markers.component';
 import { RichTextEditorAllModule } from '@syncfusion/ej2-angular-richtexteditor';
@@ -37,12 +39,16 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     RichTextEditorAllModule,
     FormsModule,
+    MatDialogModule,
     YoutubePlayerModule
   ],
   exports: [RouterModule],
   entryComponents: [
     AddContenidoACursoComponent,
     CrearSeleccionMultipleComponent
+  ],
+  providers: [
+    { provide: MatDialogRef, useValue: {} },
   ]
 })
 export class ContenidoInteractivoModule { }

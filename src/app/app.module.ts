@@ -20,11 +20,11 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './login/register.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
-
 import { VideoModalModule } from './video-modal/video-modal.module';
 import { VideoAlumnoModule } from './video-alumno/video-alumno.module';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
-import { ToastrModule } from 'ngx-toastr';
+import {ToastrModule} from 'ngx-toastr';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { GestureConfig } from '@angular/material';
 
 @NgModule({
@@ -51,6 +51,11 @@ import { GestureConfig } from '@angular/material';
     ToastrModule.forRoot()
   ],
   providers: [
+    { provide: MatDialogRef, useValue: {} },
+    {
+      provide: MAT_DIALOG_DATA,
+      useValue: {}} ,
+
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

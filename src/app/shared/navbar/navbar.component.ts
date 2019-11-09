@@ -40,11 +40,15 @@ interface ExampleFlatNode {
 })
 export class NavbarComponent {
 
+  student: boolean;
 
   constructor(
     private breakpointObserver: BreakpointObserver,
     public router: Router, ) {
     this.dataSource.data = TREE_DATA;
+    var actualUser = sessionStorage.getItem('userConectaTe');
+    this.student = JSON.parse(actualUser).isAlumno;
+
   }
 
   navNodeLinks(pag: string) {
