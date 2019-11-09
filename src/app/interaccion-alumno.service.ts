@@ -23,7 +23,7 @@ export class InteraccionAlumnoService {
   }*/
 
   getRetroOpMultiple(pregunta: number) {
-    return this.http.get(this.loadSendUrl + '/activities/resp_op_multiple?esCorrecta=true&preguntaSeleccionMultiple=' + pregunta);
+    return this.http.get(this.loadSendUrl + '/activities/respuestaOpcionMultiple?esCorrecta=true&preguntaSeleccionMultiple=' + pregunta);
   }
     getMarcasXacontenido(idcontenido: number) {
     return this.http.get(this.loadSendUrl + '/activities/marca?contenido=' + idcontenido);

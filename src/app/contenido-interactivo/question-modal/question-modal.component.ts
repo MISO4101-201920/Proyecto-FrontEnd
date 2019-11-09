@@ -22,7 +22,7 @@ export class QuestionModalComponent implements OnInit {
   hasFeedBack = false;
   arrayCorrectAnswers: Array<{ titleAnswer: string }> = new Array();
   indexToShow = 0;
-  studentId = 3;
+  studentId = 1;
   idGroup = null;
   numberTry: number;
 
