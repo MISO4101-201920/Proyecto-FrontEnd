@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   player: YT.Player;
-  private id: string = 'qDuKsiwS5xw';
+  private id: string;
 
   savePlayer(player) {
     this.player = player;
