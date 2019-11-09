@@ -54,7 +54,7 @@ export class ModalAsociarContenidoInt {
 
   constructor(
     public dialogRef: MatDialogRef<ModalAsociarContenidoInt>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    @Inject(MAT_DIALOG_DATA) public data,
     public _contenidoService: ContenidoService) { }
 
   onNoClick(): void {
