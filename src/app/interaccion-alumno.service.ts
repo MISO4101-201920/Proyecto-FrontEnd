@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpClientModule } from '@angular/common/http';
 import { RetroalimentacionOpMul } from './video-alumno/retroalimentacion';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InteraccionAlumnoService {
-  api_base_url = 'https://project-backend-hmi.herokuapp.com';
+  loadSendUrl =  `${environment.apiUrl}`;
   private retroalimentacionMul: RetroalimentacionOpMul;
 
   constructor(private http: HttpClient) { }
@@ -22,9 +23,13 @@ export class InteraccionAlumnoService {
   }*/
 
   getRetroOpMultiple(pregunta: number) {
-    return this.http.get(this.api_base_url + '/activities/resp_op_multiple?esCorrecta=true&preguntaSeleccionMultiple=' + pregunta);
+    return this.http.get(this.loadSendUrl + '/activities/respuestaOpcionMultiple?esCorrecta=true&preguntaSeleccionMultiple=' + pregunta);
   }
     getMarcasXacontenido(idcontenido: number) {
-    return this.http.get(this.api_base_url + '/activities/marca?contenido=' + idcontenido);
+    return this.http.get(this.loadSendUrl + '/activities/marca?contenido=' + idcontenido);
+  }
+
+  getPreguntaXMarca(idmarca: number) {
+    return this.http.get(this.loadSendUrl + '/activities/preguntaOpcionMultiple/' + idmarca);
   }
 }

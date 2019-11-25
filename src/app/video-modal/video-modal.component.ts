@@ -364,7 +364,7 @@ export class VideoModalComponent implements OnInit {
 
 
   open() {
-    const modalRef = this.modalService.open(NgbdModalContent,{ size: 'lg' });
+    const modalRef = this.modalService.open(NgbdModalContent, { size: 'lg' });
     modalRef.componentInstance.name = 'World';
     modalRef.componentInstance.tiempo = this.player.getCurrentTime();
     modalRef.componentInstance.idcontenido = this.idcontenido;

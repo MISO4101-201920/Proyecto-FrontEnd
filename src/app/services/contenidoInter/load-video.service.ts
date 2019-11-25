@@ -8,22 +8,34 @@ import { AuthService } from '../usuario/auth.service';
 import { environment } from 'src/environments/environment';
 
 import { LoadVideo } from '../../models/videoLoad.model';
+import { HttpService } from '../http-service/http.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoadVideoService {
 
+
+  constructor(public http: HttpClient, public _authService: AuthService, private httpService: HttpService) { }
+
+  getConteUrl = `${environment.apiUrl}/content/content/`;
+  getContenido(): Observable<any> {
+    return this.http.get(this.getConteUrl)
+      .pipe(
+        map((response) => {
+          return response;
+        }),
+        retry(1),
+        catchError(err => {
+          console.log('Obteniendo Contenido Interactivo', err);
+          return Observable.throw(err);
+        }
+        )
+      );
+  }
+
   // loadSendUrl = `${URL_SERVICIOS}/content/generate-content/`;
   loadSendUrl = `${environment.apiUrl}/content/generate-content/`;
-
-
-
-
-  constructor(public http: HttpClient,
-    public _authService: AuthService
-  ) { }
-
   loadUrl(loadVideo: LoadVideo): Observable<any> {
     // Http Headers
     let httpOptions = {
@@ -51,5 +63,21 @@ export class LoadVideoService {
       );
   }
 
+
+  getInteractiveContentById(idContent): Observable<any> {
+    const url = `${environment.apiUrl}/content/interactivecontent`;
+
+    console.log('URL TO GET INTERACTIVE CONTENT', url);
+    const data = {
+      id: idContent
+    };
+    return this.httpService.getRequestWithParams(url, data).map(
+      response => {
+        return response;
+      }, error => {
+        return error;
+      }
+    );
+  }
 
 }

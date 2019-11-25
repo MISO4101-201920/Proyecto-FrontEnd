@@ -32,15 +32,6 @@ export class HttpService {
     );
   }
 
-
-  getRequestWithParams(url, data): Observable<any> {
-   const pathUrl = url + '?' + data;
-   return this.http.get(pathUrl, {
-    headers: this.getHeaders('application/json', 'get'),
-    observe: 'response'
-    });
-  }
-
   getRequestWithoutParams(url): Observable<any> {
     return this.http.get(url, {
       headers: this.getHeaders('application/json', 'get'),
@@ -48,7 +39,7 @@ export class HttpService {
     });
   }
 
-  getRequest(url, data): Observable<any> {
+  getRequestWithParams(url, data): Observable<any> {
     return this.http.get(url + '?' + this.listParams(data),
     {
       headers: this.getHeaders('application/json', 'get'),

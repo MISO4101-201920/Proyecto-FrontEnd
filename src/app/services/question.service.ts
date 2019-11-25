@@ -23,6 +23,6 @@ export class QuestionService{
   }
 
   createMultipleOptionAnswer(answer, correctAnswer, questionId): Observable<any> {
-    return this.http.post(this.URL_HOST + '/activities/resp_op_multiple', {respuesta: answer, esCorrecta: correctAnswer, preguntaSeleccionMultiple: questionId});
+    return this.http.post(this.URL_HOST + '/activities/respuestaOpcionMultiple', {respuesta: answer, esCorrecta: correctAnswer, preguntaSeleccionMultiple: questionId});
   }
 }
