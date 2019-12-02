@@ -1,0 +1,24 @@
+    <div mat-dialog-title class="font-title">{{PreguntaVof}}</div>
+    <div mat-dialog-content style="padding: 10px 24px;">
+      <mat-radio-group aria-labelledby="example-radio-group-label"
+      [(ngModel)]="PreguntaVof">
+        <mat-radio-button value=true>Verdadero</mat-radio-button>
+        <br>
+        <mat-radio-button value=false>Falso </mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <div *ngIf="retrofinal">
+      <div class="font-title">Las respuesta correcta es : {{respuestaCorrecta}}</div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-3" mat-dialog-actions>
+        <button mat-button (click)="saveAnswer()">Enviar respuestas</button>
+      </div>
+      <div class="col-3" mat-dialog-actions>
+        <button mat-button (click)="continue()">Continuar</button>
+      </div>
+    </div>
+

@@ -62,7 +62,7 @@ export class QuestionModalComponent implements OnInit {
       this.activityService.getActivityById(this.data.idMarca).subscribe(
         data => {
           console.log(data);
-          this.arrayQuestionsForMark = data.body.results;
+          this.arrayQuestionsForMark = data.body;
           this.getQuestionToShow();
         }, error => {
           console.log('Error getting question information -> ', error);

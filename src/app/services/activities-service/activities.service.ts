@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AnswerQuestion } from 'src/app/models/mark/answerQuestion.model';
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,19 @@ export class ActivitiesService {
 
   private activitiesUrl = `${environment.apiUrl}/activities/`;
 
-  constructor(private httpService: HttpService) { }
+  constructor(private httpService: HttpService,private httpClient: HttpClient) { }
+
+  getPreguntaVofXIdmarca(idMark: number): Observable<any> {
+    return this.httpClient.get<any>(this.activitiesUrl + 'pregunta_f_v/' + idMark + '/');
+  }
+
+  getPauseXIdMarca(idMark:number) :Observable<any> {
+    return this.httpClient.get<any>(this.activitiesUrl + 'pausas/' + idMark + '/');
+  }
+
+  getActivityType(idMark:number) :Observable<any> {
+    return this.httpClient.get<any>(this.activitiesUrl + 'tipo_actividad?id_marca=' + idMark);
+  }
 
   getActivityById(id): Observable<any> {
     const url = this.activitiesUrl + 'preguntaOpcionMultiple/' + id + '/';
@@ -24,7 +37,18 @@ export class ActivitiesService {
       }
     );
   }
-
+/*
+  getPreguntaVofXIdmarca(id): Observable<any> {
+    const url = this.activitiesUrl + 'pregunta_f_v/' + id + '/';
+    return this.httpService.getRequestWithoutParams(url).map(
+      response => {
+        return response;
+      }, error => {
+        return error;
+      }
+    );
+  }
+*/
   getMarcaById(id): Observable<any> {
     const url = this.activitiesUrl + 'marca';
     const data = {

@@ -15,6 +15,7 @@ import { YoutubePlayerModule } from 'ng2-youtube-player';
 import { ModalModule } from 'ngx-bootstrap/modal';
 
 
+
 // Modulos
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './login/register.component';
@@ -26,12 +27,14 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import {ToastrModule} from 'ngx-toastr';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { GestureConfig } from '@angular/material';
+import { PauseModalComponent } from './contenido-interactivo/pause-modal/pause-modal.component';
+//import { InteractVoFComponent } from './contenido-interactivo/interact-vo-f/interact-vo-f.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
   ],
   imports: [
     SharedModule,
