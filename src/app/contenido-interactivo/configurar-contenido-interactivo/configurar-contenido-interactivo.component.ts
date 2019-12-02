@@ -1,8 +1,14 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, HostListener } from '@angular/core';
 import { CrearSeleccionMultipleComponent } from './crear-seleccion-multiple/crear-seleccion-multiple.component';
+import { CrearPreguntaAbiertaComponent } from './crear-pregunta-abierta/crear-pregunta-abierta.component';
 import { MatDialog } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { ContenidoService } from 'src/app/services/contenido.service';
+
+const activityTypesComponents = {
+  "Pregunta de opción múltiple": CrearSeleccionMultipleComponent,
+  "Pregunta abierta": CrearPreguntaAbiertaComponent
+}
 
 @Component({
   selector: 'app-configurar-contenido-interactivo',
@@ -47,7 +53,7 @@ export class ConfigurarContenidoInteractivoComponent implements AfterViewInit {
     'Pregunta Falso o Verdadero',
     'Pregunta abierta',
     'Pausa',
-    'Foro'
+    //'Foro'
   ];
   marcaSeleccionada = this.opcionesMarca[0];
 
@@ -143,7 +149,7 @@ export class ConfigurarContenidoInteractivoComponent implements AfterViewInit {
     }
   }
   openDialog(marca): void {
-    this.dialog.open(CrearSeleccionMultipleComponent, {
+    this.dialog.open(activityTypesComponents[this.marcaSeleccionada], {
       width: '70%',
       data: {
         marca

@@ -17,6 +17,7 @@ import { FormsModule } from '@angular/forms';
 import { ConfigurarContenidoInteractivoComponent } from './configurar-contenido-interactivo/configurar-contenido-interactivo.component';
 import { YoutubePlayerModule } from 'ng2-youtube-player';
 import { CrearSeleccionMultipleComponent } from './configurar-contenido-interactivo/crear-seleccion-multiple/crear-seleccion-multiple.component';
+import { CrearPreguntaAbiertaComponent } from './configurar-contenido-interactivo/crear-pregunta-abierta/crear-pregunta-abierta.component';
 import { DetalleContenidoInteractivoComponent } from './detalle-contenido-interactivo/detalle-contenido-interactivo.component';
 
 const routes: Routes = [
@@ -30,7 +31,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [ListaContenidoComponent, AddContenidoACursoComponent, ReporteContenidoComponent,
     MarkersComponent, ManyAnswersComponent, DetalleContenidoInteractivoComponent, ConfigurarContenidoInteractivoComponent,
-    CrearSeleccionMultipleComponent
+    CrearSeleccionMultipleComponent, CrearPreguntaAbiertaComponent
   ],
   imports: [
     CommonModule,
@@ -45,7 +46,8 @@ const routes: Routes = [
   exports: [RouterModule],
   entryComponents: [
     AddContenidoACursoComponent,
-    CrearSeleccionMultipleComponent
+    CrearSeleccionMultipleComponent,
+    CrearPreguntaAbiertaComponent
   ],
   providers: [
     { provide: MatDialogRef, useValue: {} },
