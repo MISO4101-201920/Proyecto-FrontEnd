@@ -8,6 +8,10 @@
         </div>
 
         <div class="bar-container">
+            <!-- <input type="range" #progressBar id="progressBar" value="0"> -->
+            <mat-slider step="values" type="range" #progressBar id="progressBar" color="primary"
+                (ngModelChange)='handleTouchProgressBar($event)' [ngModel]="progressBarValue">
+            </mat-slider>
             <button mat-flat-button color="primary" *ngIf="!playing" (click)="play()">
                 <mat-icon>play_circle_outline</mat-icon>
             </button>
@@ -15,9 +19,7 @@
                 <mat-icon>pause_circle_outline
                 </mat-icon>
             </button>
-            <!-- <input type="range" #progressBar id="progressBar" value="0"> -->
-            <mat-slider step="values" type="range" #progressBar id="progressBar" color="primary"
-                (ngModelChange)='handleTouchProgressBar($event)' [ngModel]="progressBarValue"></mat-slider>
+            {{ getCurrentTime()}}/{{getTotalTime()}}
 
         </div>
         <mat-form-field style="width:30%">

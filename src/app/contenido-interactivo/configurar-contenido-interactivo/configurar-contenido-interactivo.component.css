@@ -6,5 +6,8 @@
   height: auto;
 }
 #progressBar {
-  width: 800px;
+  width: 854px;
+}
+.bar-container {
+  margin-bottom: 2em;
 }

@@ -6,9 +6,9 @@ import { ActivatedRoute } from '@angular/router';
 import { ContenidoService } from 'src/app/services/contenido.service';
 
 const activityTypesComponents = {
-  "Pregunta de opción múltiple": CrearSeleccionMultipleComponent,
-  "Pregunta abierta": CrearPreguntaAbiertaComponent
-}
+  'Pregunta de opción múltiple': CrearSeleccionMultipleComponent,
+  'Pregunta abierta': CrearPreguntaAbiertaComponent
+};
 
 @Component({
   selector: 'app-configurar-contenido-interactivo',
@@ -18,7 +18,7 @@ const activityTypesComponents = {
 export class ConfigurarContenidoInteractivoComponent implements AfterViewInit {
 
   player: YT.Player;
-  id :string;
+  id: string;
   playerVars = {
     // Oculta la barra de reproducción (0)
     controls: 0,
@@ -36,7 +36,7 @@ export class ConfigurarContenidoInteractivoComponent implements AfterViewInit {
   // Elementos del DOM a manipular
   @ViewChild('progressBar', { static: false }) progressBar: ElementRef;
   constructor(public dialog: MatDialog, private activeRoute: ActivatedRoute,
-              private contenidoService: ContenidoService) {
+    private contenidoService: ContenidoService) {
     this.loadData();
   }
 
@@ -134,6 +134,44 @@ export class ConfigurarContenidoInteractivoComponent implements AfterViewInit {
     });
   }
 
+  getCurrentTime(): string {
+    if (this.player) {
+      return this.toMin(this.player.getCurrentTime());
+    } else {
+      return '0:00';
+    }
+  }
+
+  getTotalTime(): string {
+    if (this.player) {
+      return this.toMin(this.player.getDuration());
+    } else {
+      return '0:00';
+    }
+  }
+
+  toMin(sec: number): string {
+    const result = Math.round(sec);
+    let resultStr = '0:00' +  result;
+    let newSec = (result % 60).toString();
+    if (+newSec < 10) {
+      newSec = '0' + newSec;
+    }
+    if (sec > 59) {
+      let min = Math.floor(result / 60).toString();
+      if (+min < 10) {
+        min = '0' + min;
+      }
+      resultStr = min + ':' + newSec;
+      console.log('debug', resultStr, min, newSec);
+    } else {
+      resultStr = '0:' + newSec;
+    }
+    return resultStr;
+  }
+
+
+
   addMarker() {
     this.pause();
     // Por ahora solo se  podría selección multiple
@@ -141,7 +179,7 @@ export class ConfigurarContenidoInteractivoComponent implements AfterViewInit {
     if (this.contId) {
       const punto = Math.round(this.player.getCurrentTime());
       const marca = {
-        nombre: 'marca ' + punto,
+        nombre: 'marca ' + this.getCurrentTime(),
         punto,
         contenido_id: +this.contId
       };

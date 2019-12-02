@@ -59,7 +59,7 @@ export class CrearSeleccionMultipleComponent implements OnInit {
   }
 
   validarUnaOpcion() {
-    return this.questionForm.value.opciones.length > 0;
+    return this.questionForm.value.opciones.length > 1;
   }
 
   agregarMarca() {
@@ -68,8 +68,7 @@ export class CrearSeleccionMultipleComponent implements OnInit {
     if (this.questionForm.valid) {
       if (!this.validarUnaOpcion()) {
         console.error('Al menos una opcion');
-        Swal.fire('Oops...', 'Ingresa al menos una opción', 'error');
-
+        Swal.fire('Oops...', 'Ingresa más de una opción', 'error');
       } else if (!this.validarUnaCorrecta()) {
         Swal.fire('Oops...', 'Ingresa al menos una opción correcta', 'error');
       } else {
