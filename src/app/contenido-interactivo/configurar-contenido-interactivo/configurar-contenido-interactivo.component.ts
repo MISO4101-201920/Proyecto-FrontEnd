@@ -32,6 +32,7 @@ export class ConfigurarContenidoInteractivoComponent implements AfterViewInit {
   contenidoInt;
   contId;
   contentsLoaded: Promise<boolean>;
+  marcasPorcentaje;
 
   // Elementos del DOM a manipular
   @ViewChild('progressBar', { static: false }) progressBar: ElementRef;
@@ -62,9 +63,9 @@ export class ConfigurarContenidoInteractivoComponent implements AfterViewInit {
 
   savePlayer(player) {
     this.player = player;
-    console.log('player instance', player);
     // Update the controls on load
     this.updateProgressBar();
+    this.loadMarcas(this.contenidoInt.marcas);
 
     // Start interval to update elapsed time display and
     // the elapsed part of the progress bar every second.
@@ -134,6 +135,25 @@ export class ConfigurarContenidoInteractivoComponent implements AfterViewInit {
     });
   }
 
+  loadMarcas(marcas) {
+    this.marcasPorcentaje = [];
+    for (const marca of marcas) {
+      console.log(marca);
+      const marcaP = Math.round(this.calcPercentage(+marca.punto));
+      console.log(marcaP, 'marcaP');
+      this.marcasPorcentaje.push(marcaP);
+    }
+    console.log(this.marcasPorcentaje, 'marcasPorcentaje');
+  }
+
+  calcPercentage(segundo: number) {
+    let percentage = 0;
+    if (this.player) {
+      percentage = (Math.round(segundo) * 100) / Math.round(this.player.getDuration());
+    }
+    return percentage;
+  }
+
   getCurrentTime(): string {
     if (this.player) {
       return this.toMin(this.player.getCurrentTime());
@@ -163,7 +183,6 @@ export class ConfigurarContenidoInteractivoComponent implements AfterViewInit {
         min = '0' + min;
       }
       resultStr = min + ':' + newSec;
-      console.log('debug', resultStr, min, newSec);
     } else {
       resultStr = '0:' + newSec;
     }
