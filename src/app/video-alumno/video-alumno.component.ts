@@ -179,6 +179,7 @@ export class VideoAlumnoComponent implements OnInit {
        if (data.tipo_actividad == 4) {
          this.openPause(marca);
        }
+
        }, error => {
        console.log('Error getting question information -> ', error);
      });

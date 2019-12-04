@@ -1,11 +1,16 @@
-    <div mat-dialog-title class="font-title">{{PreguntaVof}}</div>
+<div mat-dialog-title style="text-align: right;">Tienes {{intentosDispinibles}} intentos</div>
+<div mat-dialog-title class="font-title">{{PreguntaVof}}</div>
     <div mat-dialog-content style="padding: 10px 24px;">
       <mat-radio-group aria-labelledby="example-radio-group-label"
-      [(ngModel)]="PreguntaVof">
-        <mat-radio-button value=true>Verdadero</mat-radio-button>
+      [(ngModel)]="respuestaVof">
+        <mat-radio-button value=true [disabled]="!saveButtonflag">Verdadero</mat-radio-button>
         <br>
-        <mat-radio-button value=false>Falso </mat-radio-button>
+        <mat-radio-button value=false [disabled]="!saveButtonflag">Falso </mat-radio-button>
       </mat-radio-group>
+    </div>
+
+    <div class="alert alert-danger" role="alert" *ngIf="!atLeastOneSelected" >
+      selecciona una respuesta primero
     </div>
 
     <div *ngIf="retrofinal">
@@ -14,7 +19,7 @@
 
 
     <div class="row">
-      <div class="col-3" mat-dialog-actions>
+      <div class="col-3" *ngIf="saveButtonflag" mat-dialog-actions>
         <button mat-button (click)="saveAnswer()">Enviar respuestas</button>
       </div>
       <div class="col-3" mat-dialog-actions>

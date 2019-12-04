@@ -8,3 +8,15 @@ export class AnswerQuestion {
   ) { }
 
 }
+
+export class AnswerQuestionVoF {
+
+  constructor(
+    public intento: number,
+    public esVerdadero: boolean,
+    public estudiante: number,
+    public grupo: number,
+    public preguntaVoF: number
+  ) { }
+
+}

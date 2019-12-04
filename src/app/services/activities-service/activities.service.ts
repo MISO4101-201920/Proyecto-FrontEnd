@@ -3,7 +3,7 @@ import { HttpService } from 'src/app/services/http-service/http.service';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { AnswerQuestion } from 'src/app/models/mark/answerQuestion.model';
+import {AnswerQuestion, AnswerQuestionVoF} from 'src/app/models/mark/answerQuestion.model';
 import {HttpClient} from "@angular/common/http";
 
 @Injectable({
@@ -74,8 +74,37 @@ export class ActivitiesService {
     );
   }
 
+
+
+  savePreguntaVoF(answerVoF:AnswerQuestionVoF):Observable<any>{
+    const url = this.activitiesUrl + 'respuestafov/';
+    return this.httpService.postJSON(url, answerVoF).map(
+      response => {
+        return response;
+      }, error => {
+        return error;
+      }
+    );
+
+
+  }
+
   getLastTryByQuestion(idQuestion, idStudent): Observable<any> {
     const url = this.activitiesUrl + 'ultimo_intento';
+    const data = {
+      id_pregunta: idQuestion,
+      id_estudiante: idStudent
+    };
+    return this.httpService.getRequestWithParams(url, data).map(
+      response => {
+        return response;
+      }, error => {
+        return error;
+      }
+    );
+  }
+    getLastTryByQuestionVoF(idQuestion, idStudent): Observable<any> {
+    const url = this.activitiesUrl + 'ultimo_intentoVof';
     const data = {
       id_pregunta: idQuestion,
       id_estudiante: idStudent
