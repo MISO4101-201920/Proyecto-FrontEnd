@@ -124,14 +124,17 @@ export class ConfigurarContenidoInteractivoComponent implements AfterViewInit {
     this.activeRoute.params.subscribe(params => {
       if (params.id) {
         this.contId = params.id;
-        this.contenidoService.getDetalleContenidoInteractivo(this.contId).subscribe(contenido => {
-          this.contenidoInt = contenido;
-          this.contentsLoaded = Promise.resolve(true);
-          this.id = this.contenidoInt.contenido.url.split('watch?v=')[1];
-          console.log('idd', this.id);
-          console.log('contenidoo', this.contenidoInt.contenido);
-        });
+        this.getContIntDetail();
       }
+    });
+  }
+
+  getContIntDetail() {
+    this.contenidoService.getDetalleContenidoInteractivo(this.contId).subscribe(contenido => {
+      this.contenidoInt = contenido;
+      this.contentsLoaded = Promise.resolve(true);
+      this.loadMarcas(this.contenidoInt.marcas);
+      this.id = this.contenidoInt.contenido.url.split('watch?v=')[1];
     });
   }
 
@@ -206,11 +209,15 @@ export class ConfigurarContenidoInteractivoComponent implements AfterViewInit {
     }
   }
   openDialog(marca): void {
-    this.dialog.open(activityTypesComponents[this.marcaSeleccionada], {
+    const dialogRef = this.dialog.open(activityTypesComponents[this.marcaSeleccionada], {
       width: '70%',
       data: {
         marca
       }
     });
+
+    dialogRef.afterClosed().subscribe(_ => {
+      this.getContIntDetail();
+     });
   }
 }
