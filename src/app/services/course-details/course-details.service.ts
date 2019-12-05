@@ -12,7 +12,7 @@ export class CourseDetailsService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getCourseDetails(): Observable<any> {
+  getCursos(): Observable<any> {
     return this.httpClient.get<any>(this.cursoUrl);
   }
 }
