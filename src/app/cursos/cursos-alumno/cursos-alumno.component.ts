@@ -10,18 +10,14 @@ import { CursoService } from 'src/app/services/curso.service';
 export class CursosAlumnoComponent implements OnInit {
 
   panelOpenState = false;
+  myData = [];
 
   constructor(private cursoService: CursoService, private activeRoute: ActivatedRoute) { }
 
   ngOnInit() {
-
     this.cursoService.getCursosDeEstudiante().subscribe(data => {
-
-      console.log(data);
-
-
+      this.myData = data;
     });
-
   }
 
 }
