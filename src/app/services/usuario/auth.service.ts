@@ -31,7 +31,6 @@ export class AuthService implements CanActivate {
   };
 
   constructor(private router: Router, public http: HttpClient) {
-    console.log('se llamo el servicio');
   }
 
   login(usuario: Login): Observable<InfoLogin> {
@@ -80,7 +79,6 @@ export class AuthService implements CanActivate {
       this.dataLog = this.getInfoLogin();
     }
     const signedIn = !!this.dataLog.userToken;
-    console.log("signedIn: ", signedIn);
     if (!signedIn) {
       this.router.navigateByUrl('/login');
     }
