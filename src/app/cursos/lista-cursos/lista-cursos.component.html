@@ -1,37 +1,60 @@
 <div class="container">
   <h1>Cursos</h1>
-  <mat-accordion>
-    <mat-expansion-panel *ngFor="let curso of cursos" hideToggle>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          {{curso.nombre}}
-        </mat-panel-title>
-        <mat-panel-description>
-          Estudiantes: {{curso.total_estudiantes}}
-        </mat-panel-description>
-        <mat-panel-description>
-          Fecha de Creación: {{curso.fecha_creacion}}
-          <mat-icon>more_vert</mat-icon>
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <p>- Descripción: {{curso.descripcion}}</p>
-      <div>- Contenido Interactivo:</div>
-      <mat-list>
-        <mat-list-item *ngFor="let content of curso.contenido_interactivo">
-          <mat-icon mat-list-icon>note</mat-icon>
-          <h4 mat-line>{{content.nombre}}</h4>
-        </mat-list-item>
-      </mat-list>
-      <div>- Estudiantes del Curso:</div>
-      <mat-list>
-        <mat-list-item *ngFor="let student of curso.estudiantes">
-          <mat-icon mat-list-icon>account_circle</mat-icon>
-          <h4 mat-line>{{student.codigo_de_estudiante}} - {{student.nombre_completo}}</h4>
-        </mat-list-item>
-      </mat-list>
-      <div class="actions">
-        <button mat-button (click)="loadReport(curso.id)">Reporte</button>
+  <div *ngIf="!isAlumno; then profesoresBlock else estudianteBlock"></div>
+  <ng-template #profesoresBlock>
+    <mat-accordion>
+      <mat-expansion-panel *ngFor="let curso of cursos" hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{curso.nombre}}
+          </mat-panel-title>
+          <mat-panel-description>
+            Estudiantes: {{curso.total_estudiantes}}
+          </mat-panel-description>
+          <mat-panel-description>
+            Fecha de Creación: {{curso.fecha_creacion}}
+            <mat-icon>more_vert</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <p>- Descripción: {{curso.descripcion}}</p>
+        <div>- Contenido Interactivo:</div>
+        <mat-list>
+          <mat-list-item *ngFor="let content of curso.contenido_interactivo">
+            <mat-icon mat-list-icon>note</mat-icon>
+            <h4 mat-line>{{content.nombre}}</h4>
+          </mat-list-item>
+        </mat-list>
+        <div>- Estudiantes del Curso:</div>
+        <mat-list>
+          <mat-list-item *ngFor="let student of curso.estudiantes">
+            <mat-icon mat-list-icon>account_circle</mat-icon>
+            <h4 mat-line>{{student.codigo_de_estudiante}} - {{student.nombre_completo}}</h4>
+          </mat-list-item>
+        </mat-list>
+        <div class="actions">
+          <button mat-button (click)="loadReport(curso.id)">Reporte</button>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </ng-template>
+  <ng-template #estudianteBlock>
+    <div class="flex-grid">
+      <div class="col" *ngFor="let curso of cursos">
+        <mat-card class="example-card">
+          <mat-card-header>
+            <mat-card-title>{{curso.nombre}}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p>
+              {{curso.descripcion}}
+            </p>
+          </mat-card-content>
+          <mat-card-actions class="actions">
+            <button mat-button>Ver Curso</button>
+            <button mat-button>Ver Reporte</button>
+          </mat-card-actions>
+        </mat-card>
       </div>
-    </mat-expansion-panel>
-  </mat-accordion>
+    </div>
+  </ng-template>
 </div>
