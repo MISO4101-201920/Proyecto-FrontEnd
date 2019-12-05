@@ -11,6 +11,7 @@ import { MaterialModule } from 'src/material.module';
 import { FormsModule } from '@angular/forms';
 import { InteractVoFComponent } from 'src/app/contenido-interactivo/Interact-vo-f/Interact-vo-f.component';
 import {PauseModalComponent} from "../contenido-interactivo/pause-modal/pause-modal.component";
+import {PreguntaAbiertaModalComponent} from "../contenido-interactivo/pregunta-abierta-modal/pregunta-abierta-modal.component";
 
 
 const routes: Routes = [
@@ -22,7 +23,9 @@ const routes: Routes = [
       InteractVoFComponent,
       QuestionModalComponent,
       VideoAlumnoComponent,
-      PauseModalComponent],
+      PauseModalComponent,
+      PreguntaAbiertaModalComponent
+    ],
     imports: [
       MaterialModule,
       NgbModule,
@@ -35,7 +38,8 @@ const routes: Routes = [
     entryComponents: [
       QuestionModalComponent,
       InteractVoFComponent,
-      PauseModalComponent
+      PauseModalComponent,
+      PreguntaAbiertaModalComponent
     ],
     providers: [
       { provide: MatDialogRef, useValue: {} },

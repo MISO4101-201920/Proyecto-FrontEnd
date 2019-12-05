@@ -19,6 +19,10 @@ export class ActivitiesService {
     return this.httpClient.get<any>(this.activitiesUrl + 'pregunta_f_v/' + idMark + '/');
   }
 
+  getPreguntaAbiertaXMarca(idMark: number):Observable<any>{
+    return this.httpClient.get<any>(this.activitiesUrl + 'pregunta_abierta/' + idMark + '/');
+  }
+
   getPauseXIdMarca(idMark:number) :Observable<any> {
     return this.httpClient.get<any>(this.activitiesUrl + 'pausas/' + idMark + '/');
   }
@@ -85,8 +89,6 @@ export class ActivitiesService {
         return error;
       }
     );
-
-
   }
 
   getLastTryByQuestion(idQuestion, idStudent): Observable<any> {

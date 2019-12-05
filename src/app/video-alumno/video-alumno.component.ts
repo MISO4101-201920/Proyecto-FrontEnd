@@ -9,6 +9,7 @@ import { InteractVoFComponent } from 'src/app/contenido-interactivo/Interact-vo-
 import { ContenidoService } from '../services/contenido.service';
 import { ActivitiesService } from 'src/app/services/activities-service/activities.service';
 import {PauseModalComponent} from "../contenido-interactivo/pause-modal/pause-modal.component";
+import {PreguntaAbiertaModalComponent} from "../contenido-interactivo/pregunta-abierta-modal/pregunta-abierta-modal.component";
 
 @Component({
   selector: 'app-video-alumno',
@@ -174,7 +175,7 @@ export class VideoAlumnoComponent implements OnInit {
          this.openPreguntaVoF(marca);
        }
        if (data.tipo_actividad == 3) {
-         this.openPause(marca);
+         this.openPreguntaAbierta(marca);
        }
        if (data.tipo_actividad == 4) {
          this.openPause(marca);
@@ -184,6 +185,23 @@ export class VideoAlumnoComponent implements OnInit {
        console.log('Error getting question information -> ', error);
      });
    }
+
+   openPreguntaAbierta(marca: any) {
+
+    const dialogRef = this.dialog.open(PreguntaAbiertaModalComponent, {
+      width: '70%',
+      data: {
+        idActivity: '1',
+        idMarca: marca.id
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.player.playVideo();
+      this.dosperro = 1;
+    });
+
+  }
 
   getContentMark() {
     this.retroalimentacionService.getMarcasXacontenido(parseInt(this.idContent, 10)).subscribe(
