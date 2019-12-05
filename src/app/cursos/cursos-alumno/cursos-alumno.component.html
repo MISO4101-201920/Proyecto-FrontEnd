@@ -1,6 +1,6 @@
 <div class="container">
     <h1>Mis cursos</h1>
-    <mat-accordion>
+    <mat-accordion class="example-headers-align">
         <div *ngFor="let curso of myData">
             <mat-expansion-panel>
                 <mat-expansion-panel-header>
@@ -8,7 +8,7 @@
                     <mat-panel-description>Total contenido: {{curso.contenido_interactivo.length}}</mat-panel-description>
                 </mat-expansion-panel-header>
                 <mat-nav-list>
-                    <a mat-list-item [routerLink]="['/video-alumno/' + contenido.id]" *ngFor="let contenido of curso.contenido_interactivo"> {{ contenido.nombre }}</a>
+                    <a mat-list-item [routerLink]="['/video-alumno/' + contenido.id]" *ngFor="let contenido of curso.contenido_interactivo"><mat-icon>play_arrow</mat-icon>  {{ contenido.nombre }}</a>
                 </mat-nav-list>
             </mat-expansion-panel>
         </div>
