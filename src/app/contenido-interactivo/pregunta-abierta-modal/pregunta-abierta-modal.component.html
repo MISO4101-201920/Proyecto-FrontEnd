@@ -1,1 +1,25 @@
-<p>pregunta-abierta-modal works!</p>
+<div mat-dialog-title style="text-align: right;">Tienes {{intentosDispinibles}} intentos</div>
+<div mat-dialog-title class="font-title">
+  {{enunciado}}<br><br>
+  <textarea [(ngModel)]="respuestaEstudiante" style="height:341px;width:100%;font-size: 14px;" [disabled]="!saveButtonflag"></textarea>
+</div>
+
+
+<div class="alert alert-danger" role="alert" *ngIf="!respuestaNoEmpty">
+  El campo de texto no debe estar vacio
+</div>
+
+<div *ngIf="retrofinal">
+  <div class="font-title">Retroalimentacion del profesor: {{respestaProfe}}</div>
+</div>
+
+
+<div class="row">
+  <div class="col-3" *ngIf="saveButtonflag" mat-dialog-actions>
+    <button mat-button (click)="saveAnswer()">Enviar respuestas</button>
+  </div>
+  <div class="col-3" mat-dialog-actions>
+    <button mat-button (click)="continue()">Continuar</button>
+  </div>
+</div>
+

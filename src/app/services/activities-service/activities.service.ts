@@ -3,7 +3,7 @@ import { HttpService } from 'src/app/services/http-service/http.service';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import {AnswerQuestion, AnswerQuestionVoF} from 'src/app/models/mark/answerQuestion.model';
+import { AnswerQuestion, AnswerQuestionVoF, AnswerOpenQuestion} from 'src/app/models/mark/answerQuestion.model';
 import {HttpClient} from "@angular/common/http";
 
 @Injectable({
@@ -78,6 +78,19 @@ export class ActivitiesService {
     );
   }
 
+  savePreguntaAbierta(answerVoF: AnswerOpenQuestion): Observable<any> {
+    const url = this.activitiesUrl + 'respuestaAbierta/';
+    return this.httpService.postJSON(url, answerVoF).map(
+      response => {
+        return response;
+      }, error => {
+        return error;
+      }
+    );
+  }
+
+
+
 
 
   savePreguntaVoF(answerVoF:AnswerQuestionVoF):Observable<any>{
@@ -105,6 +118,24 @@ export class ActivitiesService {
       }
     );
   }
+
+  getLastTryByQuestionOpen(idQuestion, idStudent): Observable<any> {
+    const url = this.activitiesUrl + 'intentos_maxOpen';
+    const data = {
+      id_pregunta: idQuestion,
+      id_estudiante: idStudent
+    };
+    return this.httpService.getRequestWithParams(url, data).map(
+      response => {
+        return response;
+      }, error => {
+        return error;
+      }
+    );
+  }
+
+
+
     getLastTryByQuestionVoF(idQuestion, idStudent): Observable<any> {
     const url = this.activitiesUrl + 'ultimo_intentoVof';
     const data = {
