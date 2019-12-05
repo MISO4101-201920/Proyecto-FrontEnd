@@ -15,3 +15,8 @@
 mat-form-field {
   margin-right: 12px;
 }
+
+mat-expansion-panel {
+  width: 95%;
+  margin-bottom: 15px;
+}
