@@ -19,9 +19,9 @@
         <p>- Descripción: {{curso.descripcion}}</p>
         <div>- Contenido Interactivo:</div>
         <mat-list>
-          <mat-list-item *ngFor="let content of curso.contenido_interactivo">
+          <mat-list-item *ngFor="let content of curso.contenido_interactivo" [routerLink]="['/contenido-interactivo/detalle/' + content.id]">
             <mat-icon mat-list-icon>note</mat-icon>
-            <h4 mat-line>{{content.nombre}}</h4>
+            <h4  mat-line>{{content.nombre}}</h4>
           </mat-list-item>
         </mat-list>
         <div>- Estudiantes del Curso:</div>
