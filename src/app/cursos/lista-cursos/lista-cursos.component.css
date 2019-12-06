@@ -1,5 +1,6 @@
 .container {
   margin: 2%;
+  width: 98%;
 }
 
 mat-card {
@@ -10,6 +11,35 @@ mat-card {
   justify-content: center;
   align-items: center;
   padding: 5%;
+}
+
+mat-expansion-panel {
+  width: 95%;
+  margin-bottom: 15px;
+}
+
+.mat-expansion-panel-header-title, .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mat-list-icon {
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.mat-list-base {
+  padding-top: 5px;
+  padding-bottom: 10px;
+}
+
+.mat-list-item {
+  height: 25px!important;
+  font-size: 14px;
+  cursor: pointer;
 }
 
 mat-card-header {
@@ -37,6 +67,7 @@ button {
 .actions {
   display: flex;
   flex-wrap: wrap;
+  float: right;
 }
 
 .col {
