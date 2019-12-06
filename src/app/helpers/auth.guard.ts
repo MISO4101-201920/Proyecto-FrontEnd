@@ -10,7 +10,7 @@ export class AuthGuard implements CanActivate {
     cookieValue: string;
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        var currentUser = JSON.parse(sessionStorage.getItem('userConectaTe'));
+        const currentUser = JSON.parse(sessionStorage.getItem('userConectaTe'));
         if (currentUser != null) {
             // check if route is restricted by role
             if ( currentUser.isAlumno === true ) {

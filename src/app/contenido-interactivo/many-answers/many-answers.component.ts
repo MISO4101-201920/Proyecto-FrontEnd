@@ -109,7 +109,7 @@ export class ManyAnswersComponent implements OnInit {
         JSON.parse(formData.retro), +formData.marker).subscribe( data => {
         this.questionService.createQuestion(questText, data.id).subscribe( res => {
           obj.answers.forEach( obj2 => {
-            this.questionService.createMultipleOptionAnswer(obj2.name, obj2.status, res.id).subscribe( data => {
+            this.questionService.createMultipleOptionAnswer(obj2.name, obj2.status, res.id).subscribe( data2 => {
               console.log('Exito');
             });
           });

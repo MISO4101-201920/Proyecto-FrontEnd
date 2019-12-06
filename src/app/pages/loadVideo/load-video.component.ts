@@ -36,7 +36,7 @@ export class LoadVideoComponent implements OnInit {
   options: FormGroup;
 
   constructor(fb: FormBuilder, private _loadVideoService: LoadVideoService,
-              public router: Router, public dialogRef: MatDialogRef<LoadVideoComponent>) {
+    public router: Router, public dialogRef: MatDialogRef<LoadVideoComponent>) {
     this.options = fb.group({
       hideRequired: false,
       floatLabel: 'auto',
@@ -45,30 +45,36 @@ export class LoadVideoComponent implements OnInit {
 
   ngOnInit() {
   }
-  
-  guardarVideo(n: any, v: any) {
-    this.loadVideo.url = v.value;
-    this.loadVideo.nombre = n.value;
-    // this.loadVideo.url = "https://www.youtube.com/watch?v=3JuYkJyJh7c";
-    // this.loadVideo.nombre = "Entender a Supergirl";
-    // this.loadVideo.cursos_seleccionados = [{ "id": 1 }];
-    this._loadVideoService.loadUrl(this.loadVideo)
-      .subscribe(
-        result => {
-          console.log(result);
-          Swal.fire('Agregar contenido', 'Contenido agregado correctamente', 'success');
-          this.cancel();
 
-        },
-        error => {
-          console.log(error);
-          Swal.fire('Oops...', 'Revisa los datos ingresados', 'error');
-        },
-        () => {
-          // Swal.fire('Cargado!', 'Tu video ha sido cargado con Exito a contenido interactivo.', 'success')
-          this.router.navigate(['/page/crearContenidoInt']);
-        }
-      );
+  guardarVideo(n: any, v: any) {
+
+    if ((n.value === '') || (v.value === '')) {
+      Swal.fire('Oops...', 'Asegúrate de no dejar campos en blanco', 'error');
+    } else {
+      this.loadVideo.url = v.value;
+      this.loadVideo.nombre = n.value;
+      // this.loadVideo.url = "https://www.youtube.com/watch?v=3JuYkJyJh7c";
+      // this.loadVideo.nombre = "Entender a Supergirl";
+      // this.loadVideo.cursos_seleccionados = [{ "id": 1 }];
+      this._loadVideoService.loadUrl(this.loadVideo)
+        .subscribe(
+          result => {
+            console.log(result);
+            Swal.fire('Agregar contenido', 'Contenido agregado correctamente', 'success');
+            this.cancel();
+
+          },
+          error => {
+            console.log(error);
+            Swal.fire('Oops...', 'Revisa los datos ingresados', 'error');
+          },
+          () => {
+            // Swal.fire('Cargado!', 'Tu video ha sido cargado con Exito a contenido interactivo.', 'success')
+            this.router.navigate(['/page/crearContenidoInt']);
+          }
+        );
+    }
+
   }
 
   cancel() {

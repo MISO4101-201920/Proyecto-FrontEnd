@@ -1,0 +1,32 @@
+<h1 mat-dialog-title>Agregar Pausa {{data.marca.nombre}}</h1>
+<div mat-dialog-content style="margin-bottom: 1em;">
+    <form [formGroup]="questionForm" (ngSubmit)="agregarMarca()">
+        <div class="row-container">
+            <mat-form-field appearance="outline" style="width:100%">
+                <mat-label>Nombre</mat-label>
+                <input type="text" matInput placeholder="Pausa ejemplo" formControlName="nombre" />
+            </mat-form-field>
+        </div>
+        <div class="row-container">
+            <mat-form-field appearance="outline" style="width:100%">
+                <mat-label>Enunciado</mat-label>
+                <input type="text" #message maxlength="1000" matInput placeholder="Escribe aquí el enunciado" formControlName="enunciado" />
+                <mat-hint align="end">{{message.value.length}} / 1000</mat-hint>
+            </mat-form-field>
+        </div>
+        <div class="row-container">
+            <mat-form-field appearance="outline" style="height:40px">
+                <mat-label>Duración</mat-label>
+                <input type="number" min="1" matInput formControlName="tiempo" />
+                <span matSuffix>segundos</span>
+
+            </mat-form-field>
+        </div>
+        <div class="form-actions">
+            <button id="cancel-button" class="mat-stroked-button" type="button" (click)="cancel()">
+                Cancelar
+            </button>
+            <button class="mat-flat-button mat-primary" type="submit">Guardar</button>
+        </div>
+    </form>
+</div>

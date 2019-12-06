@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { LoadVideoService } from '../../services/contenidoInter/load-video.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ContenidoService } from '../../services/contenido.service'
+import { ContenidoService } from '../../services/contenido.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoadVideoComponent } from '../loadVideo/load-video.component';
 import Swal from 'sweetalert2';
@@ -26,11 +26,11 @@ export class CrearContenidoComponent implements OnInit {
     this._loadVideoService.getContenido()
       .subscribe(
         result => {
-          console.log("ED: ", result);
+          console.log('ED: ', result);
           this.listContenido = result;
         },
         error => {
-          console.log("Edu: ", error);
+          console.log('Edu: ', error);
         },
         () => {
 

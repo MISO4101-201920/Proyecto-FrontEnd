@@ -4,10 +4,12 @@ import { CrearPreguntaAbiertaComponent } from './crear-pregunta-abierta/crear-pr
 import { MatDialog } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { ContenidoService } from 'src/app/services/contenido.service';
+import { CrearPausaComponent } from './crear-pausa/crear-pausa.component';
 
 const activityTypesComponents = {
   'Pregunta de opción múltiple': CrearSeleccionMultipleComponent,
-  'Pregunta abierta': CrearPreguntaAbiertaComponent
+  'Pregunta abierta': CrearPreguntaAbiertaComponent,
+  Pausa: CrearPausaComponent
 };
 
 @Component({
@@ -37,7 +39,7 @@ export class ConfigurarContenidoInteractivoComponent implements AfterViewInit {
   // Elementos del DOM a manipular
   @ViewChild('progressBar', { static: false }) progressBar: ElementRef;
   constructor(public dialog: MatDialog, private activeRoute: ActivatedRoute,
-    private contenidoService: ContenidoService) {
+              private contenidoService: ContenidoService) {
     this.loadData();
   }
 
@@ -54,7 +56,7 @@ export class ConfigurarContenidoInteractivoComponent implements AfterViewInit {
     'Pregunta Falso o Verdadero',
     'Pregunta abierta',
     'Pausa',
-    //'Foro'
+    // 'Foro'
   ];
   marcaSeleccionada = this.opcionesMarca[0];
 
