@@ -6,9 +6,9 @@ import { ActivatedRoute } from '@angular/router';
 import { ContenidoService } from 'src/app/services/contenido.service';
 
 const activityTypesComponents = {
-  "Pregunta de opción múltiple": CrearSeleccionMultipleComponent,
-  "Pregunta abierta": CrearPreguntaAbiertaComponent
-}
+  'Pregunta de opción múltiple': CrearSeleccionMultipleComponent,
+  'Pregunta abierta': CrearPreguntaAbiertaComponent
+};
 
 @Component({
   selector: 'app-configurar-contenido-interactivo',
@@ -18,7 +18,7 @@ const activityTypesComponents = {
 export class ConfigurarContenidoInteractivoComponent implements AfterViewInit {
 
   player: YT.Player;
-  id :string;
+  id: string;
   playerVars = {
     // Oculta la barra de reproducción (0)
     controls: 0,
@@ -32,11 +32,12 @@ export class ConfigurarContenidoInteractivoComponent implements AfterViewInit {
   contenidoInt;
   contId;
   contentsLoaded: Promise<boolean>;
+  marcasPorcentaje;
 
   // Elementos del DOM a manipular
   @ViewChild('progressBar', { static: false }) progressBar: ElementRef;
   constructor(public dialog: MatDialog, private activeRoute: ActivatedRoute,
-              private contenidoService: ContenidoService) {
+    private contenidoService: ContenidoService) {
     this.loadData();
   }
 
@@ -62,9 +63,9 @@ export class ConfigurarContenidoInteractivoComponent implements AfterViewInit {
 
   savePlayer(player) {
     this.player = player;
-    console.log('player instance', player);
     // Update the controls on load
     this.updateProgressBar();
+    this.loadMarcas(this.contenidoInt.marcas);
 
     // Start interval to update elapsed time display and
     // the elapsed part of the progress bar every second.
@@ -123,16 +124,75 @@ export class ConfigurarContenidoInteractivoComponent implements AfterViewInit {
     this.activeRoute.params.subscribe(params => {
       if (params.id) {
         this.contId = params.id;
-        this.contenidoService.getDetalleContenidoInteractivo(this.contId).subscribe(contenido => {
-          this.contenidoInt = contenido;
-          this.contentsLoaded = Promise.resolve(true);
-          this.id = this.contenidoInt.contenido.url.split('watch?v=')[1];
-          console.log('idd', this.id);
-          console.log('contenidoo', this.contenidoInt.contenido);
-        });
+        this.getContIntDetail();
       }
     });
   }
+
+  getContIntDetail() {
+    this.contenidoService.getDetalleContenidoInteractivo(this.contId).subscribe(contenido => {
+      this.contenidoInt = contenido;
+      this.contentsLoaded = Promise.resolve(true);
+      this.loadMarcas(this.contenidoInt.marcas);
+      this.id = this.contenidoInt.contenido.url.split('watch?v=')[1];
+    });
+  }
+
+  loadMarcas(marcas) {
+    this.marcasPorcentaje = [];
+    for (const marca of marcas) {
+      console.log(marca);
+      const marcaP = Math.round(this.calcPercentage(+marca.punto));
+      console.log(marcaP, 'marcaP');
+      this.marcasPorcentaje.push(marcaP);
+    }
+    console.log(this.marcasPorcentaje, 'marcasPorcentaje');
+  }
+
+  calcPercentage(segundo: number) {
+    let percentage = 0;
+    if (this.player) {
+      percentage = (Math.round(segundo) * 100) / Math.round(this.player.getDuration());
+    }
+    return percentage;
+  }
+
+  getCurrentTime(): string {
+    if (this.player) {
+      return this.toMin(this.player.getCurrentTime());
+    } else {
+      return '0:00';
+    }
+  }
+
+  getTotalTime(): string {
+    if (this.player) {
+      return this.toMin(this.player.getDuration());
+    } else {
+      return '0:00';
+    }
+  }
+
+  toMin(sec: number): string {
+    const result = Math.round(sec);
+    let resultStr = '0:00' +  result;
+    let newSec = (result % 60).toString();
+    if (+newSec < 10) {
+      newSec = '0' + newSec;
+    }
+    if (sec > 59) {
+      let min = Math.floor(result / 60).toString();
+      if (+min < 10) {
+        min = '0' + min;
+      }
+      resultStr = min + ':' + newSec;
+    } else {
+      resultStr = '0:' + newSec;
+    }
+    return resultStr;
+  }
+
+
 
   addMarker() {
     this.pause();
@@ -141,7 +201,7 @@ export class ConfigurarContenidoInteractivoComponent implements AfterViewInit {
     if (this.contId) {
       const punto = Math.round(this.player.getCurrentTime());
       const marca = {
-        nombre: 'marca ' + punto,
+        nombre: 'marca ' + this.getCurrentTime(),
         punto,
         contenido_id: +this.contId
       };
@@ -149,11 +209,15 @@ export class ConfigurarContenidoInteractivoComponent implements AfterViewInit {
     }
   }
   openDialog(marca): void {
-    this.dialog.open(activityTypesComponents[this.marcaSeleccionada], {
+    const dialogRef = this.dialog.open(activityTypesComponents[this.marcaSeleccionada], {
       width: '70%',
       data: {
         marca
       }
     });
+
+    dialogRef.afterClosed().subscribe(_ => {
+      this.getContIntDetail();
+     });
   }
 }
