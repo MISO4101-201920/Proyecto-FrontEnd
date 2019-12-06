@@ -78,12 +78,12 @@ export class NgbdModal3Content implements OnInit  {
   dynamicArray: Array<DynamicGrid> = [];
   newDynamic: any = {};
   ngOnInit(): void {
-    this.newDynamic = { respuesta: "", esCorrecta: false, preguntaSeleccionMultiple: this.preguntaid};
+    this.newDynamic = { respuesta: '', esCorrecta: false, preguntaSeleccionMultiple: this.preguntaid};
       this.dynamicArray.push(this.newDynamic);
   }
 
   addRow(index) {
-    this.newDynamic = { respuesta: "", esCorrecta: false, preguntaSeleccionMultiple: this.preguntaid};
+    this.newDynamic = { respuesta: '', esCorrecta: false, preguntaSeleccionMultiple: this.preguntaid};
       this.dynamicArray.push(this.newDynamic);
       this.toastr.success('New row added successfully', 'New Row');
     console.log(this.dynamicArray);
