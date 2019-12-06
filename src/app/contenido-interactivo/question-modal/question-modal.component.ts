@@ -27,7 +27,7 @@ export class QuestionModalComponent implements OnInit {
   numberTry: number;
 
   constructor(public dialogRef: MatDialogRef<QuestionModalComponent>, @Inject(MAT_DIALOG_DATA) public data: { idActivity, idMarca },
-    private activityService: ActivitiesService) {
+              private activityService: ActivitiesService) {
     dialogRef.disableClose = true;
   }
 

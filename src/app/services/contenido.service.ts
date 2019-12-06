@@ -13,6 +13,8 @@ export class ContenidoService {
   private reportesUrl = `${environment.apiUrl}/activities/reports/`;
   private addPreguntaSelecconMultipleUrl = `${environment.apiUrl}/activities/generate-question-multiple-choice`;
   private addPreguntaAbiertaUrl = `${environment.apiUrl}/activities/generate-open-question`;
+  private addPausaUrl = `${environment.apiUrl}/activities/create-pausa/`;
+
   private detalleUrl = `${environment.apiUrl}/content/interactivecontent/`;
   private crearContenidoInteractivo = `${environment.apiUrl}/content/cont_interactivo`;
 
@@ -48,11 +50,15 @@ export class ContenidoService {
     return this.httpClient.get<any>(this.reportesUrl + contentId);
   }
 
-  agregarMarcaPreguntaSeleccionMultiple(marca:any) : Observable<any> {
+  agregarMarcaPreguntaSeleccionMultiple(marca: any): Observable<any> {
     return this.httpClient.post(this.addPreguntaSelecconMultipleUrl, marca);
   }
 
-  agregarMarcaPreguntaAbierta(marca:any) : Observable<any> {
+  agregarMarcaPreguntaAbierta(marca: any): Observable<any> {
     return this.httpClient.post(this.addPreguntaAbiertaUrl, marca);
+  }
+
+  agregarMarcaPausa(marca: any): Observable<any> {
+    return this.httpClient.post(this.addPausaUrl, marca);
   }
 }

@@ -18,13 +18,13 @@ export class ListaContenidoComponent implements OnInit {
   isAlumno = true;
 
   constructor(private contenidoService: ContenidoService,
-    private _authService: AuthService,
-    public dialog: MatDialog,
-    public router: Router
-  ) { };
+              private authService: AuthService,
+              public dialog: MatDialog,
+              public router: Router
+  ) { }
 
   ngOnInit() {
-    this.isAlumno = this._authService.getInfoLogin().isAlumno;
+    this.isAlumno = this.authService.getInfoLogin().isAlumno;
     this.getContenidos();
   }
   getContenidos() {

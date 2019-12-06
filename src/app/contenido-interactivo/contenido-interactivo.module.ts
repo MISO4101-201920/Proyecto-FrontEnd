@@ -20,6 +20,7 @@ import { CrearSeleccionMultipleComponent } from './configurar-contenido-interact
 import { CrearPreguntaAbiertaComponent } from './configurar-contenido-interactivo/crear-pregunta-abierta/crear-pregunta-abierta.component';
 import { DetalleContenidoInteractivoComponent } from './detalle-contenido-interactivo/detalle-contenido-interactivo.component';
 import { ServiceModule } from '../services/service.module';
+import { CrearPausaComponent } from './configurar-contenido-interactivo/crear-pausa/crear-pausa.component';
 
 const routes: Routes = [
   { path: '', component: ListaContenidoComponent },
@@ -32,7 +33,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [ListaContenidoComponent, AddContenidoACursoComponent, ReporteContenidoComponent,
     MarkersComponent, ManyAnswersComponent, DetalleContenidoInteractivoComponent, ConfigurarContenidoInteractivoComponent,
-    CrearSeleccionMultipleComponent, CrearPreguntaAbiertaComponent
+    CrearSeleccionMultipleComponent, CrearPreguntaAbiertaComponent, CrearPausaComponent
   ],
   imports: [
     ServiceModule,
@@ -49,7 +50,8 @@ const routes: Routes = [
   entryComponents: [
     AddContenidoACursoComponent,
     CrearSeleccionMultipleComponent,
-    CrearPreguntaAbiertaComponent
+    CrearPreguntaAbiertaComponent,
+    CrearPausaComponent
   ],
   providers: [
     { provide: MatDialogRef, useValue: {} },

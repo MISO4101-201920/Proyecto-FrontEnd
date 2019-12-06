@@ -1,4 +1,4 @@
-import { Actividad } from './activity.model'
+import { Actividad } from './activity.model';
 
 export class Marca {
 
