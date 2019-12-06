@@ -19,6 +19,7 @@ import { YoutubePlayerModule } from 'ng2-youtube-player';
 import { CrearSeleccionMultipleComponent } from './configurar-contenido-interactivo/crear-seleccion-multiple/crear-seleccion-multiple.component';
 import { CrearPreguntaAbiertaComponent } from './configurar-contenido-interactivo/crear-pregunta-abierta/crear-pregunta-abierta.component';
 import { DetalleContenidoInteractivoComponent } from './detalle-contenido-interactivo/detalle-contenido-interactivo.component';
+import { ServiceModule } from '../services/service.module';
 
 const routes: Routes = [
   { path: '', component: ListaContenidoComponent },
@@ -34,6 +35,7 @@ const routes: Routes = [
     CrearSeleccionMultipleComponent, CrearPreguntaAbiertaComponent
   ],
   imports: [
+    ServiceModule,
     CommonModule,
     MaterialModule,
     ReactiveFormsModule,
