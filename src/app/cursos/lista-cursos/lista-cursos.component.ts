@@ -12,6 +12,7 @@ export class ListaCursosComponent implements OnInit {
   courseInfoService;
   isAlumno;
   cursos = [];
+  myData = [];
 
   constructor(private authService: AuthService, private cursosDocentes: CourseDetailsService, private cursosEstudiantes: CursoService) {
     this.isAlumno = this.authService.getDatos().isAlumno;
@@ -19,9 +20,15 @@ export class ListaCursosComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.courseInfoService.getCursos().subscribe(cursos => {
-      this.cursos = cursos;
-    });
+    if(this.isAlumno) {
+      this.cursosEstudiantes.getCursosDeEstudiante().subscribe(data => {
+        this.myData = data;
+      });
+    }else {
+        this.courseInfoService.getCursos().subscribe(cursos => {
+        this.cursos = cursos;
+      });
+    }
   }
 
   loadReport(id: number) {
