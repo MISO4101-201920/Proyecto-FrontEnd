@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { ContenidoService } from 'src/app/services/contenido.service';
+import { TipoActividad } from 'src/app/shared/tipoActividad';
 
 export interface DialogData {
   marca: any;
@@ -73,6 +74,7 @@ export class CrearSeleccionMultipleComponent implements OnInit {
         Swal.fire('Oops...', 'Ingresa al menos una opción correcta', 'error');
       } else {
         this.questionForm.value.marca = this.data.marca;
+        this.questionForm.value.tipoActividad = TipoActividad.PREGUNTA_OPCION_MULTIPLE;
         this.contenidoService.agregarMarcaPreguntaSeleccionMultiple(this.questionForm.value).subscribe(result => {
           Swal.fire('Agregar Marca', 'Marca agregada correctamente', 'success');
           this.dialogRef.close();

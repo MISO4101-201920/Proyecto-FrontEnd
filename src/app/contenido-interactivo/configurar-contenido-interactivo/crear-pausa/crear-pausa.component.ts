@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { ContenidoService } from 'src/app/services/contenido.service';
 import Swal from 'sweetalert2';
+import { TipoActividad } from 'src/app/shared/tipoActividad';
 
 export interface DialogData {
   marca: any;
@@ -46,6 +47,7 @@ export class CrearPausaComponent implements OnInit {
     console.log('form', this.questionForm.value);
     if (this.questionForm.valid) {
       this.questionForm.value.marca = this.data.marca;
+      this.questionForm.value.tipoActividad = TipoActividad.PAUSA;
       this.contenidoService.agregarMarcaPausa(this.questionForm.value).subscribe(result => {
         Swal.fire('Agregar Marca', 'Marca agregada correctamente', 'success');
         this.dialogRef.close();
