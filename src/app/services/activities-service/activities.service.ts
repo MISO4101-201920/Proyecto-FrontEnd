@@ -4,7 +4,7 @@ import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AnswerQuestion, AnswerQuestionVoF, AnswerOpenQuestion} from 'src/app/models/mark/answerQuestion.model';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient,HttpHeaders} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -94,6 +94,8 @@ export class ActivitiesService {
 
 
   savePreguntaVoF(answerVoF:AnswerQuestionVoF):Observable<any>{
+    let headers = new HttpHeaders();
+    headers = headers.set('Authorization', 'Token ');
     const url = this.activitiesUrl + 'respuestafov/';
     return this.httpService.postJSON(url, answerVoF).map(
       response => {

@@ -2,6 +2,8 @@ import {AfterViewInit, Component, Inject, OnInit} from '@angular/core';
 import { ActivitiesService } from 'src/app/services/activities-service/activities.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
 import {AnswerQuestion, AnswerQuestionVoF} from "../../models/mark/answerQuestion.model";
+import {AuthService} from "../../services/usuario/auth.service";
+import {InfoLogin} from "../../models/infoLogin.model";
 
 @Component({
   selector: 'app-interact-vo-f',
@@ -13,8 +15,10 @@ export class InteractVoFComponent implements  AfterViewInit {
   constructor(
     public dialogRef: MatDialogRef<InteractVoFComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { idActivity, idMarca },
-    private activityService: ActivitiesService) {
+    private activityService: ActivitiesService,
+    private authService: AuthService) {
     dialogRef.disableClose = true;
+    this.getStudentData();
     this.getPreguntaVoF();
   }
 
@@ -40,6 +44,14 @@ export class InteractVoFComponent implements  AfterViewInit {
   ngAfterViewInit() {
 
   }
+
+  getStudentData(){
+    let infoLogin: InfoLogin;
+    infoLogin = this.authService.getInfoLogin();
+    this.studentId= parseInt(infoLogin.dataAlumno.id, 10);
+    console.log('codigo del estudiante nuevo -> ', this.studentId);
+  }
+
   getIntentosDisponibles(){
     this.activityService.getLastTryByQuestionVoF(this.idQuestion, this.studentId).subscribe(
       answerTries => {
