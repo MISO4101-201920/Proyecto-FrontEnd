@@ -33,7 +33,7 @@ export class InteractVoFComponent implements  AfterViewInit {
   respuestaVof;
   atLeastOneSelected=true;
   saveButtonflag=true;
-  studentId=4;
+  studentId:number;
   idGroup=null;
   numberTry: number;
   idQuestion:number;
