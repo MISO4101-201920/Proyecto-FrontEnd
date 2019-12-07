@@ -13,6 +13,12 @@
                 <input type="text" matInput placeholder="Enunciado" formControlName="enunciado" />
             </mat-form-field>
         </div>
+        <div class="row-container">
+            <mat-form-field appearance="outline" style="height:40px">
+                <mat-label>Número de intentos</mat-label>
+                <input type="number" min="1" matInput formControlName="numeroDeIntentos" />
+            </mat-form-field>
+        </div>
         <div class="form-actions">
             <button id="cancel-button" class="mat-stroked-button" type="button" (click)="cancel()">
                 Cancelar

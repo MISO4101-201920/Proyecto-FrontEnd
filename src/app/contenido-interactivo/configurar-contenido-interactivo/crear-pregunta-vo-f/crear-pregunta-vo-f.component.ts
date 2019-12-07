@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { ContenidoService } from 'src/app/services/contenido.service';
-import {DialogData} from "../crear-seleccion-multiple/crear-seleccion-multiple.component";
+import { DialogData } from "../crear-seleccion-multiple/crear-seleccion-multiple.component";
 
 export interface DialogData {
   marca: any;
@@ -24,43 +24,43 @@ export class CrearPreguntaVoFComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<CrearPreguntaVoFComponent>,
-    private contenidoService: ContenidoService ) {
+    private contenidoService: ContenidoService) {
     this.initializeForm();
   }
 
   ngOnInit() {
   }
 
-    initializeForm() {
+  initializeForm() {
     this.questionForm = this.formBuilder.group({
       pregunta: ['', [Validators.required]],
       esVerdadero: [this.respuesta, [Validators.required]],
       nombre: ['', [Validators.required]],
       tieneRetroalimentacion: [false, [Validators.required]],
       retroalimentacion: [null,],
-      numeroDeIntentos: [1, [Validators.required,  Validators.min(1)]],
+      numeroDeIntentos: [1, [Validators.required, Validators.min(1)]],
     });
-    this.tieneRetroalimentacion =  this.questionForm.value.tieneRetroalimentacion;
+    this.tieneRetroalimentacion = this.questionForm.value.tieneRetroalimentacion;
   }
 
   cancel() {
     this.dialogRef.close();
   }
 
-    agregarMarca() {
+  agregarMarca() {
 
     if (this.questionForm.valid) {
       console.log('data', this.questionForm.value.esVerdadero);
       console.log('data', this.data);
       console.log('form', this.questionForm.value);
-        this.questionForm.value.marca = this.data.marca;
-        this.contenidoService.agregarMarcaVoF(this.questionForm.value).subscribe(result => {
-          Swal.fire('Agregar Marca', 'Marca agregada correctamente', 'success');
-          this.dialogRef.close();
-        }, error => {
-          console.error(error);
+      this.questionForm.value.marca = this.data.marca;
+      this.contenidoService.agregarMarcaVoF(this.questionForm.value).subscribe(result => {
+        Swal.fire('Agregar Marca', 'Marca agregada correctamente', 'success');
+        this.dialogRef.close();
+      }, error => {
+        console.error(error); 
           Swal.fire('Oops...', 'Ocurrió un error agregando la marca, por favor inténtalo de nuevo', 'error');
-        });
-      }
+      });
     }
+  }
 }

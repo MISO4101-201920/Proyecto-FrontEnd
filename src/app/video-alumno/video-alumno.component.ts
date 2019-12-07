@@ -3,13 +3,13 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { InteraccionAlumnoService } from '../interaccion-alumno.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoadVideoService } from '../services/contenidoInter/load-video.service';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { QuestionModalComponent } from 'src/app/contenido-interactivo/question-modal/question-modal.component';
-import { InteractVoFComponent } from 'src/app/contenido-interactivo/Interact-vo-f/Interact-vo-f.component';
+import { InteractVoFComponent } from 'src/app/contenido-interactivo/interact-vo-f/interact-vo-f.component';
 import { ContenidoService } from '../services/contenido.service';
 import { ActivitiesService } from 'src/app/services/activities-service/activities.service';
-import {PauseModalComponent} from "../contenido-interactivo/pause-modal/pause-modal.component";
-import {PreguntaAbiertaModalComponent} from "../contenido-interactivo/pregunta-abierta-modal/pregunta-abierta-modal.component";
+import { PauseModalComponent } from "../contenido-interactivo/pause-modal/pause-modal.component";
+import { PreguntaAbiertaModalComponent } from "../contenido-interactivo/pregunta-abierta-modal/pregunta-abierta-modal.component";
 
 @Component({
   selector: 'app-video-alumno',
@@ -20,7 +20,7 @@ export class VideoAlumnoComponent implements OnInit {
 
 
 
-  activityType=0;
+  activityType = 0;
   idContent = '';
   retroalimentacion: string;
   player: YT.Player;
@@ -39,6 +39,8 @@ export class VideoAlumnoComponent implements OnInit {
   waiting = false;
   counter = 0;
   contentsLoaded: Promise<boolean>;
+  marcasPorcentaje;
+
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -76,7 +78,7 @@ export class VideoAlumnoComponent implements OnInit {
   }
 
   async savePlayer(player) {
-    let activitytype=0;
+    let activitytype = 0;
     this.player = player;
     console.log('player instance', player);
     this.getContentMark();
@@ -94,9 +96,9 @@ export class VideoAlumnoComponent implements OnInit {
 
           this.openModals(this.marcas[i]);
 
-          while (this.dosperro  == 999999) {
+          while (this.dosperro == 999999) {
 
-          await this.delay(1000);
+            await this.delay(1000);
           }
 
         }
@@ -122,7 +124,7 @@ export class VideoAlumnoComponent implements OnInit {
       }
     });
 
-        dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(result => {
       this.player.playVideo();
       this.dosperro = 1;
     });
@@ -164,29 +166,30 @@ export class VideoAlumnoComponent implements OnInit {
   }
 
   openModals(marca: any) {
-     //console.log("Id de la marca ", marca);
-     this.activityService.getActivityType(marca.id).subscribe((data:any) => {
-       this.activityType = data.tipo_actividad;
+    console.log("Id de la marca ", marca);
+    this.activityService.getActivityType(marca.id).subscribe((data: any) => {
+      this.activityType = data.tipo_actividad;
+      console.log('tipo act', data);
 
-       if (data.tipo_actividad == 1) {
-         this.openPReguntaMultople(marca);
-       }
-       if (data.tipo_actividad == 2) {
-         this.openPreguntaVoF(marca);
-       }
-       if (data.tipo_actividad == 3) {
-         this.openPreguntaAbierta(marca);
-       }
-       if (data.tipo_actividad == 4) {
-         this.openPause(marca);
-       }
+      if (data.tipo_actividad == 1) {
+        this.openPReguntaMultople(marca);
+      }
+      if (data.tipo_actividad == 2) {
+        this.openPreguntaVoF(marca);
+      }
+      if (data.tipo_actividad == 3) {
+        this.openPreguntaAbierta(marca);
+      }
+      if (data.tipo_actividad == 4) {
+        this.openPause(marca);
+      }
 
-       }, error => {
-       console.log('Error getting question information -> ', error);
-     });
-   }
+    }, error => {
+      console.log('Error getting question information -> ', error);
+    });
+  }
 
-   openPreguntaAbierta(marca: any) {
+  openPreguntaAbierta(marca: any) {
 
     const dialogRef = this.dialog.open(PreguntaAbiertaModalComponent, {
       width: '70%',
@@ -223,12 +226,24 @@ export class VideoAlumnoComponent implements OnInit {
       this.contenidoService.getDetalleContenidoInteractivo(idContent).subscribe(contenido => {
         this.id = contenido.contenido.url.split('watch?v=')[1];
         this.contentsLoaded = Promise.resolve(true);
-        console.log('contenido alumno', contenido);
+        this.loadMarcas(contenido.marcas);
+        console.log('contenido alumno', contenido.marcas);
         console.log('idd', this.id);
       }, error => {
         console.log('Error getting question information -> ', error);
       });
     }
+  }
+
+  loadMarcas(marcas) {
+    this.marcasPorcentaje = [];
+    for (const marca of marcas) {
+      console.log(marca);
+      const marcaP = Math.round(this.calcPercentage(+marca.punto));
+      console.log(marcaP, 'marcaP');
+      this.marcasPorcentaje.push(marcaP);
+    }
+    console.log(this.marcasPorcentaje, 'marcasPorcentaje');
   }
   onStateChange(event) {
     if (event.data === YT.PlayerState.PLAYING) {
@@ -273,5 +288,49 @@ export class VideoAlumnoComponent implements OnInit {
       this.playing = false;
     }
   }
+
+  calcPercentage(segundo: number) {
+    let percentage = 0;
+    if (this.player) {
+      percentage = (Math.round(segundo) * 100) / Math.round(this.player.getDuration());
+    }
+    return percentage;
+  }
+
+  getCurrentTime(): string {
+    if (this.player) {
+      return this.toMin(this.player.getCurrentTime());
+    } else {
+      return '0:00';
+    }
+  }
+
+  getTotalTime(): string {
+    if (this.player) {
+      return this.toMin(this.player.getDuration());
+    } else {
+      return '0:00';
+    }
+  }
+
+  toMin(sec: number): string {
+    const result = Math.round(sec);
+    let resultStr = '0:00' + result;
+    let newSec = (result % 60).toString();
+    if (+newSec < 10) {
+      newSec = '0' + newSec;
+    }
+    if (sec > 59) {
+      let min = Math.floor(result / 60).toString();
+      if (+min < 10) {
+        min = '0' + min;
+      }
+      resultStr = min + ':' + newSec;
+    } else {
+      resultStr = '0:' + newSec;
+    }
+    return resultStr;
+  }
+
 
 }

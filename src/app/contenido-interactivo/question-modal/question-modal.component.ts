@@ -31,6 +31,7 @@ export class QuestionModalComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<QuestionModalComponent>, @Inject(MAT_DIALOG_DATA) public data: { idActivity, idMarca },
     private activityService: ActivitiesService, private authService: AuthService) {
     dialogRef.disableClose = true;
+    this.getStudentData();
   }
 
   ngOnInit() {
