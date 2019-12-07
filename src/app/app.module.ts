@@ -28,6 +28,7 @@ import {ToastrModule} from 'ngx-toastr';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { GestureConfig } from '@angular/material';
 
+
 @NgModule({
   declarations: [
     AppComponent,

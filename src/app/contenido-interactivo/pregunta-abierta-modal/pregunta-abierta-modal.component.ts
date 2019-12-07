@@ -38,7 +38,7 @@ export class PreguntaAbiertaModalComponent implements AfterViewInit {
 
   }
   getIntentosDisponibles() {
-    this.activityService.getLastTryByQuestionOpen(this.idQuestion, this.studentId).subscribe(
+    this.activityService.getLastTryByQuestion(this.idQuestion, this.studentId).subscribe(
       answerTries => {
         console.log('get las try service', answerTries);
         this.intentosDispinibles = this.intentosTotales - answerTries.body.ultimo_intento;
@@ -85,7 +85,7 @@ export class PreguntaAbiertaModalComponent implements AfterViewInit {
   }
 
   callSaveAbiertaService() {
-    this.activityService.getLastTryByQuestionOpen(this.idQuestion, this.studentId).subscribe(
+    this.activityService.getLastTryByQuestion(this.idQuestion, this.studentId).subscribe(
       answerTries => {
         console.log('get las try service', answerTries);
         this.numberTry = answerTries.body.ultimo_intento + 1;

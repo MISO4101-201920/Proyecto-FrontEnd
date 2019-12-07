@@ -29,4 +29,19 @@ export class AuthGuard implements CanActivate {
         this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
         return false;
     }
+
+    validateAulmno(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+      var currentUser = JSON.parse(sessionStorage.getItem('userConectaTe'));
+      if (currentUser != null) {
+            console.log("Entra Authguard")
+            // check if route is restricted by role
+            console.log("Entra: " + currentUser.isAlumno)
+        if ( currentUser.isAlumno != true ) {
+          return true;
+        }else{
+          this.router.navigate(['/']);
+                return false;
+        }
+      }
+    }
 }

@@ -206,8 +206,8 @@ export class VideoAlumnoComponent implements OnInit {
   getContentMark() {
     this.retroalimentacionService.getMarcasXacontenido(parseInt(this.idContent, 10)).subscribe(
       (val: any) => {
-        this.marcas = val;
-        console.log('POST call successful value returned in body',
+        this.marcas = val.results;
+        console.log('Marcas de contenido',
           val);
       },
       response => {

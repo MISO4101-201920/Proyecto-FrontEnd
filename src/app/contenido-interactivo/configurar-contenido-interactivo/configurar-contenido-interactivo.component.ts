@@ -3,6 +3,7 @@ import { CrearSeleccionMultipleComponent } from './crear-seleccion-multiple/crea
 import { MatDialog } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { ContenidoService } from 'src/app/services/contenido.service';
+import {CrearPreguntaVoFComponent} from "./crear-pregunta-vo-f/crear-pregunta-vo-f.component";
 
 @Component({
   selector: 'app-configurar-contenido-interactivo',
@@ -124,6 +125,29 @@ export class ConfigurarContenidoInteractivoComponent implements AfterViewInit {
           console.log('idd', this.id);
           console.log('contenidoo', this.contenidoInt.contenido);
         });
+      }
+    });
+  }
+  addPreguntaVof() {
+    this.pause();
+    // Por ahora solo se  podría selección multiple
+    console.log('Añadir marca en', this.player.getCurrentTime());
+    if (this.contId) {
+      const punto = Math.round(this.player.getCurrentTime());
+      const marca = {
+        nombre: 'marca ' + punto,
+        punto,
+        contenido_id: +this.contId
+      };
+      this.openPreguntaVofModal(marca);
+    }
+  }
+
+  openPreguntaVofModal(marca):void {
+    this.dialog.open(CrearPreguntaVoFComponent, {
+      width: '70%',
+      data: {
+        marca
       }
     });
   }

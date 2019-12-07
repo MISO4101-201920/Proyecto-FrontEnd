@@ -39,6 +39,7 @@ export class InteractVoFComponent implements  AfterViewInit {
   idQuestion:number;
   intentosTotales: number;
   intentosDispinibles: number;
+  profeRetro: string;
 
 
   ngAfterViewInit() {
@@ -53,7 +54,7 @@ export class InteractVoFComponent implements  AfterViewInit {
   }
 
   getIntentosDisponibles(){
-    this.activityService.getLastTryByQuestionVoF(this.idQuestion, this.studentId).subscribe(
+    this.activityService.getLastTryByQuestion(this.idQuestion, this.studentId).subscribe(
       answerTries => {
         console.log('get las try service',answerTries);
         this.intentosDispinibles = this.intentosTotales- answerTries.body.ultimo_intento;
@@ -74,6 +75,7 @@ export class InteractVoFComponent implements  AfterViewInit {
       this.respuestaCorrecta=data[0].esVerdadero;
       this.idQuestion=data[0].id;
       this.intentosTotales=data[0].numeroDeIntentos;
+      this.profeRetro=data[0].retroalimentacion;
       this.getIntentosDisponibles();
       console.log(data);
         }, error => {
@@ -97,7 +99,7 @@ export class InteractVoFComponent implements  AfterViewInit {
   }
 
   callSaveVofService(){
-      this.activityService.getLastTryByQuestionVoF(this.idQuestion, this.studentId).subscribe(
+      this.activityService.getLastTryByQuestion(this.idQuestion, this.studentId).subscribe(
       answerTries => {
         console.log('get las try service',answerTries);
         this.numberTry = answerTries.body.ultimo_intento + 1;

@@ -7,6 +7,7 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { AuthService } from './services/usuario/auth.service';
 import {VideoModalComponent} from './video-modal/video-modal.component';
 import { AuthGuard } from './helpers/auth.guard';
+import {AlumnoGuards} from "./helpers/alumno.guards";
 
 const routes: Routes = [
   {
@@ -44,6 +45,7 @@ const routes: Routes = [
       {
         path: 'video-alumno',
         loadChildren: './video-alumno/video-alumno.module#VideoAlumnoModule',
+        canActivate: [AlumnoGuards],
         data: { preload: true }
       },
     ]

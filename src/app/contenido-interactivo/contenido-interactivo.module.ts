@@ -18,7 +18,7 @@ import { ConfigurarContenidoInteractivoComponent } from './configurar-contenido-
 import { YoutubePlayerModule } from 'ng2-youtube-player';
 import { CrearSeleccionMultipleComponent } from './configurar-contenido-interactivo/crear-seleccion-multiple/crear-seleccion-multiple.component';
 import { DetalleContenidoInteractivoComponent } from './detalle-contenido-interactivo/detalle-contenido-interactivo.component';
-
+import { CrearPreguntaVoFComponent } from './configurar-contenido-interactivo/crear-pregunta-vo-f/crear-pregunta-vo-f.component';
 const routes: Routes = [
   { path: '', component: ListaContenidoComponent },
   { path: 'reporte/:id', component: ReporteContenidoComponent },
@@ -30,7 +30,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [ListaContenidoComponent, AddContenidoACursoComponent, ReporteContenidoComponent,
     MarkersComponent, ManyAnswersComponent, DetalleContenidoInteractivoComponent, ConfigurarContenidoInteractivoComponent,
-    CrearSeleccionMultipleComponent
+    CrearSeleccionMultipleComponent,CrearPreguntaVoFComponent
   ],
   imports: [
     CommonModule,
@@ -45,7 +45,8 @@ const routes: Routes = [
   exports: [RouterModule],
   entryComponents: [
     AddContenidoACursoComponent,
-    CrearSeleccionMultipleComponent
+    CrearSeleccionMultipleComponent,
+    CrearPreguntaVoFComponent
   ],
   providers: [
     { provide: MatDialogRef, useValue: {} },
