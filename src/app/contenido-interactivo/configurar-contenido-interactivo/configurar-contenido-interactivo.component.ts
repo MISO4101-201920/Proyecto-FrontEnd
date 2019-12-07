@@ -5,11 +5,13 @@ import { MatDialog } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { ContenidoService } from 'src/app/services/contenido.service';
 import { CrearPausaComponent } from './crear-pausa/crear-pausa.component';
+import {CrearPreguntaVoFComponent} from "./crear-pregunta-vo-f/crear-pregunta-vo-f.component";
 
 const activityTypesComponents = {
   'Pregunta de opción múltiple': CrearSeleccionMultipleComponent,
   'Pregunta abierta': CrearPreguntaAbiertaComponent,
-  Pausa: CrearPausaComponent
+  Pausa: CrearPausaComponent,
+  'Pregunta Falso o Verdadero': CrearPreguntaVoFComponent
 };
 
 @Component({
@@ -127,6 +129,29 @@ export class ConfigurarContenidoInteractivoComponent implements AfterViewInit {
       if (params.id) {
         this.contId = params.id;
         this.getContIntDetail();
+      }
+    });
+  }
+  addPreguntaVof() {
+    this.pause();
+    // Por ahora solo se  podría selección multiple
+    console.log('Añadir marca en', this.player.getCurrentTime());
+    if (this.contId) {
+      const punto = Math.round(this.player.getCurrentTime());
+      const marca = {
+        nombre: 'marca ' + punto,
+        punto,
+        contenido_id: +this.contId
+      };
+      this.openPreguntaVofModal(marca);
+    }
+  }
+
+  openPreguntaVofModal(marca):void {
+    this.dialog.open(CrearPreguntaVoFComponent, {
+      width: '70%',
+      data: {
+        marca
       }
     });
   }

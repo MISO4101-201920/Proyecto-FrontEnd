@@ -17,6 +17,7 @@ export class ContenidoService {
 
   private detalleUrl = `${environment.apiUrl}/content/interactivecontent/`;
   private crearContenidoInteractivo = `${environment.apiUrl}/content/cont_interactivo`;
+  private createPreguntaVoF = `${environment.apiUrl}/activities/pregunta_f_v/create`;
 
   constructor(private httpClient: HttpClient) { }
 
@@ -60,5 +61,9 @@ export class ContenidoService {
 
   agregarMarcaPausa(marca: any): Observable<any> {
     return this.httpClient.post(this.addPausaUrl, marca);
+  }
+
+  agregarMarcaVoF(marca:any) : Observable<any> {
+    return this.httpClient.post(this.createPreguntaVoF, marca);
   }
 }

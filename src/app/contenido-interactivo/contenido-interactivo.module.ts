@@ -19,9 +19,9 @@ import { YoutubePlayerModule } from 'ng2-youtube-player';
 import { CrearSeleccionMultipleComponent } from './configurar-contenido-interactivo/crear-seleccion-multiple/crear-seleccion-multiple.component';
 import { CrearPreguntaAbiertaComponent } from './configurar-contenido-interactivo/crear-pregunta-abierta/crear-pregunta-abierta.component';
 import { DetalleContenidoInteractivoComponent } from './detalle-contenido-interactivo/detalle-contenido-interactivo.component';
-import { ServiceModule } from '../services/service.module';
+import { CrearPreguntaVoFComponent } from './configurar-contenido-interactivo/crear-pregunta-vo-f/crear-pregunta-vo-f.component';
 import { CrearPausaComponent } from './configurar-contenido-interactivo/crear-pausa/crear-pausa.component';
-
+import { ServiceModule } from '../services/service.module';
 const routes: Routes = [
   { path: '', component: ListaContenidoComponent },
   { path: 'reporte/:id', component: ReporteContenidoComponent },
@@ -33,7 +33,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [ListaContenidoComponent, AddContenidoACursoComponent, ReporteContenidoComponent,
     MarkersComponent, ManyAnswersComponent, DetalleContenidoInteractivoComponent, ConfigurarContenidoInteractivoComponent,
-    CrearSeleccionMultipleComponent, CrearPreguntaAbiertaComponent, CrearPausaComponent
+    CrearSeleccionMultipleComponent, CrearPreguntaAbiertaComponent, CrearPausaComponent,CrearPreguntaVoFComponent
   ],
   imports: [
     ServiceModule,
@@ -51,7 +51,8 @@ const routes: Routes = [
     AddContenidoACursoComponent,
     CrearSeleccionMultipleComponent,
     CrearPreguntaAbiertaComponent,
-    CrearPausaComponent
+    CrearPausaComponent,
+    CrearPreguntaVoFComponent
   ],
   providers: [
     { provide: MatDialogRef, useValue: {} },

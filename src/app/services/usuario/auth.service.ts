@@ -14,6 +14,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class AuthService implements CanActivate {
+  userId;
 
   authUrl = `${environment.apiUrl}/users/api-token-auth/`;
 
@@ -27,7 +28,8 @@ export class AuthService implements CanActivate {
     userToken: null,
     isAlumno: null,
     dataAlumno: null,
-    dataProfesor: null
+    dataProfesor: null,
+    userId:null
   };
 
   constructor(private router: Router, public http: HttpClient) {
@@ -41,6 +43,8 @@ export class AuthService implements CanActivate {
           if (response.user.codigo_de_estudiante != undefined) {
             this.dataLog.isAlumno = true;
             this.dataLog.dataAlumno = response.user;
+            this.dataLog.userId=response.user.id;
+            console.log('RESPUESTA DEL LOGINF', this.userId);
           } else {
             this.dataLog.isAlumno = false;
             this.dataLog.dataProfesor = response.user;
@@ -72,6 +76,11 @@ export class AuthService implements CanActivate {
       console.log('key not exists');
     }
     return this.dataLog;
+  }
+
+  getUserId(){
+
+    return this.userId;
   }
 
   canActivate(): boolean {

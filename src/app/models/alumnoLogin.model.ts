@@ -5,6 +5,7 @@ export class AlumnoLogin {
   constructor(
     public persona: Persona,
     public codigo_de_estudiante: string,
+    public id: string,
 
   ) { }
 
