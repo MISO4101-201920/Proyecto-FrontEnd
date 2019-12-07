@@ -8,7 +8,7 @@ export class InfoLogin {
     public isAlumno: boolean,
     public dataAlumno: AlumnoLogin,
     public dataProfesor: ProfesorLogin,
-
+    public userId: string,
   ) { }
 
 }

@@ -22,7 +22,7 @@ export class QuestionModalComponent implements OnInit {
   hasFeedBack = false;
   arrayCorrectAnswers: Array<{ titleAnswer: string }> = new Array();
   indexToShow = 0;
-  studentId = 1;
+  studentId =4;
   idGroup = null;
   numberTry: number;
 
@@ -124,7 +124,9 @@ export class QuestionModalComponent implements OnInit {
         this.optionsArray.forEach(option => {
           if (option.answerOption) {
             const request = new AnswerQuestion(option.idOption, this.studentId, this.numberTry, this.idGroup);
+            console.log('envio de data', request);
             this.activityService.postSaveAnswerQuestion(request).subscribe(
+
               data => {
                 console.log('success save answer ', data);
               }, error => {
