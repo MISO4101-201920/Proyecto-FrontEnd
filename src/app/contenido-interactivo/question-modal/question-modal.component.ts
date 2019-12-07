@@ -5,6 +5,8 @@ import { PreguntaOpcionMultiple } from 'src/app/models/mark/questionMultiple.mod
 import { OpcionesPreguntaMultiple } from 'src/app/models/mark/optionsQuestionMultiple.model';
 import { LoadVideoService } from 'src/app/services/contenidoInter/load-video.service';
 import { AnswerQuestion } from 'src/app/models/mark/answerQuestion.model';
+import {InfoLogin} from "../../models/infoLogin.model";
+import {AuthService} from "../../services/usuario/auth.service";
 
 @Component({
   selector: 'app-question-modal',
@@ -27,12 +29,18 @@ export class QuestionModalComponent implements OnInit {
   numberTry: number;
 
   constructor(public dialogRef: MatDialogRef<QuestionModalComponent>, @Inject(MAT_DIALOG_DATA) public data: { idActivity, idMarca },
-    private activityService: ActivitiesService) {
+    private activityService: ActivitiesService, private authService: AuthService) {
     dialogRef.disableClose = true;
   }
 
   ngOnInit() {
     this.getQuestion();
+  }
+  getStudentData(){
+    let infoLogin: InfoLogin;
+    infoLogin = this.authService.getInfoLogin();
+    this.studentId= parseInt(infoLogin.dataAlumno.id, 10);
+    console.log('codigo del estudiante nuevo -> ', this.studentId);
   }
 
   saveAnswer() {

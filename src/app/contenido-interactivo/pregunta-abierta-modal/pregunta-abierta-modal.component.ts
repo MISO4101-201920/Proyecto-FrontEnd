@@ -2,6 +2,8 @@ import {AfterViewInit, Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
 import { ActivitiesService } from "../../services/activities-service/activities.service";
 import { AnswerQuestion, AnswerQuestionVoF, AnswerOpenQuestion } from "../../models/mark/answerQuestion.model";
+import {InfoLogin} from "../../models/infoLogin.model";
+import {AuthService} from "../../services/usuario/auth.service";
 
 @Component({
   selector: 'app-pregunta-abierta-modal',
@@ -13,8 +15,10 @@ export class PreguntaAbiertaModalComponent implements AfterViewInit {
   constructor(
     public dialogRef: MatDialogRef<PreguntaAbiertaModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { idActivity, idMarca },
-    private activityService: ActivitiesService) {
+    private activityService: ActivitiesService,
+    private authService: AuthService) {
     dialogRef.disableClose = true;
+    this.getStudentData();
     this.getPreguntaAbierta();
   }
   enunciado;
@@ -26,7 +30,7 @@ export class PreguntaAbiertaModalComponent implements AfterViewInit {
   respuestaNoEmpty=true;
   retrofinal;
   saveButtonflag=true;
-  studentId = 4;
+  studentId:number;
   numberTry: number;
   idGroup = null;
   respestaProfe;
@@ -36,6 +40,13 @@ export class PreguntaAbiertaModalComponent implements AfterViewInit {
 
   ngAfterViewInit() {
 
+  }
+
+  getStudentData(){
+    let infoLogin: InfoLogin;
+    infoLogin = this.authService.getInfoLogin();
+    this.studentId= parseInt(infoLogin.dataAlumno.id, 10);
+    console.log('codigo del estudiante nuevo -> ', this.studentId);
   }
   getIntentosDisponibles() {
     this.activityService.getLastTryByQuestion(this.idQuestion, this.studentId).subscribe(
