@@ -5,6 +5,8 @@ import { PreguntaOpcionMultiple } from 'src/app/models/mark/questionMultiple.mod
 import { OpcionesPreguntaMultiple } from 'src/app/models/mark/optionsQuestionMultiple.model';
 import { LoadVideoService } from 'src/app/services/contenidoInter/load-video.service';
 import { AnswerQuestion } from 'src/app/models/mark/answerQuestion.model';
+import {InfoLogin} from "../../models/infoLogin.model";
+import {AuthService} from "../../services/usuario/auth.service";
 
 @Component({
   selector: 'app-question-modal',
@@ -22,17 +24,24 @@ export class QuestionModalComponent implements OnInit {
   hasFeedBack = false;
   arrayCorrectAnswers: Array<{ titleAnswer: string }> = new Array();
   indexToShow = 0;
-  studentId = 1;
+  studentId =4;
   idGroup = null;
   numberTry: number;
 
   constructor(public dialogRef: MatDialogRef<QuestionModalComponent>, @Inject(MAT_DIALOG_DATA) public data: { idActivity, idMarca },
-    private activityService: ActivitiesService) {
+    private activityService: ActivitiesService, private authService: AuthService) {
     dialogRef.disableClose = true;
+    this.getStudentData();
   }
 
   ngOnInit() {
     this.getQuestion();
+  }
+  getStudentData(){
+    let infoLogin: InfoLogin;
+    infoLogin = this.authService.getInfoLogin();
+    this.studentId= parseInt(infoLogin.dataAlumno.id, 10);
+    console.log('codigo del estudiante nuevo -> ', this.studentId);
   }
 
   saveAnswer() {
@@ -124,7 +133,9 @@ export class QuestionModalComponent implements OnInit {
         this.optionsArray.forEach(option => {
           if (option.answerOption) {
             const request = new AnswerQuestion(option.idOption, this.studentId, this.numberTry, this.idGroup);
+            console.log('envio de data', request);
             this.activityService.postSaveAnswerQuestion(request).subscribe(
+
               data => {
                 console.log('success save answer ', data);
               }, error => {

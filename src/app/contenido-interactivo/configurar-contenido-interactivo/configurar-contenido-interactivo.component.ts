@@ -1,8 +1,18 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, HostListener } from '@angular/core';
 import { CrearSeleccionMultipleComponent } from './crear-seleccion-multiple/crear-seleccion-multiple.component';
+import { CrearPreguntaAbiertaComponent } from './crear-pregunta-abierta/crear-pregunta-abierta.component';
 import { MatDialog } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { ContenidoService } from 'src/app/services/contenido.service';
+import { CrearPausaComponent } from './crear-pausa/crear-pausa.component';
+import {CrearPreguntaVoFComponent} from "./crear-pregunta-vo-f/crear-pregunta-vo-f.component";
+
+const activityTypesComponents = {
+  'Pregunta de opción múltiple': CrearSeleccionMultipleComponent,
+  'Pregunta abierta': CrearPreguntaAbiertaComponent,
+  Pausa: CrearPausaComponent,
+  'Pregunta Falso o Verdadero': CrearPreguntaVoFComponent
+};
 
 @Component({
   selector: 'app-configurar-contenido-interactivo',
@@ -12,7 +22,7 @@ import { ContenidoService } from 'src/app/services/contenido.service';
 export class ConfigurarContenidoInteractivoComponent implements AfterViewInit {
 
   player: YT.Player;
-  id :string;
+  id: string;
   playerVars = {
     // Oculta la barra de reproducción (0)
     controls: 0,
@@ -26,6 +36,7 @@ export class ConfigurarContenidoInteractivoComponent implements AfterViewInit {
   contenidoInt;
   contId;
   contentsLoaded: Promise<boolean>;
+  marcasPorcentaje;
 
   // Elementos del DOM a manipular
   @ViewChild('progressBar', { static: false }) progressBar: ElementRef;
@@ -47,7 +58,7 @@ export class ConfigurarContenidoInteractivoComponent implements AfterViewInit {
     'Pregunta Falso o Verdadero',
     'Pregunta abierta',
     'Pausa',
-    'Foro'
+    // 'Foro'
   ];
   marcaSeleccionada = this.opcionesMarca[0];
 
@@ -56,9 +67,9 @@ export class ConfigurarContenidoInteractivoComponent implements AfterViewInit {
 
   savePlayer(player) {
     this.player = player;
-    console.log('player instance', player);
     // Update the controls on load
     this.updateProgressBar();
+    this.loadMarcas(this.contenidoInt.marcas);
 
     // Start interval to update elapsed time display and
     // the elapsed part of the progress bar every second.
@@ -117,18 +128,11 @@ export class ConfigurarContenidoInteractivoComponent implements AfterViewInit {
     this.activeRoute.params.subscribe(params => {
       if (params.id) {
         this.contId = params.id;
-        this.contenidoService.getDetalleContenidoInteractivo(this.contId).subscribe(contenido => {
-          this.contenidoInt = contenido;
-          this.contentsLoaded = Promise.resolve(true);
-          this.id = this.contenidoInt.contenido.url.split('watch?v=')[1];
-          console.log('idd', this.id);
-          console.log('contenidoo', this.contenidoInt.contenido);
-        });
+        this.getContIntDetail();
       }
     });
   }
-
-  addMarker() {
+  addPreguntaVof() {
     this.pause();
     // Por ahora solo se  podría selección multiple
     console.log('Añadir marca en', this.player.getCurrentTime());
@@ -139,15 +143,108 @@ export class ConfigurarContenidoInteractivoComponent implements AfterViewInit {
         punto,
         contenido_id: +this.contId
       };
-      this.openDialog(marca);
+      this.openPreguntaVofModal(marca);
     }
   }
-  openDialog(marca): void {
-    this.dialog.open(CrearSeleccionMultipleComponent, {
+
+  openPreguntaVofModal(marca):void {
+    this.dialog.open(CrearPreguntaVoFComponent, {
       width: '70%',
       data: {
         marca
       }
     });
+  }
+
+  getContIntDetail() {
+    this.contenidoService.getDetalleContenidoInteractivo(this.contId).subscribe(contenido => {
+      this.contenidoInt = contenido;
+      this.contentsLoaded = Promise.resolve(true);
+      this.loadMarcas(this.contenidoInt.marcas);
+      this.id = this.contenidoInt.contenido.url.split('watch?v=')[1];
+    });
+  }
+
+  loadMarcas(marcas) {
+    this.marcasPorcentaje = [];
+    for (const marca of marcas) {
+      console.log(marca);
+      const marcaP = Math.round(this.calcPercentage(+marca.punto));
+      console.log(marcaP, 'marcaP');
+      this.marcasPorcentaje.push(marcaP);
+    }
+    console.log(this.marcasPorcentaje, 'marcasPorcentaje');
+  }
+
+  calcPercentage(segundo: number) {
+    let percentage = 0;
+    if (this.player) {
+      percentage = (Math.round(segundo) * 100) / Math.round(this.player.getDuration());
+    }
+    return percentage;
+  }
+
+  getCurrentTime(): string {
+    if (this.player) {
+      return this.toMin(this.player.getCurrentTime());
+    } else {
+      return '0:00';
+    }
+  }
+
+  getTotalTime(): string {
+    if (this.player) {
+      return this.toMin(this.player.getDuration());
+    } else {
+      return '0:00';
+    }
+  }
+
+  toMin(sec: number): string {
+    const result = Math.round(sec);
+    let resultStr = '0:00' +  result;
+    let newSec = (result % 60).toString();
+    if (+newSec < 10) {
+      newSec = '0' + newSec;
+    }
+    if (sec > 59) {
+      let min = Math.floor(result / 60).toString();
+      if (+min < 10) {
+        min = '0' + min;
+      }
+      resultStr = min + ':' + newSec;
+    } else {
+      resultStr = '0:' + newSec;
+    }
+    return resultStr;
+  }
+
+
+
+  addMarker() {
+    this.pause();
+    // Por ahora solo se  podría selección multiple
+    console.log('Añadir marca en', this.player.getCurrentTime());
+    if (this.contId) {
+      const punto = Math.round(this.player.getCurrentTime());
+      const marca = {
+        nombre: 'marca ' + this.getCurrentTime(),
+        punto,
+        contenido_id: +this.contId
+      };
+      this.openDialog(marca);
+    }
+  }
+  openDialog(marca): void {
+    const dialogRef = this.dialog.open(activityTypesComponents[this.marcaSeleccionada], {
+      width: '70%',
+      data: {
+        marca
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(_ => {
+      this.getContIntDetail();
+     });
   }
 }

@@ -1,0 +1,44 @@
+<h1 mat-dialog-title>Crear pregunta selección múltiple en {{data.marca.nombre}}</h1>
+<form [formGroup]="questionForm" (ngSubmit)="agregarMarca()">
+  <div class="row-container">
+    <mat-form-field appearance="outline" style="width:100%">
+      <mat-label>Nombre</mat-label>
+      <input type="text" matInput placeholder="Actividad 1" formControlName="nombre" />
+    </mat-form-field>
+  </div>
+  <div class="row-container">
+    <mat-form-field appearance="outline" style="width:100%">
+      <mat-label>Ingrese aquí la pregunta</mat-label>
+      <input type="text" matInput placeholder="Enunciado" formControlName="pregunta" />
+    </mat-form-field>
+  </div>
+  <div style="margin-bottom:1em; display: flex; justify-content: space-between;">
+    <div style="flex-direction: column; width: 100%;">
+      <div mat-dialog-content style="padding: 10px 24px;">
+        <mat-radio-group aria-labelledby="example-radio-group-label" formControlName="esVerdadero">
+          <mat-radio-button color="primary" value=True>Verdadero</mat-radio-button>
+          <br>
+          <mat-radio-button color="primary" value=False>Falso </mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <mat-checkbox color="primary" formControlName="tieneRetroalimentacion">¿Tiene retroalimentación?</mat-checkbox>
+        <div class="row-container">
+    <mat-form-field appearance="outline" style="width:100%" *ngIf="questionForm.value.tieneRetroalimentacion">
+      <mat-label >Ingrese aquí la retroalimentacion</mat-label>
+      <input type="text" matInput placeholder="Retroalimentacion" formControlName="retroalimentacion" />
+    </mat-form-field>
+  </div>
+    </div>
+    <mat-form-field appearance="outline" style="height:40px">
+      <mat-label>Número de intentos</mat-label>
+      <input type="number" min="1" matInput formControlName="numeroDeIntentos" />
+    </mat-form-field>
+  </div>
+  <div class="form-actions">
+    <button id="cancel-button" class="mat-stroked-button" type="button" (click)="cancel()">
+      Cancelar
+    </button>
+    &nbsp;  &nbsp;
+    <button class="mat-flat-button mat-primary" type="submit">Guardar</button>
+  </div>
+</form>

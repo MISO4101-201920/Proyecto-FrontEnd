@@ -6,5 +6,25 @@
   height: auto;
 }
 #progressBar {
-  width: 800px;
+  width: 854px;
+}
+.bar-container {
+  margin-bottom: 2em;
+}
+
+mat-form-field {
+  margin-right: 2em;
+}
+
+input[type="range"] {
+  width: 100%;
+  margin: 0;
+  box-sizing: border-box;
+}
+datalist {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin-top: -23px;
+  padding-top: 0px;
 }

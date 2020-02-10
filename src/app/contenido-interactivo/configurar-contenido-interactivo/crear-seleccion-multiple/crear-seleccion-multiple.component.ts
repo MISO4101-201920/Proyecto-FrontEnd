@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { ContenidoService } from 'src/app/services/contenido.service';
+import { TipoActividad } from 'src/app/shared/tipoActividad';
 
 export interface DialogData {
   marca: any;
@@ -59,7 +60,7 @@ export class CrearSeleccionMultipleComponent implements OnInit {
   }
 
   validarUnaOpcion() {
-    return this.questionForm.value.opciones.length > 0;
+    return this.questionForm.value.opciones.length > 1;
   }
 
   agregarMarca() {
@@ -68,13 +69,13 @@ export class CrearSeleccionMultipleComponent implements OnInit {
     if (this.questionForm.valid) {
       if (!this.validarUnaOpcion()) {
         console.error('Al menos una opcion');
-        Swal.fire('Oops...', 'Ingresa al menos una opción', 'error');
-
+        Swal.fire('Oops...', 'Ingresa más de una opción', 'error');
       } else if (!this.validarUnaCorrecta()) {
         Swal.fire('Oops...', 'Ingresa al menos una opción correcta', 'error');
       } else {
         this.questionForm.value.marca = this.data.marca;
-        this.contenidoService.agregarMarca(this.questionForm.value).subscribe(result => {
+        this.questionForm.value.tipoActividad = TipoActividad.PREGUNTA_OPCION_MULTIPLE;
+        this.contenidoService.agregarMarcaPreguntaSeleccionMultiple(this.questionForm.value).subscribe(result => {
           Swal.fire('Agregar Marca', 'Marca agregada correctamente', 'success');
           this.dialogRef.close();
         }, error => {

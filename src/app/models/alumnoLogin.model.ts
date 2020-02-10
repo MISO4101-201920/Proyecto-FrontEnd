@@ -1,10 +1,11 @@
-import { Persona } from './persona.model'
+import { Persona } from './persona.model';
 
 export class AlumnoLogin {
 
   constructor(
     public persona: Persona,
     public codigo_de_estudiante: string,
+    public id: string,
 
   ) { }
 

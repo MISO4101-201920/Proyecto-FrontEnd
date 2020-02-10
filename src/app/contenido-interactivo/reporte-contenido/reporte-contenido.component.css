@@ -7,6 +7,5 @@ table {
 }
 
 .correcta {
-    color:green;
-    font:bold;
+    font-weight:bold;
 }

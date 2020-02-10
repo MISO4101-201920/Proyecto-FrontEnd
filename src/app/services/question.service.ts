@@ -8,10 +8,10 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class QuestionService{
+export class QuestionService {
 
   private headers: HttpHeaders;
-  private URL_HOST: string = `${environment.apiUrl}`;
+  private URL_HOST = `${environment.apiUrl}`;
   private userToken: string;
 
   constructor(private http: HttpClient) {

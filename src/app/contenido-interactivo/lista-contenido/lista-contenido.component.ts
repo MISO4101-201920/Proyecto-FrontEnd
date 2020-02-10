@@ -3,6 +3,8 @@ import { ContenidoService } from 'src/app/services/contenido.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddContenidoACursoComponent } from '../add-contenido-a-curso/add-contenido-a-curso.component';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/usuario/auth.service';
+import { InfoLogin } from '../../models/infoLogin.model';
 
 @Component({
   selector: 'app-lista-contenido',
@@ -13,11 +15,16 @@ export class ListaContenidoComponent implements OnInit {
 
   contenidos: any;
   showAddMarker = false;
+  isAlumno = true;
 
-  constructor(private contenidoService: ContenidoService, public dialog: MatDialog, public router: Router
-    ) { }
+  constructor(private contenidoService: ContenidoService,
+              private authService: AuthService,
+              public dialog: MatDialog,
+              public router: Router
+  ) { }
 
   ngOnInit() {
+    this.isAlumno = this.authService.getInfoLogin().isAlumno;
     this.getContenidos();
   }
   getContenidos() {
@@ -38,7 +45,7 @@ export class ListaContenidoComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(_ => {
       this.getContenidos();
-     });
+    });
 
   }
 

@@ -1,0 +1,6 @@
+export enum TipoActividad {
+    PREGUNTA_OPCION_MULTIPLE = 1,
+    PREGUNTA_FALSO_VERDADERO = 2,
+    PREGUNTA_ABIERTA = 3,
+    PAUSA = 4,
+}
