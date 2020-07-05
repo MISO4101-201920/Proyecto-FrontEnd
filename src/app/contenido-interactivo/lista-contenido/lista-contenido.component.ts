@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ContenidoService } from 'src/app/services/contenido.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddContenidoACursoComponent } from '../add-contenido-a-curso/add-contenido-a-curso.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-lista-contenido',
@@ -13,7 +14,7 @@ export class ListaContenidoComponent implements OnInit {
   contenidos: any;
   showAddMarker = false;
 
-  constructor(private contenidoService: ContenidoService, public dialog: MatDialog
+  constructor(private contenidoService: ContenidoService, public dialog: MatDialog, public router: Router
     ) { }
 
   ngOnInit() {
@@ -43,5 +44,10 @@ export class ListaContenidoComponent implements OnInit {
 
   addMarker() {
     this.showAddMarker = true;
+  }
+
+  showVideo(idVideo) {
+    console.log('ir a ver video');
+    this.router.navigate(['/video-alumno', idVideo]);
   }
 }

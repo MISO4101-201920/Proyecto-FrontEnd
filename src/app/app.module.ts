@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -20,11 +20,12 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './login/register.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
-
 import { VideoModalModule } from './video-modal/video-modal.module';
 import { VideoAlumnoModule } from './video-alumno/video-alumno.module';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import {ToastrModule} from 'ngx-toastr';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { GestureConfig } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -50,11 +51,19 @@ import {ToastrModule} from 'ngx-toastr';
     ToastrModule.forRoot()
   ],
   providers: [
+    { provide: MatDialogRef, useValue: {} },
     {
-    provide: HTTP_INTERCEPTORS,
-    useClass: AuthInterceptor,
-    multi: true
-  }],
+      provide: MAT_DIALOG_DATA,
+      useValue: {}} ,
+
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
+    { provide: HAMMER_GESTURE_CONFIG,
+      useClass: GestureConfig }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
